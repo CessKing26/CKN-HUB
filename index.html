@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CKN Coaching Hub — Built by a Professional</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --black:#090909;--dark:#111111;--card:#161616;--border:#252525;
+  --gold:#C4973A;--gold-light:#E2B560;--offwhite:#F0EBE1;--muted:#6A6460;--text:#D8D2C8;
+}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;line-height:1.7;overflow-x:hidden}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.2rem 3rem;border-bottom:1px solid rgba(196,151,58,0.12);background:rgba(9,9,9,0.95);backdrop-filter:blur(12px)}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:0.12em;color:var(--offwhite)}
+.nav-logo span{color:var(--gold)}
+.nav-right{display:flex;gap:1rem;align-items:center}
+.nav-signin{font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.2s}
+.nav-signin:hover{color:var(--offwhite)}
+.nav-cta{background:var(--gold);color:var(--black);font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:500;padding:0.6rem 1.4rem;text-decoration:none;transition:background 0.2s}
+.nav-cta:hover{background:var(--gold-light)}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:8rem 3rem 5rem;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 80% 50%,rgba(196,151,58,0.06) 0%,transparent 70%);pointer-events:none}
+.hero-overline{font-size:0.68rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:1.8rem;opacity:0;animation:fadeUp 0.8s 0.2s forwards}
+.hero-headline{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,7vw,6.5rem);font-weight:600;line-height:1.04;color:var(--offwhite);max-width:14ch;margin-bottom:1.2rem;opacity:0;animation:fadeUp 0.9s 0.35s forwards}
+.hero-headline em{font-style:italic;color:var(--gold)}
+.hero-proof{font-size:0.88rem;color:var(--gold);margin-bottom:1.5rem;opacity:0;animation:fadeUp 0.9s 0.42s forwards}
+.hero-sub{font-size:1rem;color:var(--muted);max-width:54ch;margin-bottom:3rem;line-height:1.8;opacity:0;animation:fadeUp 0.9s 0.5s forwards}
+.hero-sub strong{color:var(--text);font-weight:400}
+.hero-actions{display:flex;align-items:center;gap:2rem;flex-wrap:wrap;opacity:0;animation:fadeUp 0.9s 0.65s forwards}
+.btn-primary{background:var(--gold);color:var(--black);font-family:'DM Sans',sans-serif;font-weight:500;font-size:0.85rem;letter-spacing:0.08em;text-transform:uppercase;padding:1rem 2.2rem;text-decoration:none;display:inline-block;transition:background 0.2s,transform 0.2s}
+.btn-primary:hover{background:var(--gold-light);transform:translateY(-1px)}
+.btn-ghost{color:var(--muted);font-size:0.8rem;letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid var(--border);padding-bottom:2px;transition:color 0.2s}
+.btn-ghost:hover{color:var(--offwhite)}
+.trust-strip{margin-top:5rem;padding-top:2.5rem;border-top:1px solid var(--border);display:flex;gap:2.5rem;flex-wrap:wrap;opacity:0;animation:fadeUp 0.9s 0.8s forwards}
+.trust-item{font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted)}
+.trust-item span{display:block;color:var(--gold);font-size:0.62rem;margin-bottom:0.2rem}
+.stat-bar{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.stat-item{padding:3.5rem 3rem;border-right:1px solid var(--border)}
+.stat-item:last-child{border-right:none}
+.stat-number{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,5vw,5rem);letter-spacing:0.04em;color:var(--offwhite);line-height:1;margin-bottom:0.5rem}
+.stat-number span{color:var(--gold)}
+.stat-label{font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted)}
+section{padding:6rem 3rem}
+.section-tag{font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem}
+.section-headline{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4vw,3.5rem);font-weight:600;color:var(--offwhite);line-height:1.1;margin-bottom:1.2rem}
+.section-headline em{font-style:italic;color:var(--gold)}
+.section-body{font-size:0.95rem;color:var(--muted);max-width:56ch;line-height:1.85}
+.section-body p+p{margin-top:1rem}
+.method{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.pillar{display:flex;gap:1.5rem;align-items:flex-start;padding:1.8rem 0;border-bottom:1px solid var(--border)}
+.pillar:first-child{border-top:1px solid var(--border)}
+.pillar-num{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:var(--border);line-height:1;flex-shrink:0;width:2.5rem;text-align:right}
+.pillar-content h3{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:600;color:var(--offwhite);margin-bottom:0.3rem}
+.pillar-content p{font-size:0.85rem;color:var(--muted);line-height:1.7}
+.inside{background:var(--dark)}
+.inside-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-top:3.5rem}
+.inside-card{background:var(--card);padding:2.2rem;transition:background 0.2s}
+.inside-card:hover{background:#1a1a1a}
+.inside-card-icon{font-size:1.4rem;margin-bottom:1rem}
+.inside-card h3{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:600;color:var(--offwhite);margin-bottom:0.6rem}
+.inside-card p{font-size:0.85rem;color:var(--muted);line-height:1.75}
+.inside-card .tag{display:inline-block;margin-top:1rem;font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(196,151,58,0.3);padding:0.2rem 0.6rem}
+.who-layout{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.profile-card{border-left:2px solid var(--gold);padding:0 0 0 1.5rem;margin-bottom:1.5rem}
+.profile-card h4{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600;color:var(--offwhite);margin-bottom:0.3rem}
+.profile-card p{font-size:0.83rem;color:var(--muted);line-height:1.7}
+.who-quote{border:1px solid var(--border);background:var(--card);padding:2rem;margin-top:2rem}
+.who-quote blockquote{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-style:italic;color:var(--offwhite);line-height:1.55;margin-bottom:0.6rem}
+.who-quote cite{font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);font-style:normal}
+.cta-section{text-align:center;background:var(--dark);border-top:1px solid var(--border);position:relative;overflow:hidden}
+.cta-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 100%,rgba(196,151,58,0.07) 0%,transparent 70%);pointer-events:none}
+.cta-section .section-headline{max-width:20ch;margin:0 auto 1rem}
+.cta-section .section-body{margin:0 auto 2.5rem;text-align:center}
+.price{font-family:'Bebas Neue',sans-serif;font-size:4rem;color:var(--offwhite);letter-spacing:0.05em;margin-bottom:0.4rem}
+.price span{font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:300;color:var(--muted);letter-spacing:0}
+.price-note{font-size:0.72rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:2.5rem}
+footer{padding:2rem 3rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+footer .logo{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:0.12em;color:var(--muted)}
+footer .logo span{color:var(--gold)}
+footer p{font-size:0.7rem;color:var(--muted);letter-spacing:0.06em}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.7s ease,transform 0.7s ease}
+.reveal.visible{opacity:1;transform:none}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@media(max-width:768px){
+  nav{padding:1rem 1.5rem}
+  .hero{padding:7rem 1.5rem 4rem}
+  .trust-strip{gap:1.5rem}
+  .stat-bar{grid-template-columns:1fr}
+  .stat-item{border-right:none;border-bottom:1px solid var(--border);padding:2rem 1.5rem}
+  section{padding:4rem 1.5rem}
+  .method,.who-layout{grid-template-columns:1fr;gap:2.5rem}
+  .inside-grid{grid-template-columns:1fr}
+  footer{flex-direction:column;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">CKN <span>Coaching Hub</span></div>
+  <div class="nav-right">
+    <a href="login.html" class="nav-signin">Sign In</a>
+    <a href="#join" class="nav-cta">Join Now</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <p class="hero-overline">CKN Foundation · Sheffield · Bulawayo · Johannesburg</p>
+  <h1 class="hero-headline">Every young player deserves a <em>proper foundation.</em></h1>
+  <p class="hero-proof">Technical-first development. Community-rooted. Running across the UK & Zimbabwe.</p>
+  <p class="hero-sub">The CKN Coaching Hub shares the methodology behind CKN Foundation's grassroots programmes — <strong>a technical-first approach to player development</strong> built on real experience in professional football and grounded in the communities we serve.</p>
+  <div class="hero-actions">
+    <a href="#join" class="btn-primary">Join the Hub — £9.99/month</a>
+    <a href="#method" class="btn-ghost">See the method ↓</a>
+  </div>
+  <div class="trust-strip">
+    <div class="trust-item"><span>Philosophy</span>Technical First · Always</div>
+    <div class="trust-item"><span>Former Pro</span>Sheffield Wednesday · Boston United · Harrogate Town</div>
+    <div class="trust-item"><span>Licence</span>UEFA B · Scouting Licence</div>
+    <div class="trust-item"><span>Community</span>600+ Players · UK & Zimbabwe</div>
+  </div>
+</section>
+
+<div class="stat-bar">
+  <div class="stat-item reveal"><div class="stat-number">600<span>+</span></div><div class="stat-label">Young players in community programmes across UK & Zimbabwe</div></div>
+  <div class="stat-item reveal"><div class="stat-number">3</div><div class="stat-label">Countries. One method. Same standards for every player.</div></div>
+  <div class="stat-item reveal"><div class="stat-number">20<span>+</span></div><div class="stat-label">Years inside professional football — as player, coach & scout</div></div>
+</div>
+
+<section id="method">
+  <div class="method">
+    <div class="reveal">
+      <p class="section-tag">The CKN Method</p>
+      <h2 class="section-headline">Technical first. <em>Always.</em></h2>
+      <div class="section-body">
+        <p>The best academies in the world have always known that technical ability is the foundation everything else is built on. It has to be developed early, deliberately, and in the right environment.</p>
+        <p>That principle doesn't belong only to elite environments. It belongs in every community, on every pitch, for every young player who deserves to be developed properly.</p>
+        <p>The body develops on its own. The touch doesn't. That's what we build first.</p>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="pillar"><div class="pillar-num">1</div><div class="pillar-content"><h3>Technical Ability First</h3><p>Ball mastery. Both feet. Touch under pressure. Before tactics, before positions — the player must own the ball.</p></div></div>
+      <div class="pillar"><div class="pillar-num">2</div><div class="pillar-content"><h3>Football Intelligence Second</h3><p>Decision-making in game-realistic scenarios. Scanning. Spatial awareness. What scouts actually look for.</p></div></div>
+      <div class="pillar"><div class="pillar-num">3</div><div class="pillar-content"><h3>Physical Development Third</h3><p>The body develops on its own. The touch doesn't. This sequence produces footballers — not just athletes in boots.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="inside">
+  <div class="reveal">
+    <p class="section-tag">What's Inside</p>
+    <h2 class="section-headline">One membership. <em>Everything built from the pitch up.</em></h2>
+  </div>
+  <div class="inside-grid">
+    <div class="inside-card reveal"><div class="inside-card-icon">⚽</div><h3>Session Library</h3><p>Sessions organised by age group and development phase. Every session includes the why — not just the drill.</p><span class="tag">Included</span></div>
+    <div class="inside-card reveal"><div class="inside-card-icon">🎯</div><h3>Pro Pathway Series</h3><p>What scouts actually look for. What separates a promising player from a signed one — from someone who was both.</p><span class="tag">Included</span></div>
+    <div class="inside-card reveal"><div class="inside-card-icon">📋</div><h3>Development Frameworks</h3><p>The planning documents and player tracking tools used in CKN's live programmes. The actual documents.</p><span class="tag">Included</span></div>
+    <div class="inside-card reveal"><div class="inside-card-icon">🧠</div><h3>Academy Etiquette & The Why</h3><p>What academies notice before they say anything. Why the extra work compounds. For players, coaches, and parents.</p><span class="tag">Included</span></div>
+  </div>
+</section>
+
+<section id="who">
+  <div class="who-layout">
+    <div class="reveal">
+      <p class="section-tag">Who This Is For</p>
+      <h2 class="section-headline">Built for coaches, parents, <em>and both.</em></h2>
+      <div class="section-body">
+        <p>When you join, you tell us who you are. Your dashboard is built around what you actually need — not a generic content library that treats everyone the same.</p>
+      </div>
+      <div class="who-quote">
+        <blockquote>"The standard doesn't change based on the postcode. Every young player deserves a proper technical foundation."</blockquote>
+        <cite>Cecil Nyoni · Founder, CKN Foundation</cite>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="profile-card"><h4>The Coach</h4><p>Sessions, methodology, frameworks, and the pro pathway series. Age-tabbed, philosophy-led, ready to use.</p></div>
+      <div class="profile-card"><h4>The Parent</h4><p>What good development looks like, ages & stages, the car ride home, academy etiquette — including the honest section about mums on the touchline.</p></div>
+      <div class="profile-card"><h4>The Parent & Coach</h4><p>Both. Saturday sessions ready to go, WhatsApp templates for parents, and how to wear both hats without confusing which one you're wearing.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section" id="join">
+  <p class="section-tag reveal">Join the Hub</p>
+  <h2 class="section-headline reveal">The right method, <em>in your hands.</em></h2>
+  <p class="section-body reveal">Access the full CKN Method. Cancel anytime. New content added monthly — every addition tied to the same method, nothing published just to fill space.</p>
+  <div class="price reveal">£9.99 <span>/ month</span></div>
+  <p class="price-note reveal">Full access · No contracts · Cancel anytime</p>
+  <a href="signup.html" class="btn-primary reveal">Join the CKN Coaching Hub</a>
+</section>
+
+<footer>
+  <div class="logo">CKN <span>Foundation</span></div>
+  <p>Uniting Communities · Inspiring Generations · Sheffield · Bulawayo · Johannesburg</p>
+  <p>© 2026 CKN Foundation. All rights reserved.</p>
+</footer>
+
+<script>
+const observer = new IntersectionObserver(entries => {
+  entries.forEach((e,i) => {
+    if(e.isIntersecting){
+      setTimeout(()=>e.target.classList.add('visible'),i*80);
+      observer.unobserve(e.target);
+    }
+  });
+},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
