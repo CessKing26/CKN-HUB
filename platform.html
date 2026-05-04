@@ -182,12 +182,18 @@ body{background:var(--black);color:var(--text);font-family:'DM Sans',sans-serif;
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const SUPABASE_URL = 'https://pvieohrkgekyxwlwyfgb.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_cbLpmXRKSLHCAx5M_0qTmQ_NhIgm00r';
-const _sbGate = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-_sbGate.auth.getSession().then(({ data: { session } }) => {
-  if (!session) window.location.href = 'login.html';
-});
+try {
+  const _sbGate = window.supabase.createClient(
+    'https://pvieohrkgekyxwlwyfgb.supabase.co',
+    'sb_publishable_cbLpmXRKSLHCAx5M_0qTmQ_NhIgm00r'
+  );
+  _sbGate.auth.getSession().then(({ data: { session } }) => {
+    if (!session) window.location.href = 'login.html';
+  });
+} catch(e) {
+  // If auth fails, still show the platform
+  console.log('Auth check skipped:', e);
+}
 </script>
 </head>
 <body>
@@ -200,26 +206,26 @@ _sbGate.auth.getSession().then(({ data: { session } }) => {
     <h1 class="ob-headline">How can we <em>help you?</em></h1>
     <p class="ob-sub">Tell us who you are and we'll personalise everything for you. You can always switch later.</p>
     <div class="ob-cards">
-      <div class="ob-card" onclick="enterPlatform('coach')">
+      <div class="ob-card" onclick="enterPlatform('coach')" style="cursor:pointer">
         <span class="ob-card-icon">🎯</span>
         <div class="ob-card-title">I'm a Coach</div>
         <div class="ob-card-desc">I run training sessions with a team or group and want methodology, sessions, and development frameworks built around the CKN Method.</div>
         <div class="ob-card-cta">Enter as Coach →</div>
       </div>
-      <div class="ob-card" onclick="enterPlatform('parent')">
+      <div class="ob-card" onclick="enterPlatform('parent')" style="cursor:pointer">
         <span class="ob-card-icon">👨‍👧</span>
         <div class="ob-card-title">I'm a Parent</div>
         <div class="ob-card-desc">My child plays football. I want to understand what good development looks like and how to support them the right way — at home and on the touchline.</div>
         <div class="ob-card-cta">Enter as Parent →</div>
       </div>
-      <div class="ob-card" onclick="enterPlatform('parentcoach')">
+      <div class="ob-card" onclick="enterPlatform('parentcoach')" style="cursor:pointer">
         <span class="ob-card-icon">⚽</span>
         <div class="ob-card-title">I'm a Parent & Coach</div>
         <div class="ob-card-desc">I coach my child's team on weekends. I need both — practical sessions ready to use on Saturday, and how to support development at home.</div>
         <div class="ob-card-cta">Enter as Parent & Coach →</div>
       </div>
     </div>
-    <button class="ob-footer" onclick="enterPlatform('coach')">Skip — show me everything</button>
+    <button class="ob-footer" onclick="enterPlatform('coach')" style="cursor:pointer;background:none;border:none;border-bottom:1px solid #242424;color:#6A6460;font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;padding-bottom:2px;margin-top:1rem">Skip — show me everything</button>
   </div>
 </div>
 
@@ -1506,6 +1512,7 @@ _sbGate.auth.getSession().then(({ data: { session } }) => {
     </main>
   </div>
 </div>
+<script>
 function enterPlatform(role) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById('platform-' + role).classList.add('active');
