@@ -73,10 +73,10 @@ input::placeholder{color:var(--muted)}
 <script>
 const SUPABASE_URL = 'https://pvieohrkgekyxwlwyfgb.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_cbLpmXRKSLHCAx5M_0qTmQ_NhIgm00r';
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // Redirect if already logged in
-supabase.auth.getSession().then(({ data: { session } }) => {
+sbClient.auth.getSession().then(({ data: { session } }) => {
   if (session) window.location.href = 'platform.html';
 });
 
@@ -97,7 +97,7 @@ async function handleLogin() {
   btn.textContent = 'Signing in...';
   spinner.style.display = 'block';
 
-  const { error } = await supabase.auth.signInWithPassword({ email, password });
+  const { error } = await sbClient.auth.signInWithPassword({ email, password });
 
   if (error) {
     spinner.style.display = 'none';
@@ -121,7 +121,7 @@ async function handleForgot() {
     errEl.classList.add('show');
     return;
   }
-  await supabase.auth.resetPasswordForEmail(email, {
+  await sbClient.auth.resetPasswordForEmail(email, {
     redirectTo: window.location.origin + '/reset.html'
   });
   alert('Password reset email sent. Check your inbox.');

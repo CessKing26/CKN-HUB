@@ -174,7 +174,7 @@ const SUPABASE_ANON_KEY = 'sb_publishable_cbLpmXRKSLHCAx5M_0qTmQ_NhIgm00r';
 const STRIPE_PUBLISHABLE_KEY = 'pk_live_51Su5iB4DfNNx3Oy0EQMAI2PHde3wW9mGB4no3ZruULHfgm6qaRGjBlvfviiP92GJlByu06mUI823vRVSixxX34bN00VhIlo126';
 const STRIPE_PRICE_ID = 'price_1TPcLF4DfNNx3OyOUJL17kOW'; // e.g. price_xxxxx from Stripe dashboard
 
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 const stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
 const elements = stripe.elements();
 const cardElement = elements.create('card', {
@@ -243,7 +243,7 @@ async function handlePayment() {
 
   try {
     // 1. Create Supabase account
-    const { data: authData, error: authError } = await supabase.auth.signUp({
+    const { data: authData, error: authError } = await sbClient.auth.signUp({
       email: userData.email,
       password: userData.password,
       options: {
@@ -267,7 +267,7 @@ async function handlePayment() {
     if (pmError) throw new Error(pmError.message);
 
     // 3. Call your Supabase Edge Function to create Stripe subscription
-    const { data: subData, error: subError } = await supabase.functions.invoke('create-subscription', {
+    const { data: subData, error: subError } = await sbClient.functions.invoke('create-subscription', {
       body: {
         email: userData.email,
         paymentMethodId: paymentMethod.id,

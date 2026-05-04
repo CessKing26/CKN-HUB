@@ -184,8 +184,8 @@ body{background:var(--black);color:var(--text);font-family:'DM Sans',sans-serif;
 <script>
 const SUPABASE_URL = 'https://pvieohrkgekyxwlwyfgb.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_cbLpmXRKSLHCAx5M_0qTmQ_NhIgm00r';
-const _sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-_sb.auth.getSession().then(({ data: { session } }) => {
+const _sbGate = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+_sbGate.auth.getSession().then(({ data: { session } }) => {
   if (!session) window.location.href = 'login.html';
 });
 </script>
