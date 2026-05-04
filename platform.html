@@ -39,7 +39,7 @@ body{background:var(--black);color:var(--text);font-family:'DM Sans',sans-serif;
 .ob-card-desc{font-size:0.8rem;color:var(--muted);line-height:1.7}
 .ob-card-cta{display:inline-block;margin-top:1.2rem;font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold)}
 .ob-card:hover .ob-card-cta{text-decoration:underline}
-.ob-footer{font-size:0.72rem;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;border-bottom:1px solid var(--border);padding-bottom:2px;transition:color 0.2s;display:inline-block}
+.ob-footer{font-size:0.72rem;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;border-bottom:1px solid var(--border);padding-bottom:2px;transition:color 0.2s;display:inline-block;position:relative;z-index:10;background:none;border-top:none;border-left:none;border-right:none;font-family:'DM Sans',sans-serif}
 .ob-footer:hover{color:var(--text)}
 
 /* ─── PLATFORM SHELL ─── */
@@ -219,7 +219,7 @@ _sbGate.auth.getSession().then(({ data: { session } }) => {
         <div class="ob-card-cta">Enter as Parent & Coach →</div>
       </div>
     </div>
-    <span class="ob-footer" onclick="enterPlatform('coach')">Skip — show me everything</span>
+    <button class="ob-footer" onclick="enterPlatform('coach')">Skip — show me everything</button>
   </div>
 </div>
 
