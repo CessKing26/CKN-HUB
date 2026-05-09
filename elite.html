@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CKN Hub — Elite</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9952A;
+    --gold-light: #E8B84B;
+    --gold-muted: #8a6420;
+    --bg: #0c0c0c;
+    --bg-card: #141414;
+    --bg-card2: #1a1a1a;
+    --border: #2a2a2a;
+    --text: #e8e8e8;
+    --text-muted: #7a7a7a;
+    --text-dim: #4a4a4a;
+    --white: #ffffff;
+    --danger: #c0392b;
+    --success: #27ae60;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    height: 64px;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--bg);
+  }
+
+  .nav-logo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: 0.05em;
+    color: var(--white);
+  }
+  .nav-logo span { color: var(--gold); }
+
+  .nav-divider { width: 1px; height: 32px; background: var(--border); margin: 0 16px; }
+
+  .nav-role {
+    background: var(--gold);
+    color: #000;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    padding: 6px 14px;
+    border: none;
+    cursor: pointer;
+  }
+
+  .nav-switch {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    margin-left: 10px;
+    cursor: pointer;
+    background: none;
+    border: none;
+  }
+
+  .nav-account {
+    margin-left: auto;
+    background: var(--gold);
+    color: #000;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    padding: 10px 16px;
+    border: none;
+    cursor: pointer;
+    line-height: 1.3;
+    text-align: center;
+  }
+
+  /* ELITE BADGE */
+  .elite-bar {
+    background: var(--gold);
+    color: #000;
+    text-align: center;
+    padding: 8px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+  }
+
+  /* VIEWS */
+  .view { display: none; }
+  .view.active { display: block; }
+
+  /* DASHBOARD */
+  .page { padding: 28px 20px; max-width: 680px; margin: 0 auto; }
+
+  .section-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--gold);
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+  h1 em { color: var(--gold); font-style: italic; }
+
+  .sub {
+    color: var(--text-muted);
+    font-size: 15px;
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  .divider { height: 1px; background: var(--border); margin: 28px 0; }
+
+  /* CARDS */
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    color: var(--white);
+    margin-bottom: 6px;
+  }
+
+  .card-sub {
+    color: var(--text-muted);
+    font-size: 13px;
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+
+  .btn-gold {
+    background: var(--gold);
+    color: #000;
+    border: none;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    padding: 12px 24px;
+    cursor: pointer;
+    display: inline-block;
+    transition: background 0.2s;
+  }
+  .btn-gold:hover { background: var(--gold-light); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--gold);
+    border: 1px solid var(--gold-muted);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--gold); }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    padding: 8px 14px;
+    cursor: pointer;
+  }
+
+  /* STATS ROW */
+  .stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; margin-bottom: 16px; }
+  .stat { background: var(--bg-card2); padding: 20px 16px; }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 28px; color: var(--white); }
+  .stat-num .gold-plus { color: var(--gold); font-size: 18px; }
+  .stat-label { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; letter-spacing: 0.15em; color: var(--text-muted); margin-top: 4px; }
+
+  /* PLAYER LIST */
+  .player-item {
+    border-bottom: 1px solid var(--border);
+    padding: 18px 0;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 14px;
+  }
+  .player-item:last-child { border-bottom: none; }
+  .player-item:hover .player-name { color: var(--gold); }
+
+  .player-avatar {
+    width: 40px; height: 40px;
+    background: var(--bg-card2);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    color: var(--gold);
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  .player-info { flex: 1; }
+  .player-name { font-weight: 500; font-size: 15px; color: var(--white); transition: color 0.2s; }
+  .player-meta { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+  .player-status {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    padding: 4px 8px;
+    border: 1px solid;
+  }
+  .status-active { color: var(--gold); border-color: var(--gold-muted); }
+  .status-new { color: var(--text-muted); border-color: var(--border); }
+  .status-review { color: #e67e22; border-color: #7a4215; }
+
+  .phase-dot {
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    margin-right: 6px;
+    background: var(--gold);
+  }
+
+  /* FORM */
+  .form-group { margin-bottom: 20px; }
+  label {
+    display: block;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+
+  input, select, textarea {
+    width: 100%;
+    background: var(--bg-card2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    padding: 12px 14px;
+    outline: none;
+    transition: border-color 0.2s;
+    -webkit-appearance: none;
+  }
+  input:focus, select:focus, textarea:focus { border-color: var(--gold-muted); }
+  select option { background: var(--bg-card2); }
+  textarea { resize: vertical; min-height: 80px; }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+  /* WEAKNESS TAGS */
+  .tag-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    padding: 6px 12px;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+  }
+  .tag.selected { border-color: var(--gold); color: var(--gold); background: rgba(201, 149, 42, 0.08); }
+
+  /* PROGRESS BAR */
+  .progress-row { margin-bottom: 18px; }
+  .progress-header { display: flex; justify-content: space-between; margin-bottom: 6px; }
+  .progress-name { font-size: 14px; color: var(--text); }
+  .progress-val { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; color: var(--text-muted); }
+  .progress-track { height: 3px; background: var(--bg-card2); position: relative; }
+  .progress-fill { height: 100%; background: var(--gold); transition: width 0.6s ease; }
+  .progress-before { position: absolute; top: 0; height: 100%; background: var(--border); }
+
+  /* POSITION CARD */
+  .position-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+  .position-card {
+    background: var(--bg-card2);
+    padding: 16px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+  }
+  .position-card:hover, .position-card.selected { border-color: var(--gold-muted); }
+  .position-card.selected { background: rgba(201,149,42,0.06); }
+  .pos-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 14px; color: var(--white); letter-spacing: 0.05em; }
+  .pos-sub { font-size: 12px; color: var(--text-muted); margin-top: 4px; line-height: 1.4; }
+
+  /* DEMO REQUEST */
+  .demo-request {
+    background: rgba(201,149,42,0.06);
+    border: 1px solid var(--gold-muted);
+    padding: 20px;
+    margin-bottom: 14px;
+  }
+  .demo-player { font-weight: 500; color: var(--white); margin-bottom: 4px; }
+  .demo-detail { font-size: 13px; color: var(--text-muted); }
+  .demo-badge {
+    display: inline-block;
+    background: var(--gold);
+    color: #000;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    font-weight: 700;
+    padding: 3px 8px;
+    margin-bottom: 10px;
+  }
+
+  /* QUOTE */
+  .quote-block {
+    border-left: 2px solid var(--gold);
+    padding: 16px 20px;
+    margin: 28px 0;
+    background: var(--bg-card);
+  }
+  .quote-text { font-family: 'Playfair Display', serif; font-style: italic; font-size: 16px; line-height: 1.6; color: var(--text); }
+  .quote-attr { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; letter-spacing: 0.15em; color: var(--gold); margin-top: 10px; }
+
+  /* PHASE PILL */
+  .phase-pill {
+    display: inline-block;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    font-weight: 600;
+    padding: 4px 10px;
+    margin-right: 6px;
+    margin-bottom: 6px;
+  }
+  .phase-1 { background: rgba(201,149,42,0.15); color: var(--gold); }
+  .phase-2 { background: rgba(52,152,219,0.15); color: #3498db; }
+  .phase-3 { background: rgba(46,204,113,0.15); color: #2ecc71; }
+  .phase-4 { background: rgba(155,89,182,0.15); color: #9b59b6; }
+
+  /* MODAL */
+  .modal-overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.85);
+    z-index: 200;
+    overflow-y: auto;
+    padding: 20px;
+  }
+  .modal-overlay.open { display: flex; align-items: flex-start; justify-content: center; }
+  .modal {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    width: 100%; max-width: 480px;
+    margin-top: 40px;
+    animation: modalIn 0.25s ease;
+  }
+  @keyframes modalIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .modal-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .modal-title { font-family: 'Playfair Display', serif; font-size: 20px; }
+  .modal-close { background: none; border: none; color: var(--text-muted); font-size: 20px; cursor: pointer; }
+  .modal-body { padding: 24px; }
+  .modal-footer { padding: 16px 24px; border-top: 1px solid var(--border); display: flex; gap: 10px; justify-content: flex-end; }
+
+  /* NAV TABS */
+  .tab-bar {
+    display: flex;
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+    scrollbar-width: none;
+    background: var(--bg);
+    position: sticky;
+    top: 64px;
+    z-index: 90;
+  }
+  .tab-bar::-webkit-scrollbar { display: none; }
+  .tab {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    font-weight: 500;
+    color: var(--text-muted);
+    padding: 14px 18px;
+    cursor: pointer;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+  }
+  .tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+  .tab:hover { color: var(--text); }
+
+  /* SECTION */
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* PITCH VISUAL */
+  .pitch {
+    background: #0d1f0d;
+    border: 1px solid #1a3a1a;
+    border-radius: 4px;
+    padding: 20px;
+    position: relative;
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+  .pitch-lines {
+    position: absolute; inset: 10px;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 2px;
+  }
+  .pitch-center {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px; height: 60px;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 50%;
+  }
+  .pitch-text {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: rgba(255,255,255,0.3);
+    font-size: 14px;
+    position: relative;
+    z-index: 1;
+    text-align: center;
+  }
+
+  /* NOTIFICATION DOT */
+  .notif-dot {
+    display: inline-block;
+    width: 8px; height: 8px;
+    background: var(--gold);
+    border-radius: 50%;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-muted);
+  }
+  .empty-state-icon { font-size: 32px; margin-bottom: 12px; opacity: 0.4; }
+  .empty-state-text { font-size: 14px; line-height: 1.5; }
+
+  .back-btn {
+    display: flex; align-items: center; gap: 8px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; letter-spacing: 0.12em;
+    color: var(--text-muted);
+    cursor: pointer;
+    background: none; border: none;
+    margin-bottom: 24px;
+    padding: 0;
+  }
+  .back-btn:hover { color: var(--gold); }
+
+  .arrow-link {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    cursor: pointer;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-bottom: 16px; }
+
+  .info-row {
+    display: flex; justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+  }
+  .info-row:last-child { border-bottom: none; }
+  .info-key { color: var(--text-muted); }
+  .info-val { color: var(--white); font-weight: 500; text-align: right; }
+
+  .weakness-chip {
+    display: inline-block;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    padding: 4px 10px;
+    background: rgba(192,57,43,0.12);
+    border: 1px solid rgba(192,57,43,0.3);
+    color: #e74c3c;
+    margin: 3px;
+  }
+
+  .strength-chip {
+    display: inline-block;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    padding: 4px 10px;
+    background: rgba(39,174,96,0.12);
+    border: 1px solid rgba(39,174,96,0.3);
+    color: #2ecc71;
+    margin: 3px;
+  }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); }
+
+  .gold-num { color: var(--gold); font-family: 'Barlow Condensed', sans-serif; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">CKN<span>HUB</span></div>
+  <div class="nav-divider"></div>
+  <button class="nav-role">COACH</button>
+  <button class="nav-switch">SWITCH ROLE</button>
+  <button class="nav-account" onclick="showView('dashboard')">MY<br>ACCOUNT</button>
+</nav>
+
+<!-- ELITE BAR -->
+<div class="elite-bar">ELITE TIER — INDIVIDUAL DEVELOPMENT ENGINE</div>
+
+<!-- TAB BAR -->
+<div class="tab-bar">
+  <button class="tab active" onclick="switchTab('players')">PLAYERS</button>
+  <button class="tab" onclick="switchTab('plans')">PLANS</button>
+  <button class="tab" onclick="switchTab('positions')">POSITIONS</button>
+  <button class="tab" onclick="switchTab('progress')">PROGRESS</button>
+  <button class="tab" onclick="switchTab('demo')">DEMO REQUESTS<span class="notif-dot" id="demoDot"></span></button>
+</div>
+
+<!-- ============================
+     VIEW: DASHBOARD / PLAYERS
+============================= -->
+<div id="view-main" class="view active">
+  <div class="page">
+
+    <!-- PLAYERS TAB -->
+    <div id="tab-players" class="tab-content active">
+      <div class="section-label">ELITE DASHBOARD</div>
+      <h1>Know every player. <em>Build every plan.</em></h1>
+      <p class="sub">One-to-one development. Diagnostic first. Targeted to what each player actually needs.</p>
+
+      <div class="divider"></div>
+
+      <!-- STATS -->
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-num" id="statTotal">0</div>
+          <div class="stat-label">PLAYERS</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num" id="statActive">0</div>
+          <div class="stat-label">ACTIVE PLANS</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num" id="statDemo">0<span class="gold-plus">+</span></div>
+          <div class="stat-label">DEMO REQUESTS</div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- PLAYER LIST -->
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+        <div class="section-label" style="margin:0">PLAYER PROFILES</div>
+        <button class="btn-gold" onclick="openAddPlayer()">+ ADD PLAYER</button>
+      </div>
+
+      <div id="playerList">
+        <div class="empty-state">
+          <div class="empty-state-icon">⚽</div>
+          <div class="empty-state-text">No players added yet.<br>Add your first player to start building their development plan.</div>
+        </div>
+      </div>
+
+      <div class="quote-block">
+        <div class="quote-text">"Most 1-2-1 coaches do what they want, not what the kid needs. We build around what they lack."</div>
+        <div class="quote-attr">CECIL NYONI · CKN FOUNDATION</div>
+      </div>
+    </div>
+
+    <!-- PLANS TAB -->
+    <div id="tab-plans" class="tab-content">
+      <div class="section-label">DEVELOPMENT PLANS</div>
+      <h1>Weaknesses become <em>the programme.</em></h1>
+      <p class="sub">Every plan is built from the diagnostic. No generic sessions. No wasted time.</p>
+      <div class="divider"></div>
+      <div id="plansList">
+        <div class="empty-state">
+          <div class="empty-state-icon">📋</div>
+          <div class="empty-state-text">Add a player and complete their diagnostic<br>to generate their development plan.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- POSITIONS TAB -->
+    <div id="tab-positions" class="tab-content">
+      <div class="section-label">POSITIONAL FRAMEWORK</div>
+      <h1>What they need <em>in position.</em></h1>
+      <p class="sub">For players 13+ moving into 11v11. Position-specific expectations, not generic skills.</p>
+      <div class="divider"></div>
+      <div class="position-grid" id="positionGrid">
+        <!-- Built by JS -->
+      </div>
+      <div id="positionDetail" style="display:none"></div>
+    </div>
+
+    <!-- PROGRESS TAB -->
+    <div id="tab-progress" class="tab-content">
+      <div class="section-label">6-MONTH TRACKER</div>
+      <h1>Show the <em>difference.</em></h1>
+      <p class="sub">Before and after. Coach logs it. Parent sees it. That's the proof.</p>
+      <div class="divider"></div>
+      <div id="progressList">
+        <div class="empty-state">
+          <div class="empty-state-icon">📈</div>
+          <div class="empty-state-text">Progress tracking starts once a player<br>has an active development plan.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DEMO REQUESTS TAB -->
+    <div id="tab-demo" class="tab-content">
+      <div class="section-label">DEMONSTRATION REQUESTS</div>
+      <h1>You know who it's for. <em>And why.</em></h1>
+      <p class="sub">When a demo is requested you know the player, the gap, and the level. Not a generic video. A purposeful response.</p>
+      <div class="divider"></div>
+      <div id="demoList">
+        <div class="empty-state">
+          <div class="empty-state-icon">🎯</div>
+          <div class="empty-state-text">No demo requests yet.<br>Requests come from player profiles.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================
+     VIEW: PLAYER PROFILE
+============================= -->
+<div id="view-profile" class="view">
+  <div class="page">
+    <button class="back-btn" onclick="showView('main')">← BACK TO PLAYERS</button>
+    <div id="profileContent"></div>
+  </div>
+</div>
+
+<!-- ============================
+     MODAL: ADD PLAYER
+============================= -->
+<div class="modal-overlay" id="addPlayerModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">New Player Profile</div>
+      <button class="modal-close" onclick="closeModal('addPlayerModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group">
+          <label>FIRST NAME</label>
+          <input type="text" id="playerFirst" placeholder="e.g. Marcus">
+        </div>
+        <div class="form-group">
+          <label>SURNAME</label>
+          <input type="text" id="playerLast" placeholder="e.g. Obi">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>AGE</label>
+          <input type="number" id="playerAge" placeholder="e.g. 12" min="6" max="18">
+        </div>
+        <div class="form-group">
+          <label>DOMINANT FOOT</label>
+          <select id="playerFoot">
+            <option value="">Select</option>
+            <option>Right</option>
+            <option>Left</option>
+            <option>Both (developing)</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>PRIMARY POSITION</label>
+        <select id="playerPosition">
+          <option value="">Select position</option>
+          <option>Goalkeeper</option>
+          <option>Centre Back</option>
+          <option>Full Back</option>
+          <option>Defensive Midfielder</option>
+          <option>Central Midfielder</option>
+          <option>Attacking Midfielder</option>
+          <option>Winger</option>
+          <option>Striker</option>
+          <option>Not yet assigned</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>CKN DEVELOPMENT PHASE</label>
+        <select id="playerPhase">
+          <option value="">Select phase</option>
+          <option value="1">Phase 1 — Foundation (Ages 8–10)</option>
+          <option value="2">Phase 2 — Connection (Ages 10–13)</option>
+          <option value="3">Phase 3 — Positional Expression (Ages 13+)</option>
+          <option value="4">Phase 4 — Full Game Model (Ages 15+)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>KEY WEAKNESSES (select all that apply)</label>
+        <div class="tag-grid" id="weaknessTags">
+          <span class="tag" onclick="toggleTag(this)">First Touch</span>
+          <span class="tag" onclick="toggleTag(this)">Weak Foot</span>
+          <span class="tag" onclick="toggleTag(this)">Ball Mastery</span>
+          <span class="tag" onclick="toggleTag(this)">Decision Making</span>
+          <span class="tag" onclick="toggleTag(this)">Receiving Under Pressure</span>
+          <span class="tag" onclick="toggleTag(this)">Positional Awareness</span>
+          <span class="tag" onclick="toggleTag(this)">Confidence on Ball</span>
+          <span class="tag" onclick="toggleTag(this)">1v1 Defending</span>
+          <span class="tag" onclick="toggleTag(this)">Pressing Intensity</span>
+          <span class="tag" onclick="toggleTag(this)">Movement Off Ball</span>
+          <span class="tag" onclick="toggleTag(this)">Crossing</span>
+          <span class="tag" onclick="toggleTag(this)">Shooting Technique</span>
+          <span class="tag" onclick="toggleTag(this)">Heading</span>
+          <span class="tag" onclick="toggleTag(this)">Transition Speed</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>COACH NOTES (private)</label>
+        <textarea id="playerNotes" placeholder="What have you observed? What does this player need most?"></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-ghost" onclick="closeModal('addPlayerModal')">CANCEL</button>
+      <button class="btn-gold" onclick="savePlayer()">CREATE PROFILE</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: DEMO REQUEST -->
+<div class="modal-overlay" id="demoModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Request Demonstration</div>
+      <button class="modal-close" onclick="closeModal('demoModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <p class="sub" style="margin-bottom:20px">What specific skill do you need demonstrated for this player? Be precise — the more context, the better the response.</p>
+      <div class="form-group">
+        <label>SKILL / TECHNIQUE NEEDED</label>
+        <input type="text" id="demoSkill" placeholder="e.g. Receiving on back foot under pressure">
+      </div>
+      <div class="form-group">
+        <label>WHY THIS PLAYER NEEDS IT</label>
+        <textarea id="demoReason" placeholder="e.g. Keeps losing the ball when played in tight spaces — tends to take a heavy first touch forward..."></textarea>
+      </div>
+      <div class="form-group">
+        <label>URGENCY</label>
+        <select id="demoUrgency">
+          <option>Before next session</option>
+          <option>This week</option>
+          <option>No rush — planning ahead</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-ghost" onclick="closeModal('demoModal')">CANCEL</button>
+      <button class="btn-gold" onclick="submitDemo()">SEND REQUEST</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: PROGRESS UPDATE -->
+<div class="modal-overlay" id="progressModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Log Progress</div>
+      <button class="modal-close" onclick="closeModal('progressModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <p class="sub" style="margin-bottom:20px">Rate this player's current level across key areas. This builds the before/after picture.</p>
+      <div id="progressForm"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-ghost" onclick="closeModal('progressModal')">CANCEL</button>
+      <button class="btn-gold" onclick="saveProgress()">SAVE LOG</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ========================
+// STATE
+// ========================
+let players = JSON.parse(localStorage.getItem('cknElitePlayers') || '[]');
+let demoRequests = JSON.parse(localStorage.getItem('cknDemoRequests') || '[]');
+let progressLogs = JSON.parse(localStorage.getItem('cknProgressLogs') || '[]');
+let currentPlayerIndex = null;
+let currentDemoPlayerIndex = null;
+
+const PHASES = {
+  '1': { label: 'Foundation', color: 'phase-1', ages: '8–10' },
+  '2': { label: 'Connection', color: 'phase-2', ages: '10–13' },
+  '3': { label: 'Positional Expression', color: 'phase-3', ages: '13+' },
+  '4': { label: 'Full Game Model', color: 'phase-4', ages: '15+' },
+};
+
+const POSITIONS = [
+  {
+    pos: 'Goalkeeper',
+    icon: '🧤',
+    keys: ['Distribution accuracy', 'Shot-stopping positioning', 'Communication & organisation', 'Handling crosses', 'Sweeper-keeper decision making'],
+    focus: 'Positioning before power. Read the game early. Own the box with communication.',
+    common: 'Rushes off line too early. Passes back when under no pressure. Doesn\'t organise the back line.'
+  },
+  {
+    pos: 'Centre Back',
+    icon: '🛡️',
+    keys: ['Defensive positioning (shape)', 'Aerial duels', 'Carrying the ball out', 'Anticipating 2nd ball', 'Composure in possession'],
+    focus: 'First job: don\'t be beaten in behind. Everything else builds from defensive security.',
+    common: 'Ball watching. Stepping when holding is required. Panic under pressure — sideways pass, no forward thinking.'
+  },
+  {
+    pos: 'Full Back',
+    icon: '↔️',
+    keys: ['Timing of overlapping runs', 'Defensive 1v1 recovery', 'Cross delivery', 'Positioning without ball', 'Supporting the winger'],
+    focus: 'Modern fullback needs two modes: defensive anchor and attacking outlet. Know when to hold and when to go.',
+    common: 'Goes too early and gets isolated. Doesn\'t track runner in behind. Cross too early, no quality.'
+  },
+  {
+    pos: 'Central Midfielder',
+    icon: '⚙️',
+    keys: ['Receiving on back foot', 'Finding pockets of space', 'Ball retention under pressure', 'Switching play', 'Box-to-box energy'],
+    focus: 'The engine room. Touch, turn, go. Receive facing forward whenever possible. Control the tempo.',
+    common: 'Always shows for ball side-on. Holds too long. Goes missing when team doesn\'t have ball.'
+  },
+  {
+    pos: 'Attacking Midfielder',
+    icon: '🎯',
+    keys: ['Movement between lines', 'Receiving & turning quickly', 'Final pass decision', 'Combination play (1-2s)', 'Shooting from range'],
+    focus: 'Find the gap between midfield and defence. Time your run. Make the pass or shoot — never hesitate.',
+    common: 'Waits for ball. Goes to it instead of creating space. Takes one touch too many before shooting.'
+  },
+  {
+    pos: 'Winger',
+    icon: '⚡',
+    keys: ['1v1 on the dribble', 'Cutting inside vs driving wide', 'Delivery from wide', 'Pressing trigger (when to press)', 'Movement without ball'],
+    focus: 'Beat your man or draw two. Create the overload. Know when you\'re the option and when you\'re the decoy.',
+    common: 'Predictable — always goes same way. Loses ball and stops pressing. Drifts inside without purpose.'
+  },
+  {
+    pos: 'Striker',
+    icon: '🔥',
+    keys: ['Movement to receive', 'Holding up play', 'Finishing technique (both feet)', 'Pressing from front', 'Link play with midfield'],
+    focus: 'Goals are the measure but movement is the craft. Make runs defenders can\'t track. Arrive late.',
+    common: 'Too static. Receives back to goal and loses ball. Predictable movement. No weak foot finishing.'
+  },
+  {
+    pos: 'Defensive Midfielder',
+    icon: '🔒',
+    keys: ['Positioning to protect back four', 'Interceptions', 'Simple passing under pressure', 'Setting tempo', 'Reading danger early'],
+    focus: 'You are the shield. Simple when it needs to be simple. Read the press and break it with one pass.',
+    common: 'Tries to do too much. Steps out and leaves gap. Doesn\'t recycle quickly enough.'
+  }
+];
+
+// ========================
+// INIT
+// ========================
+window.addEventListener('DOMContentLoaded', () => {
+  renderPositions();
+  renderAll();
+  updateStats();
+  updateDemoDot();
+});
+
+// ========================
+// VIEWS & TABS
+// ========================
+function showView(v) {
+  document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
+  document.getElementById('view-' + v).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function switchTab(name) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  document.getElementById('tab-' + name).classList.add('active');
+}
+
+// ========================
+// MODAL
+// ========================
+function openModal(id) { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+function openAddPlayer() {
+  // Reset form
+  ['playerFirst','playerLast','playerAge','playerNotes'].forEach(id => document.getElementById(id).value = '');
+  ['playerFoot','playerPosition','playerPhase'].forEach(id => document.getElementById(id).selectedIndex = 0);
+  document.querySelectorAll('#weaknessTags .tag').forEach(t => t.classList.remove('selected'));
+  openModal('addPlayerModal');
+}
+
+// ========================
+// TAGS
+// ========================
+function toggleTag(el) { el.classList.toggle('selected'); }
+
+// ========================
+// SAVE PLAYER
+// ========================
+function savePlayer() {
+  const first = document.getElementById('playerFirst').value.trim();
+  const last = document.getElementById('playerLast').value.trim();
+  if (!first) { alert('Please enter a player name.'); return; }
+
+  const weaknesses = [...document.querySelectorAll('#weaknessTags .tag.selected')].map(t => t.textContent);
+
+  const player = {
+    id: Date.now(),
+    first, last,
+    age: document.getElementById('playerAge').value || '—',
+    foot: document.getElementById('playerFoot').value || '—',
+    position: document.getElementById('playerPosition').value || 'Not assigned',
+    phase: document.getElementById('playerPhase').value || '1',
+    weaknesses,
+    notes: document.getElementById('playerNotes').value.trim(),
+    created: new Date().toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' }),
+    status: 'active'
+  };
+
+  players.push(player);
+  save();
+  closeModal('addPlayerModal');
+  renderAll();
+  updateStats();
+}
+
+// ========================
+// RENDER PLAYERS
+// ========================
+function renderAll() {
+  renderPlayerList();
+  renderPlansList();
+  renderProgressList();
+  renderDemoList();
+}
+
+function renderPlayerList() {
+  const el = document.getElementById('playerList');
+  if (!players.length) {
+    el.innerHTML = `<div class="empty-state"><div class="empty-state-icon">⚽</div><div class="empty-state-text">No players added yet.<br>Add your first player to start building their development plan.</div></div>`;
+    return;
+  }
+  el.innerHTML = players.map((p, i) => {
+    const ph = PHASES[p.phase] || PHASES['1'];
+    const initials = (p.first[0] || '') + (p.last[0] || '');
+    return `
+      <div class="player-item" onclick="openProfile(${i})">
+        <div class="player-avatar">${initials.toUpperCase()}</div>
+        <div class="player-info">
+          <div class="player-name">${p.first} ${p.last}</div>
+          <div class="player-meta"><span class="phase-dot"></span>${p.position} · Age ${p.age} · Phase ${p.phase}</div>
+        </div>
+        <div class="player-status status-active">${ph.label.toUpperCase()}</div>
+      </div>`;
+  }).join('');
+}
+
+function renderPlansList() {
+  const el = document.getElementById('plansList');
+  if (!players.length) {
+    el.innerHTML = `<div class="empty-state"><div class="empty-state-icon">📋</div><div class="empty-state-text">Add a player and complete their diagnostic<br>to generate their development plan.</div></div>`;
+    return;
+  }
+  el.innerHTML = players.map((p, i) => {
+    const ph = PHASES[p.phase] || PHASES['1'];
+    const plan = generatePlan(p);
+    return `
+      <div class="card" style="margin-bottom:16px">
+        <div class="section-label">${p.first.toUpperCase()} ${p.last.toUpperCase()} · AGE ${p.age}</div>
+        <div class="card-title">${p.position} — ${ph.label} Plan</div>
+        <div class="card-sub">${p.weaknesses.length ? `Targeting: ${p.weaknesses.slice(0,3).join(', ')}${p.weaknesses.length > 3 ? ` +${p.weaknesses.length-3} more` : ''}` : 'No weaknesses logged yet — complete the diagnostic.'}</div>
+        ${plan.map(item => `
+          <div style="padding:10px 0; border-bottom:1px solid var(--border)">
+            <div style="font-size:13px; color:var(--white); margin-bottom:3px">${item.focus}</div>
+            <div style="font-size:12px; color:var(--text-muted)">${item.drill}</div>
+          </div>`).join('')}
+        <div style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap;">
+          <button class="btn-outline" onclick="openProfile(${i})">VIEW PROFILE</button>
+          <button class="btn-ghost" onclick="openDemoModal(${i})">REQUEST DEMO</button>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function renderProgressList() {
+  const el = document.getElementById('progressList');
+  if (!players.length) {
+    el.innerHTML = `<div class="empty-state"><div class="empty-state-icon">📈</div><div class="empty-state-text">Progress tracking starts once a player<br>has an active development plan.</div></div>`;
+    return;
+  }
+  el.innerHTML = players.map((p, i) => {
+    const logs = progressLogs.filter(l => l.playerId === p.id);
+    const latest = logs[logs.length - 1];
+    const first = logs[0];
+    const areas = ['Ball Mastery', 'Decision Speed', 'Weak Foot', 'Confidence', 'Positioning'];
+    return `
+      <div class="card">
+        <div class="section-label">${p.first.toUpperCase()} ${p.last.toUpperCase()}</div>
+        <div class="card-title" style="margin-bottom:4px">${p.position} · Age ${p.age}</div>
+        <div class="card-sub" style="margin-bottom:16px">${logs.length ? `${logs.length} progress log${logs.length>1?'s':''} · Started ${first.date}` : 'No logs yet — add the first entry to start tracking.'}</div>
+        ${areas.map(area => {
+          const before = first ? (first.ratings[area] || 0) : 0;
+          const after = latest ? (latest.ratings[area] || 0) : 0;
+          const pct = (after / 10) * 100;
+          const bPct = (before / 10) * 100;
+          return `
+            <div class="progress-row">
+              <div class="progress-header">
+                <span class="progress-name">${area}</span>
+                <span class="progress-val">${before > 0 ? `${before} → ` : ''}<span style="color:var(--gold)">${after}/10</span></span>
+              </div>
+              <div class="progress-track">
+                ${before > 0 ? `<div class="progress-before" style="width:${bPct}%"></div>` : ''}
+                <div class="progress-fill" style="width:${pct}%"></div>
+              </div>
+            </div>`;
+        }).join('')}
+        <div style="margin-top:16px">
+          <button class="btn-gold" onclick="openProgressModal(${i})">LOG PROGRESS</button>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function renderDemoList() {
+  const el = document.getElementById('demoList');
+  if (!demoRequests.length) {
+    el.innerHTML = `<div class="empty-state"><div class="empty-state-icon">🎯</div><div class="empty-state-text">No demo requests yet.<br>Requests come from player profiles.</div></div>`;
+    return;
+  }
+  el.innerHTML = demoRequests.map((d, i) => `
+    <div class="demo-request">
+      <div class="demo-badge">${d.urgency.toUpperCase()}</div>
+      <div class="demo-player">${d.playerName}</div>
+      <div class="demo-detail" style="margin-bottom:8px; color:var(--white); font-size:14px">${d.skill}</div>
+      <div class="demo-detail">${d.reason}</div>
+      <div style="margin-top:12px; display:flex; gap:8px;">
+        <button class="btn-outline" onclick="markDemoDone(${i})">MARK DONE</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ========================
+// PROFILE VIEW
+// ========================
+function openProfile(index) {
+  currentPlayerIndex = index;
+  const p = players[index];
+  const ph = PHASES[p.phase] || PHASES['1'];
+  const plan = generatePlan(p);
+  const posData = POSITIONS.find(pos => pos.pos === p.position);
+
+  document.getElementById('profileContent').innerHTML = `
+    <div class="section-label">PLAYER PROFILE</div>
+    <h1>${p.first} <em>${p.last}</em></h1>
+
+    <div class="two-col" style="margin-top:20px">
+      <div class="stat"><div class="stat-num">Age ${p.age}</div><div class="stat-label">AGE</div></div>
+      <div class="stat"><div class="stat-num" style="font-size:16px;padding-top:4px"><span class="phase-pill ${ph.color}">${ph.label}</span></div><div class="stat-label">PHASE</div></div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section-label">DIAGNOSTIC</div>
+    <div class="card">
+      <div class="info-row"><span class="info-key">Position</span><span class="info-val">${p.position}</span></div>
+      <div class="info-row"><span class="info-key">Dominant Foot</span><span class="info-val">${p.foot}</span></div>
+      <div class="info-row"><span class="info-key">Dev Phase</span><span class="info-val">Phase ${p.phase} — ${ph.label} (Ages ${ph.ages})</span></div>
+      <div class="info-row"><span class="info-key">Added</span><span class="info-val">${p.created}</span></div>
+    </div>
+
+    <div style="margin-bottom:24px">
+      <div class="section-label">WEAKNESSES TO TARGET</div>
+      <div>${p.weaknesses.length ? p.weaknesses.map(w => `<span class="weakness-chip">${w}</span>`).join('') : '<span style="color:var(--text-muted); font-size:13px">None logged yet.</span>'}</div>
+    </div>
+
+    ${p.notes ? `
+    <div class="quote-block" style="margin:0 0 24px">
+      <div class="quote-text" style="font-size:14px">${p.notes}</div>
+      <div class="quote-attr">COACH NOTES · PRIVATE</div>
+    </div>` : ''}
+
+    <div class="divider"></div>
+
+    <div class="section-label">DEVELOPMENT PLAN</div>
+    <div class="card">
+      <div class="card-title" style="margin-bottom:12px">6-Week Targeted Plan</div>
+      ${plan.map((item, i) => `
+        <div style="padding:12px 0; border-bottom:1px solid var(--border);">
+          <div style="font-family:'Barlow Condensed',sans-serif; font-size:10px; letter-spacing:0.15em; color:var(--gold); margin-bottom:4px">WEEK ${item.week}</div>
+          <div style="font-size:14px; color:var(--white); margin-bottom:3px; font-weight:500">${item.focus}</div>
+          <div style="font-size:13px; color:var(--text-muted)">${item.drill}</div>
+        </div>`).join('')}
+    </div>
+
+    ${posData ? `
+    <div class="divider"></div>
+    <div class="section-label">POSITIONAL INTELLIGENCE · ${p.position.toUpperCase()}</div>
+    <div class="card">
+      <div class="card-title" style="margin-bottom:8px">What this position demands</div>
+      <div class="card-sub" style="margin-bottom:16px">${posData.focus}</div>
+      <div class="section-label">KEY COMPETENCIES</div>
+      ${posData.keys.map(k => `<div class="info-row" style="border-color:var(--border)"><span style="color:var(--text); font-size:13px">✓ ${k}</span></div>`).join('')}
+      <div style="margin-top:16px">
+        <div class="section-label">COMMON WEAKNESSES AT THIS POSITION</div>
+        <div class="card-sub">${posData.common}</div>
+      </div>
+    </div>` : ''}
+
+    <div class="divider"></div>
+
+    <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:40px">
+      <button class="btn-gold" onclick="openDemoModal(${index})">REQUEST DEMONSTRATION</button>
+      <button class="btn-outline" onclick="openProgressModal(${index})">LOG PROGRESS</button>
+      <button class="btn-ghost" onclick="deletePlayer(${index})">REMOVE</button>
+    </div>
+  `;
+
+  showView('profile');
+}
+
+// ========================
+// GENERATE PLAN
+// ========================
+function generatePlan(p) {
+  const plans = {
+    'First Touch': { focus: 'First touch under pressure', drill: 'Receive against wall, control directionally — both feet. 10 mins daily.' },
+    'Weak Foot': { focus: 'Weak foot activation', drill: 'Passing circuits — weak foot only. No exceptions for 3 sessions.' },
+    'Ball Mastery': { focus: 'Close control & ball confidence', drill: 'Coerver combinations — 15 mins before every session.' },
+    'Decision Making': { focus: 'Speed of decision', drill: 'Rondo with 3-second rule. Force the decision before comfortable.' },
+    'Receiving Under Pressure': { focus: 'Receiving on back foot', drill: 'Server presses immediately on release. Player must turn or shield.' },
+    'Positional Awareness': { focus: 'Scanning before receiving', drill: 'Call out what you see before the pass arrives — 3 scans minimum.' },
+    'Confidence on Ball': { focus: 'Building ball familiarity', drill: 'Street football rules — keep the ball, express. No pressure of correction.' },
+    '1v1 Defending': { focus: 'Defensive body shape & patience', drill: '1v1 corridors — hold shape, force inside, no dive in.' },
+    'Pressing Intensity': { focus: 'Trigger & transition press', drill: 'Define the trigger. Work on press in pairs — one press, one cover.' },
+    'Movement Off Ball': { focus: 'Creating space for teammates', drill: 'Shadow runs in pairs — near post, far post, in behind. No ball needed.' },
+    'Crossing': { focus: 'Delivery at pace', drill: 'Wide runs into cross — vary near, far, cutback. Both feet if possible.' },
+    'Shooting Technique': { focus: 'Strike through the ball cleanly', drill: 'Technique before power. Instep drive — 20 reps each foot.' },
+    'Transition Speed': { focus: 'Speed of play on/off ball', drill: 'Transition games — 3v3, two-touch, goals after winning ball only.' },
+  };
+
+  const defaults = [
+    { focus: 'Foundation ball work', drill: 'Coerver basics — inside, outside, sole, cut. Daily for 10 mins.' },
+    { focus: 'Technical accuracy', drill: 'Passing and receiving circuits against a wall — both feet.' },
+    { focus: 'Game understanding', drill: 'Positional shadow play — movement patterns without the ball.' },
+  ];
+
+  const phaseContext = {
+    '1': 'Focus: relationship with the ball. Both feet. Enjoyment.',
+    '2': 'Focus: technique under fatigue. Comfort in tight space.',
+    '3': 'Focus: positional function. When to press, hold, move.',
+    '4': 'Focus: full game model. In/out of possession decisions.'
+  };
+
+  let items = p.weaknesses.slice(0, 4).map((w, i) => ({
+    week: `${(i*1)+1}–${(i*1)+1}`,
+    ...(plans[w] || defaults[i % defaults.length])
+  }));
+
+  if (items.length < 2) items = defaults.map((d, i) => ({ week: `${i+1}–${i+2}`, ...d }));
+
+  return items.slice(0, 4);
+}
+
+// ========================
+// POSITIONS
+// ========================
+function renderPositions() {
+  const grid = document.getElementById('positionGrid');
+  grid.innerHTML = POSITIONS.map((p, i) => `
+    <div class="position-card" onclick="showPositionDetail(${i})">
+      <div class="pos-title">${p.icon} ${p.pos}</div>
+      <div class="pos-sub">${p.keys.slice(0,2).join(' · ')}</div>
+    </div>
+  `).join('');
+}
+
+function showPositionDetail(i) {
+  const p = POSITIONS[i];
+  const det = document.getElementById('positionDetail');
+  det.style.display = 'block';
+  det.innerHTML = `
+    <div class="divider"></div>
+    <div class="section-label">${p.pos.toUpperCase()}</div>
+    <div class="card">
+      <div class="card-title" style="margin-bottom:8px">${p.icon} What this position demands</div>
+      <div class="card-sub" style="margin-bottom:20px">${p.focus}</div>
+      <div class="section-label">5 KEY COMPETENCIES</div>
+      ${p.keys.map(k => `<div class="info-row"><span style="font-size:13px; color:var(--text)">✓ ${k}</span></div>`).join('')}
+      <div style="margin-top:20px">
+        <div class="section-label">TYPICAL WEAKNESSES</div>
+        <div class="card-sub">${p.common}</div>
+      </div>
+    </div>
+  `;
+  det.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ========================
+// DEMO REQUEST
+// ========================
+function openDemoModal(index) {
+  currentDemoPlayerIndex = index;
+  document.getElementById('demoSkill').value = '';
+  document.getElementById('demoReason').value = '';
+  document.getElementById('demoUrgency').selectedIndex = 0;
+  openModal('demoModal');
+}
+
+function submitDemo() {
+  const skill = document.getElementById('demoSkill').value.trim();
+  if (!skill) { alert('Please describe the skill needed.'); return; }
+  const p = players[currentDemoPlayerIndex];
+  demoRequests.push({
+    playerId: p.id,
+    playerName: `${p.first} ${p.last}`,
+    position: p.position,
+    phase: p.phase,
+    skill,
+    reason: document.getElementById('demoReason').value.trim(),
+    urgency: document.getElementById('demoUrgency').value,
+    date: new Date().toLocaleDateString('en-GB', { day:'numeric', month:'short' })
+  });
+  save();
+  closeModal('demoModal');
+  updateStats();
+  updateDemoDot();
+  renderDemoList();
+  alert(`Demo request logged for ${p.first} ${p.last}. You\'ll be contacted directly.`);
+}
+
+function markDemoDone(i) {
+  demoRequests.splice(i, 1);
+  save();
+  updateStats();
+  updateDemoDot();
+  renderDemoList();
+}
+
+// ========================
+// PROGRESS
+// ========================
+function openProgressModal(index) {
+  currentPlayerIndex = index;
+  const areas = ['Ball Mastery', 'Decision Speed', 'Weak Foot', 'Confidence', 'Positioning'];
+  document.getElementById('progressForm').innerHTML = areas.map(a => `
+    <div class="form-group">
+      <label>${a.toUpperCase()} (1–10)</label>
+      <input type="number" id="prog_${a.replace(/\s/g,'')}" min="1" max="10" placeholder="Rate 1–10">
+    </div>
+  `).join('');
+  openModal('progressModal');
+}
+
+function saveProgress() {
+  const p = players[currentPlayerIndex];
+  const areas = ['Ball Mastery', 'Decision Speed', 'Weak Foot', 'Confidence', 'Positioning'];
+  const ratings = {};
+  areas.forEach(a => {
+    const val = parseInt(document.getElementById('prog_' + a.replace(/\s/g,'')).value);
+    if (val) ratings[a] = val;
+  });
+  if (!Object.keys(ratings).length) { alert('Please rate at least one area.'); return; }
+  progressLogs.push({
+    playerId: p.id,
+    date: new Date().toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' }),
+    ratings
+  });
+  save();
+  closeModal('progressModal');
+  renderProgressList();
+}
+
+// ========================
+// DELETE
+// ========================
+function deletePlayer(index) {
+  if (!confirm('Remove this player profile?')) return;
+  players.splice(index, 1);
+  save();
+  showView('main');
+  renderAll();
+  updateStats();
+}
+
+// ========================
+// STATS & UTILS
+// ========================
+function updateStats() {
+  document.getElementById('statTotal').textContent = players.length;
+  document.getElementById('statActive').textContent = players.filter(p => p.weaknesses.length > 0).length;
+  document.getElementById('statDemo').innerHTML = demoRequests.length + '<span class="gold-plus">+</span>';
+}
+
+function updateDemoDot() {
+  const dot = document.getElementById('demoDot');
+  if (dot) dot.style.display = demoRequests.length > 0 ? 'inline-block' : 'none';
+}
+
+function save() {
+  localStorage.setItem('cknElitePlayers', JSON.stringify(players));
+  localStorage.setItem('cknDemoRequests', JSON.stringify(demoRequests));
+  localStorage.setItem('cknProgressLogs', JSON.stringify(progressLogs));
+}
+</script>
+</body>
+</html>
