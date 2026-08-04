@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="CKN">
+<meta name="theme-color" content="#0a0a0a">
+<title>CKN Foundation — Zimbabwe</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#F5A623;--gold2:rgba(245,166,35,0.12);--gold3:rgba(245,166,35,0.25);--bg:#0a0a0a;--bg2:#111;--bg3:#181818;--bg4:#222;--border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.12);--text:#f0f0f0;--muted:#666;--muted2:#999;--green:#4caf78;--green2:rgba(76,175,120,0.12);--green3:rgba(76,175,120,0.25);--red:#e05252;--blue:#5b9cf6;}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);max-width:480px;margin:0 auto;min-height:100vh;overflow-x:hidden;}
+.screen{display:none;min-height:100vh;padding-bottom:80px;}
+.screen.active{display:block;}
+.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:var(--bg2);border-top:1px solid var(--border);display:grid;grid-template-columns:repeat(6,1fr);z-index:200;}
+.ni{padding:9px 2px 7px;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;border:none;background:none;color:var(--muted);font-size:8px;font-weight:600;letter-spacing:0.3px;text-transform:uppercase;font-family:'Barlow',sans-serif;}
+.ni.active{color:var(--gold);}
+.ni-ico{font-size:18px;line-height:1;}
+.hdr{background:var(--bg);border-bottom:1px solid var(--border);padding:13px 16px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+.hdr-logo{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;color:var(--gold);letter-spacing:2px;}
+.hdr-title{font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--muted);}
+.back{background:none;border:none;color:var(--gold);font-size:22px;cursor:pointer;padding:4px 8px 4px 0;}
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(10px);background:var(--green);color:#fff;padding:10px 20px;border-radius:20px;font-size:13px;font-weight:600;opacity:0;transition:all .25s;z-index:999;pointer-events:none;white-space:nowrap;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+.card{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:10px;}
+.sec-lbl{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);padding:16px 16px 8px;font-weight:600;}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:14px 16px;}
+.sbox{background:var(--bg3);padding:14px 8px;text-align:center;}
+.snum{font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:700;color:var(--gold);}
+.slbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px;}
+.btn-gold{width:100%;background:var(--gold);color:#1a0f00;border:none;border-radius:10px;padding:13px;font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;}
+.btn-gold:active{opacity:.8;}
+.btn-ghost{width:100%;background:none;border:none;color:var(--muted);padding:12px;font-size:14px;cursor:pointer;font-family:'Barlow',sans-serif;}
+.btn-add{margin:0 16px 10px;width:calc(100% - 32px);background:var(--bg3);border:1px dashed var(--gold3);color:var(--gold);border-radius:10px;padding:13px;font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;letter-spacing:1px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;}
+.dash-btn{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:16px;cursor:pointer;display:flex;align-items:center;gap:14px;margin:0 16px 8px;}
+.dash-btn:active{border-color:var(--gold);}
+.dash-ico{width:44px;height:44px;border-radius:10px;background:var(--bg4);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.dash-title{font-size:15px;font-weight:600;margin-bottom:2px;}
+.dash-sub{font-size:12px;color:var(--muted2);}
+.flbl{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:7px;display:block;}
+.finp{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'Barlow',sans-serif;font-size:15px;padding:11px 13px;}
+.finp:focus{outline:none;border-color:var(--gold);}
+textarea.finp{resize:none;min-height:70px;}
+select.finp{appearance:none;}
+.fgrp{margin-bottom:14px;}
+.pill-row{display:flex;gap:7px;padding:12px 16px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--border);}
+.pill-row::-webkit-scrollbar{display:none;}
+.pill{padding:7px 14px;border-radius:20px;border:1px solid var(--border);color:var(--muted);font-size:12px;font-weight:600;white-space:nowrap;cursor:pointer;background:var(--bg3);flex-shrink:0;}
+.pill.on{background:var(--gold);border-color:var(--gold);color:#1a0f00;}
+.tags{display:flex;gap:7px;flex-wrap:wrap;}
+.tag{padding:6px 12px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid var(--border);color:var(--muted2);cursor:pointer;background:var(--bg3);}
+.tag.on{background:var(--gold2);border-color:var(--gold);color:var(--gold);}
+.badge{padding:3px 8px;border-radius:6px;font-size:10px;font-weight:700;text-transform:uppercase;}
+.b-fwd{background:rgba(245,166,35,.15);color:var(--gold);}
+.b-mid{background:rgba(76,175,120,.15);color:var(--green);}
+.b-def{background:rgba(91,156,246,.15);color:var(--blue);}
+.b-gk{background:rgba(224,82,82,.15);color:var(--red);}
+.today-card{margin:14px 16px;background:var(--bg3);border:1px solid var(--gold3);border-radius:12px;overflow:hidden;}
+.today-top{background:var(--gold2);padding:9px 14px;border-bottom:1px solid var(--gold3);}
+.today-lbl{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);}
+.today-body{padding:14px;}
+.prow{display:flex;align-items:center;gap:12px;padding:13px 16px;border-bottom:1px solid var(--border);cursor:pointer;}
+.prow:active{opacity:.7;}
+.pav{width:42px;height:42px;border-radius:50%;background:var(--bg3);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;color:var(--gold);flex-shrink:0;}
+.pinfo{flex:1;min-width:0;}
+.pname{font-size:14px;font-weight:600;margin-bottom:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.pmeta{font-size:12px;color:var(--muted2);}
+.star-row{display:flex;gap:8px;align-items:center;margin-bottom:12px;}
+.star-lbl{font-size:14px;font-weight:500;flex:1;}
+.stars{display:flex;gap:3px;}
+.star{font-size:22px;cursor:pointer;color:var(--bg4);}
+.star.on{color:var(--gold);}
+.dcard{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:15px;margin:0 16px 10px;cursor:pointer;}
+.dcard:active{border-color:var(--gold);}
+.dtop{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;}
+.dname{font-size:15px;font-weight:600;}
+.dtime{font-size:12px;color:var(--gold);font-weight:700;}
+.ddesc{font-size:13px;color:var(--muted2);line-height:1.55;margin-bottom:9px;}
+.dtags{display:flex;gap:5px;flex-wrap:wrap;}
+.dtag{padding:3px 8px;border-radius:5px;font-size:11px;font-weight:600;background:var(--bg4);color:var(--muted2);border:1px solid var(--border);}
+.home-tag{background:var(--green2);color:var(--green);border-color:var(--green3);}
+.dsec{margin-bottom:18px;}
+.dsec-lbl{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:10px;}
+.equips{display:flex;gap:7px;flex-wrap:wrap;}
+.equip{background:var(--bg3);border:1px solid var(--border);padding:6px 11px;border-radius:7px;font-size:13px;}
+.step{display:flex;gap:11px;align-items:flex-start;margin-bottom:13px;}
+.step-n{width:27px;height:27px;border-radius:50%;background:var(--gold);color:#1a0f00;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.step-t{font-size:14px;line-height:1.6;padding-top:3px;}
+.tip-box{background:rgba(245,166,35,.06);border:1px solid var(--gold3);border-radius:10px;padding:14px;}
+.tip-lbl{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:5px;}
+.tip-txt{font-size:14px;line-height:1.6;font-style:italic;}
+.tip-sig{font-size:11px;color:var(--gold);margin-top:8px;font-weight:600;}
+.sentry{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:14px;margin:0 16px 9px;}
+.sdate{font-size:11px;color:var(--gold);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;}
+.sdrill{font-size:15px;font-weight:600;margin-bottom:3px;}
+.smeta{font-size:12px;color:var(--muted2);}
+.mod-card{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:16px;margin:0 16px 10px;cursor:pointer;}
+.mod-card:active{border-color:var(--gold);}
+.mod-top{display:flex;align-items:center;gap:13px;margin-bottom:10px;}
+.mod-icon{width:46px;height:46px;border-radius:10px;background:var(--bg4);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;}
+.mod-title{font-size:15px;font-weight:600;margin-bottom:2px;}
+.mod-sub{font-size:12px;color:var(--muted2);}
+.prog-bar{height:3px;background:var(--bg4);border-radius:2px;}
+.prog-fill{height:100%;background:var(--gold);border-radius:2px;}
+.lesson-body{padding:16px;}
+.lesson-title{font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:700;margin-bottom:14px;}
+.lesson-p{font-size:14px;line-height:1.75;color:var(--muted2);}
+.lesson-h{font-size:12px;font-weight:700;color:var(--gold);margin:14px 0 6px;text-transform:uppercase;letter-spacing:1px;}
+.lesson-list{list-style:none;padding:0;margin:0 0 12px;}
+.lesson-list li{font-size:14px;line-height:1.7;padding:5px 0 5px 18px;position:relative;color:var(--text);}
+.lesson-list li::before{content:'›';position:absolute;left:0;color:var(--gold);font-size:16px;font-weight:700;}
+.quiz-opt{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:13px 15px;margin-bottom:8px;cursor:pointer;font-size:14px;}
+.quiz-opt.correct{border-color:var(--green);background:var(--green2);color:var(--green);}
+.quiz-opt.wrong{border-color:var(--red);background:rgba(224,82,82,.08);color:var(--red);}
+.parent-card{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:16px;margin:0 16px 10px;}
+.parent-title{font-size:14px;font-weight:700;margin-bottom:3px;}
+.parent-desc{font-size:12px;color:var(--muted2);margin-bottom:10px;}
+.wa-msg{background:rgba(76,175,120,.06);border:1px solid var(--green3);border-radius:4px 12px 12px 12px;padding:12px 14px;font-size:12px;line-height:1.7;margin-bottom:10px;}
+.copy-btn{background:var(--bg4);border:1px solid var(--border);border-radius:8px;color:var(--gold);font-size:12px;font-weight:700;padding:9px 16px;cursor:pointer;font-family:'Barlow',sans-serif;}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:500;align-items:flex-end;}
+.modal.open{display:flex;}
+.mbox{background:var(--bg2);border-radius:20px 20px 0 0;border:1px solid var(--border2);border-bottom:none;padding:20px 20px 50px;max-height:90vh;overflow-y:auto;width:100%;}
+.mhandle{width:36px;height:3px;border-radius:2px;background:var(--border2);margin:0 auto 20px;}
+.mtitle{font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:700;margin-bottom:18px;}
+.att-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;}
+.att-item{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 12px;display:flex;align-items:center;gap:9px;cursor:pointer;}
+.att-item.present{border-color:var(--green);background:var(--green2);}
+.att-check{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;}
+.att-item.present .att-check{background:var(--green);border-color:var(--green);color:#fff;}
+.att-nm{font-size:13px;font-weight:500;}
+.phase-block{margin:0 16px 12px;border-radius:12px;overflow:hidden;border:1px solid;}
+.phase-hdr{padding:12px 14px;display:flex;align-items:center;gap:10px;}
+.phase-circle{width:32px;height:32px;border-radius:50%;border:2px solid;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;flex-shrink:0;}
+.phase-title{font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:700;}
+.phase-tag{font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;}
+.phase-body{padding:12px 14px;border-top:1px solid;}
+.phase-desc{font-size:13px;line-height:1.6;margin-bottom:10px;}
+.phase-pillars{display:flex;gap:6px;flex-wrap:wrap;}
+.phase-pillar{padding:4px 10px;border-radius:6px;font-size:11px;font-weight:600;}
+.plan-phase{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:16px;margin:0 16px 10px;cursor:pointer;}
+.plan-phase:active{border-color:var(--gold);}
+.plan-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;}
+.plan-weeks{font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:2px;}
+.plan-name{font-size:16px;font-weight:600;}
+.plan-obj{font-size:13px;color:var(--muted2);line-height:1.5;margin-bottom:10px;}
+.cue-row{display:flex;gap:6px;flex-wrap:wrap;}
+.cue{background:var(--bg4);border:1px solid var(--border);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:600;color:var(--muted2);}
+.plan-drill-item{padding:12px 14px;border-bottom:1px solid var(--border);cursor:pointer;}
+.plan-drill-item:last-child{border-bottom:none;}
+.plan-drill-name{font-size:14px;font-weight:600;margin-bottom:3px;}
+.plan-drill-desc{font-size:12px;color:var(--muted2);line-height:1.5;}
+.pathway-stage{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:16px;margin:0 16px 10px;cursor:pointer;display:flex;align-items:center;gap:14px;}
+.pathway-stage:active{border-color:var(--gold);}
+.pathway-stage.started{border-color:var(--gold3);}
+.pathway-stage.done{border-color:var(--green3);}
+.ps-num{width:42px;height:42px;border-radius:50%;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700;color:var(--muted);flex-shrink:0;}
+.pathway-stage.started .ps-num{border-color:var(--gold);color:var(--gold);}
+.pathway-stage.done .ps-num{background:var(--green);border-color:var(--green);color:#fff;}
+.ps-info{flex:1;}
+.ps-name{font-size:15px;font-weight:600;margin-bottom:2px;}
+.ps-tag{font-size:12px;color:var(--muted2);}
+.pw-mod-row{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--border);cursor:pointer;}
+.pw-mod-row:active{background:var(--bg3);}
+.pw-dot{width:10px;height:10px;border-radius:50%;border:1.5px solid var(--muted);flex-shrink:0;}
+.pw-mod-row.visited .pw-dot{background:var(--green);border-color:var(--green);}
+.pw-mod-name{font-size:14px;font-weight:600;margin-bottom:2px;}
+.pw-mod-sub{font-size:11px;color:var(--muted2);}
+.tmpl-row{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--border);}
+.tmpl-row:last-child{border-bottom:none;}
+.tmpl-n{width:24px;height:24px;border-radius:50%;background:var(--gold);color:#1a0f00;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.tmpl-phase{font-size:13px;font-weight:600;flex:1;}
+.tmpl-note{font-size:11px;color:var(--muted2);}
+.tmpl-time{font-size:12px;color:var(--gold);font-weight:700;}
+</style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+<!-- HOME -->
+<div class="screen active" id="screen-home">
+  <div class="hdr"><div class="hdr-logo">CKN</div><div style="display:flex;align-items:center;gap:5px;background:var(--green2);border:1px solid var(--green3);border-radius:20px;padding:4px 10px;font-size:10px;font-weight:700;color:var(--green)"><div style="width:6px;height:6px;border-radius:50%;background:var(--green)"></div>LIVE</div></div>
+  <div style="background:var(--bg2);padding:20px 16px;border-bottom:1px solid var(--border)">
+    <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:4px">Welcome back</div>
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:34px;font-weight:700;color:var(--gold);margin-bottom:3px" id="hm-name">Coach</div>
+    <div style="font-size:12px;color:var(--muted2)">CKN Foundation · Zimbabwe</div>
+  </div>
+  <div class="stats">
+    <div class="sbox"><div class="snum" id="st-p">0</div><div class="slbl">Players</div></div>
+    <div class="sbox"><div class="snum" id="st-s">0</div><div class="slbl">Sessions</div></div>
+    <div class="sbox"><div class="snum">22</div><div class="slbl">Drills</div></div>
+  </div>
+  <div id="today-wrap"></div>
+  <div class="sec-lbl">Quick actions</div>
+  <div class="dash-btn" onclick="navTo('squad')"><div class="dash-ico">👥</div><div style="flex:1"><div class="dash-title">My Squad</div><div class="dash-sub">Add players · Track development</div></div><div style="color:var(--muted);font-size:20px">›</div></div>
+  <div class="dash-btn" onclick="openLogSession()"><div class="dash-ico">📋</div><div style="flex:1"><div class="dash-title">Log Session</div><div class="dash-sub">Record today's training</div></div><div style="color:var(--muted);font-size:20px">›</div></div>
+  <div class="dash-btn" onclick="navTo('drills')"><div class="dash-ico">⚽</div><div style="flex:1"><div class="dash-title">Drill Library</div><div class="dash-sub">22 development drills</div></div><div style="color:var(--muted);font-size:20px">›</div></div>
+  <div class="dash-btn" onclick="navTo('plan')"><div class="dash-ico">📅</div><div style="flex:1"><div class="dash-title">12-Week Plan</div><div class="dash-sub">Ball mastery · Assign drills · WhatsApp home tasks</div></div><div style="color:var(--muted);font-size:20px">›</div></div>
+  <div class="sec-lbl">Recent sessions</div>
+  <div id="hm-sessions" style="padding:0 0 8px"></div>
+</div>
+
+<!-- SQUAD -->
+<div class="screen" id="screen-squad">
+  <div class="hdr"><div class="hdr-logo">CKN</div><div class="hdr-title">My Squad</div><div style="width:32px"></div></div>
+  <div id="player-list"></div>
+  <button class="btn-add" onclick="openAddPlayer()">＋ Add Player</button>
+</div>
+
+<!-- PLAYER -->
+<div class="screen" id="screen-player">
+  <div class="hdr"><button class="back" onclick="navTo('squad')">←</button><div class="hdr-title">Player</div><div style="width:32px"></div></div>
+  <div id="player-detail"></div>
+</div>
+
+<!-- DRILLS -->
+<div class="screen" id="screen-drills">
+  <div class="hdr"><div class="hdr-logo">CKN</div><div class="hdr-title">Drill Library</div><div style="width:32px"></div></div>
+  <div class="pill-row" id="drill-filters"></div>
+  <div style="padding-top:8px" id="drill-list"></div>
+</div>
+
+<!-- DRILL DETAIL -->
+<div class="screen" id="screen-drill-detail">
+  <div class="hdr"><button class="back" id="drill-back-btn">←</button><div class="hdr-title">Drill</div><div style="width:32px"></div></div>
+  <div style="padding:16px" id="drill-detail"></div>
+</div>
+
+<!-- 12 WEEK PLAN -->
+<div class="screen" id="screen-plan">
+  <div class="hdr"><div class="hdr-logo">CKN</div><div class="hdr-title">12-Week Plan</div><div style="width:32px"></div></div>
+  <div style="background:var(--bg2);padding:16px;border-bottom:1px solid var(--border)">
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:700;margin-bottom:4px">12-Week Development Plan</div>
+    <div style="font-size:13px;color:var(--muted2);line-height:1.6">2-3 sessions per week · 60-75 mins · Ball mastery every session. Game time always last.</div>
+  </div>
+  <div class="sec-lbl">Every Session · 75 mins</div>
+  <div style="margin:0 16px 14px;background:var(--bg3);border:1px solid var(--border);border-radius:12px;overflow:hidden" id="session-template"></div>
+  <div class="sec-lbl">The 6 Phases</div>
+  <div id="plan-phases"></div>
+  <div class="sec-lbl">Home Training — Secret Weapon</div>
+  <div style="margin:0 16px;background:var(--green2);border:1px solid var(--green3);border-radius:12px;padding:14px;margin-bottom:14px">
+    <div style="font-size:13px;font-weight:700;color:var(--green);margin-bottom:6px">10-15 mins daily · Just a ball</div>
+    <div style="font-size:13px;line-height:1.7;margin-bottom:4px">· Ball mastery routine (toe taps, sole rolls, inside-outside)</div>
+    <div style="font-size:13px;line-height:1.7;margin-bottom:4px">· Juggling — both feet, count your record</div>
+    <div style="font-size:13px;line-height:1.7;margin-bottom:10px">· Wall passing — right foot pass, left foot control</div>
+    <div style="font-size:12px;color:var(--muted2);font-style:italic;line-height:1.6">Ronaldo and Neymar built their foundations doing exactly this. Every day. With just a ball and a wall.</div>
+  </div>
+  <div class="sec-lbl">Progress Checks · Every 2-3 Weeks</div>
+  <div style="margin:0 16px 20px;background:var(--bg3);border:1px solid var(--border);border-radius:12px;overflow:hidden">
+    <div style="display:flex;gap:12px;padding:12px 14px;border-bottom:1px solid var(--border)"><div style="font-size:18px">⚽</div><div style="font-size:13px;line-height:1.55">Juggling count — both feet. Record number. Beat it each check.</div></div>
+    <div style="display:flex;gap:12px;padding:12px 14px;border-bottom:1px solid var(--border)"><div style="font-size:18px">🆚</div><div style="font-size:13px;line-height:1.55">1v1 success rate — how many times does the player beat the defender?</div></div>
+    <div style="display:flex;gap:12px;padding:12px 14px;border-bottom:1px solid var(--border)"><div style="font-size:18px">🦶</div><div style="font-size:13px;line-height:1.55">Weak foot usage — is the player using it without being told?</div></div>
+    <div style="display:flex;gap:12px;padding:12px 14px"><div style="font-size:18px">🎯</div><div style="font-size:13px;line-height:1.55">First touch quality — does it set up the next action or create pressure?</div></div>
+  </div>
+</div>
+
+<!-- PHASE DETAIL -->
+<div class="screen" id="screen-phase">
+  <div class="hdr"><button class="back" onclick="navTo('plan')">←</button><div class="hdr-title" id="phase-hdr-lbl">Phase</div><div style="width:32px"></div></div>
+  <div id="phase-detail"></div>
+</div>
+
+<!-- EDUCATION -->
+<div class="screen" id="screen-edu">
+  <div class="hdr"><div class="hdr-logo">CKN</div><div class="hdr-title">Coach Education</div><div style="width:32px"></div></div>
+  <div class="sec-lbl">CKN Player Development Pathway</div>
+  <div style="margin:0 16px 4px;font-size:13px;color:var(--muted2);line-height:1.6">Three phases. One long-term journey. Technique before everything.</div>
+  <div class="phase-block" style="border-color:rgba(245,166,35,0.3);background:rgba(245,166,35,0.04)">
+    <div class="phase-hdr" style="background:rgba(245,166,35,0.06)">
+      <div class="phase-circle" style="border-color:var(--gold);color:var(--gold)">1</div>
+      <div><div class="phase-tag" style="color:var(--gold)">Ages 6-12</div><div class="phase-title" style="color:var(--gold)">The Technician · Foundation Phase</div></div>
+    </div>
+    <div class="phase-body" style="border-color:rgba(245,166,35,0.15)">
+      <div class="phase-desc">"Technique before everything." No tactics. No positions. Just the ball. Love is built. Technique is installed. This is the only window that truly matters.</div>
+      <div class="phase-pillars">
+        <div class="phase-pillar" style="background:rgba(245,166,35,0.1);color:var(--gold)">Ball Mastery</div>
+        <div class="phase-pillar" style="background:rgba(245,166,35,0.1);color:var(--gold)">Both Feet</div>
+        <div class="phase-pillar" style="background:rgba(245,166,35,0.1);color:var(--gold)">First Touch</div>
+        <div class="phase-pillar" style="background:rgba(245,166,35,0.1);color:var(--gold)">Love of the Ball</div>
+      </div>
+    </div>
+  </div>
+  <div class="phase-block" style="border-color:rgba(91,156,246,0.3);background:rgba(91,156,246,0.03)">
+    <div class="phase-hdr" style="background:rgba(91,156,246,0.06)">
+      <div class="phase-circle" style="border-color:var(--blue);color:var(--blue)">2</div>
+      <div><div class="phase-tag" style="color:var(--blue)">Ages 12-15</div><div class="phase-title" style="color:var(--blue)">The Footballer · Development Phase</div></div>
+    </div>
+    <div class="phase-body" style="border-color:rgba(91,156,246,0.15)">
+      <div class="phase-desc">"The Game Reader." Technical base remains central. Positions introduced. Players learn to apply technique under tactical demands for the first time.</div>
+      <div class="phase-pillars">
+        <div class="phase-pillar" style="background:rgba(91,156,246,0.1);color:var(--blue)">Tactical Awareness</div>
+        <div class="phase-pillar" style="background:rgba(91,156,246,0.1);color:var(--blue)">Decision Speed</div>
+        <div class="phase-pillar" style="background:rgba(91,156,246,0.1);color:var(--blue)">1v1 Dominance</div>
+        <div class="phase-pillar" style="background:rgba(91,156,246,0.1);color:var(--blue)">Positional Intelligence</div>
+      </div>
+    </div>
+  </div>
+  <div class="phase-block" style="border-color:rgba(76,175,120,0.3);background:rgba(76,175,120,0.03)">
+    <div class="phase-hdr" style="background:rgba(76,175,120,0.06)">
+      <div class="phase-circle" style="border-color:var(--green);color:var(--green)">3</div>
+      <div><div class="phase-tag" style="color:var(--green)">Ages 15-18</div><div class="phase-title" style="color:var(--green)">The Competitor · Performance Phase</div></div>
+    </div>
+    <div class="phase-body" style="border-color:rgba(76,175,120,0.15)">
+      <div class="phase-desc">"The Complete Player." Preparing for senior, academy, scholarship or professional environments. Game intelligence meets physical development.</div>
+      <div class="phase-pillars">
+        <div class="phase-pillar" style="background:rgba(76,175,120,0.1);color:var(--green)">Game Intelligence</div>
+        <div class="phase-pillar" style="background:rgba(76,175,120,0.1);color:var(--green)">Leadership</div>
+        <div class="phase-pillar" style="background:rgba(76,175,120,0.1);color:var(--green)">Physical Conditioning</div>
+        <div class="phase-pillar" style="background:rgba(76,175,120,0.1);color:var(--green)">Academy Readiness</div>
+      </div>
+    </div>
+  </div>
+  <div class="sec-lbl" style="margin-top:8px">Your Coach Education Pathway</div>
+  <div style="margin:0 16px 14px;font-size:13px;color:var(--muted2);line-height:1.6">Four levels. Progression by competence, not time served.</div>
+  <div id="pathway-stages"></div>
+  <div class="sec-lbl">Coaching Library</div>
+  <div style="padding:0 16px 10px;font-size:13px;color:var(--muted2);line-height:1.6">5 modules by Cess Nyoni — Sheffield Wednesday, UEFA B Licence.</div>
+  <div id="edu-list"></div>
+</div>
+
+<!-- COACH STAGE -->
+<div class="screen" id="screen-cstage">
+  <div class="hdr"><button class="back" onclick="navTo('edu')">←</button><div class="hdr-title" id="cstage-hdr">Stage</div><div style="width:32px"></div></div>
+  <div id="cstage-content"></div>
+</div>
+
+<!-- COACH MODULE -->
+<div class="screen" id="screen-cmod">
+  <div class="hdr"><button class="back" id="cmod-back-btn">←</button><div class="hdr-title" id="cmod-hdr">Module</div><div style="width:32px"></div></div>
+  <div id="cmod-content"></div>
+</div>
+
+<!-- LESSON -->
+<div class="screen" id="screen-lesson">
+  <div class="hdr"><button class="back" onclick="navTo('edu')">←</button><div class="hdr-title">Academy</div><div style="width:32px"></div></div>
+  <div id="lesson-content"></div>
+</div>
+
+<!-- SESSIONS -->
+<div class="screen" id="screen-sessions">
+  <div class="hdr"><div class="hdr-logo">CKN</div><div class="hdr-title">Sessions</div><div style="width:32px"></div></div>
+  <button class="btn-add" onclick="openLogSession()">＋ Log Session</button>
+  <div id="session-list"></div>
+</div>
+
+<!-- PARENTS -->
+<div class="screen" id="screen-parents">
+  <div class="hdr"><div class="hdr-logo">CKN</div><div class="hdr-title">Parents</div><div style="width:32px"></div></div>
+  <div style="padding:16px 16px 8px"><div style="font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:700;margin-bottom:4px">Parent Messages</div><div style="font-size:13px;color:var(--muted2)">Tap Copy — paste into WhatsApp.</div></div>
+  <div id="parents-content"></div>
+</div>
+
+<!-- SETTINGS -->
+<div class="screen" id="screen-settings">
+  <div class="hdr"><div class="hdr-logo">CKN</div><div class="hdr-title">Settings</div><div style="width:32px"></div></div>
+  <div style="padding:16px" id="settings-content"></div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <button class="ni active" onclick="navTo('home')"><span class="ni-ico">⊞</span>Home</button>
+  <button class="ni" onclick="navTo('squad')"><span class="ni-ico">👥</span>Squad</button>
+  <button class="ni" onclick="navTo('drills')"><span class="ni-ico">⚽</span>Drills</button>
+  <button class="ni" onclick="navTo('plan')"><span class="ni-ico">📅</span>Plan</button>
+  <button class="ni" onclick="navTo('edu')"><span class="ni-ico">🎓</span>Educate</button>
+  <button class="ni" onclick="navTo('parents')"><span class="ni-ico">👪</span>Parents</button>
+</nav>
+
+<!-- MODALS -->
+<div class="modal" id="modal-player">
+  <div class="mbox">
+    <div class="mhandle"></div>
+    <div class="mtitle">Add Player</div>
+    <div class="fgrp"><label class="flbl">Full Name</label><input class="finp" id="np-name" type="text" placeholder="e.g. Tendai Moyo"></div>
+    <div class="fgrp"><label class="flbl">Age</label><input class="finp" id="np-age" type="number" placeholder="e.g. 10" min="5" max="18"></div>
+    <div class="fgrp"><label class="flbl">Position</label>
+      <select class="finp" id="np-pos">
+        <option value="">Select position</option>
+        <option>ST</option><option>CF</option><option>CAM</option><option>LW</option><option>RW</option>
+        <option>CM</option><option>CDM</option><option>LB</option><option>RB</option><option>CB</option><option>GK</option>
+      </select>
+    </div>
+    <div class="fgrp"><label class="flbl">Focus areas (max 3)</label><div class="tags" id="np-focus"></div></div>
+    <button class="btn-gold" onclick="saveNewPlayer()">Add Player</button>
+    <button class="btn-ghost" onclick="closeModal('modal-player')">Cancel</button>
+  </div>
+</div>
+
+<div class="modal" id="modal-session">
+  <div class="mbox">
+    <div class="mhandle"></div>
+    <div class="mtitle">Log Session</div>
+    <div class="fgrp"><label class="flbl">Date</label><input class="finp" id="ss-date" type="date"></div>
+    <div class="fgrp"><label class="flbl">Duration (mins)</label><input class="finp" id="ss-dur" type="number" placeholder="60"></div>
+    <div class="fgrp"><label class="flbl">Drill used</label><select class="finp" id="ss-drill"><option value="">Select drill</option></select></div>
+    <div class="fgrp"><label class="flbl">Theme</label><input class="finp" id="ss-theme" placeholder="e.g. Ball mastery and first touch"></div>
+    <div class="fgrp"><label class="flbl">Attendance</label><div class="att-grid" id="ss-attend"></div></div>
+    <div class="fgrp"><label class="flbl">Notes</label><textarea class="finp" id="ss-notes" placeholder="What went well?"></textarea></div>
+    <button class="btn-gold" onclick="saveSession()">Save Session</button>
+    <button class="btn-ghost" onclick="closeModal('modal-session')">Cancel</button>
+  </div>
+</div>
+
+<div class="modal" id="modal-assign">
+  <div class="mbox" id="assign-modal-content"><div class="mhandle"></div></div>
+</div>
+
+<script>
+const FOCUS=['Ball Mastery','First Touch','Dribbling','Passing','Finishing','Defending','Pace','Positioning','Awareness','Confidence','Weak Foot','Decision Making','Leadership'];
+
+const DRILLS=[
+{id:1,name:'Toe Taps & Sole Rolls',skill:'Ball Mastery',duration:10,home:true,week:'Weeks 1-2',equip:['Ball only'],desc:'The daily foundation. Every session starts here. Both feet, always.',steps:['Ball stationary. Tap top of ball alternating feet — left, right, left, right.','Add rhythm: fast 10 taps, slow 10 taps. Repeat.','Sole rolls: roll ball side to side with sole of right foot. 20 reps.','Swap to left foot sole rolls. 20 reps.','Combine all: toe taps into sole roll into toe taps. No stopping.'],tip:'This is what Ronaldo and Neymar did every single day as children. Not glamorous. Just essential. Both feet equally. Every day.',sig:'Cecil Nyoni · Sheffield Wednesday · UEFA B Licence'},
+{id:2,name:'Inside-Outside Cut',skill:'Ball Mastery',duration:10,home:true,week:'Weeks 1-2',equip:['Ball only'],desc:'Change direction sharply with both feet. The foundation of all dribbling.',steps:['Dribble slowly forward.','Cut ball inside with inside of right foot.','Immediately push it outside with outside of right foot.','Repeat: inside cut, outside cut, inside cut.','After 5 reps switch to left foot. No stopping between feet.'],tip:'Keep the ball within one step at all times. Close control means the ball is yours even under pressure.',sig:'Cecil Nyoni · Sheffield Wednesday · UEFA B Licence'},
+{id:3,name:'Stop-Start Dribbling',skill:'Ball Mastery',duration:10,home:true,week:'Weeks 1-2',equip:['Ball','2 markers (stones work)'],desc:'Explosive acceleration and sharp stopping. Builds first gear.',steps:['Place two markers 10m apart.','Dribble at walking pace to first marker.','Explosive sprint to second marker.','Sharp stop — sole of foot on ball.','Turn and repeat back. 10 reps each foot.'],tip:'The stop must be sudden. The sprint must be immediate. That gap from stopped to full speed is what beats defenders.',sig:'Cecil Nyoni · Sheffield Wednesday · UEFA B Licence'},
+{id:4,name:'Stepover to Burst',skill:'Dribbling',duration:15,home:true,week:'Weeks 3-4',equip:['Ball','1 marker'],desc:'The stepover. One of the most effective moves in football. Master it.',steps:['Ball stationary. Step right foot over ball from outside to inside.','Step left foot over ball from outside to inside.','That is one stepover. Do 3 in a row.','After 3 stepovers burst past the marker with right foot.','10 reps each side. Increase speed every 2 reps.'],tip:'The stepover only works if the burst is real. Slow stepover into slow run fools nobody. Commit to the acceleration.',sig:'Cecil Nyoni · Sheffield Wednesday · UEFA B Licence'},
+{id:5,name:'Body Feint',skill:'Dribbling',duration:15,home:true,week:'Weeks 3-4',equip:['Ball','1 marker'],desc:'Drop the shoulder. Shift the weight. Go the other way.',steps:['Approach marker at jogging pace.','Drop your right shoulder hard — lean right.','Drive off left foot — go LEFT.','Repeat approaching from other side.','Add ball after 5 reps. 10 reps each direction.'],tip:'The defender follows your shoulder not your feet. Make the shoulder drop violent. Then explode the other way.',sig:'Cecil Nyoni · Sheffield Wednesday · UEFA B Licence'},
+{id:6,name:'1v1 Channel',skill:'Dribbling',duration:20,home:false,week:'Weeks 3-4',equip:['Ball','4 markers','2 Players'],desc:'Beat a real defender. This is where the work becomes real.',steps:['Mark a channel 4m wide, 15m long.','Attacker starts with ball at one end.','Defender starts 3m ahead.','Attacker tries to dribble through far end.','Defender tries to stop them. 10 rounds each.'],tip:'Use the width of the channel. Take the defender to one side before going the other. Space is your weapon.',sig:'Cecil Nyoni · Sheffield Wednesday · UEFA B Licence'},
+{id:7,name:'Wall Passing — Both Feet',skill:'Passing',duration:15,home:true,week:'Weeks 5-6',equip:['Ball','Wall'],desc:'The best passing drill that exists. No partner needed. Both feet every rep.',steps:['Stand 4m from a wall.','Pass with inside of right foot. Control return with LEFT foot.','Pass with inside of left foot. Control return with RIGHT foot.','Never use the same foot twice in a row.','5 mins slow. 5 mins fast. No stopping.'],tip:'15 minutes a day against a wall builds more passing quality than any team drill. Every top player learned this way.',sig:'Cecil Nyoni · Sheffield Wednesday · UEFA B Licence'},
+{id:8,name:'First Touch Direction',skill:'First Touch',duration:15,home:true,week:'Weeks 5-6',equip:['Ball','Partner or Wall'],desc:'Every first touch must go somewhere. Not stop. Go somewhere.',steps:['Partner throws ball to you from 5m.','Before ball arrives — decide: left or right.','Touch ball in that direction with inside of foot.','Do NOT look at ball. Look where the space is.','10 reps each direction. Alternate feet.'],tip:'A first touch that goes nowhere gives the defender time. A first touch into space gives you time. That difference is everything.',sig:'Cecil Nyoni · Sheffield Wednesday · UEFA B Licence'},
+{id:9,name:'Rondo 3v1',skill:'Passing',duration:15,home:false,week:'Weeks 5-6',equip:['Ball','4 Players'],desc:"Cruyff's foundation. Possession under pressure. Run this every single session.",steps:['3 players form a triangle roughly 4m apart.','1 player in the middle tries to win the ball.','Outer 3 keep possession. Maximum 2 touches.','If middle wins ball — player who lost it goes in middle.','Progress to 1 touch after 5 minutes.'],tip:'The player who loses it always goes in the middle. That consequence matters. It teaches responsibility for every touch.',sig:'Cecil Nyoni · Sheffield Wednesday · UEFA B Licence'},
+{id:10,name:'Passing Pairs — Move After Every Pass',skill:'Passing',duration:15,home:false,week:'Weeks 5-6',equip:['Ball','2 Players','4 markers'],desc:'Pass and move. The most important combination in football.',steps:['Two players 10m apart with 2 markers each side of them.','Player A passes to B — A immediately runs to either side marker.','B controls, passes back to where A has moved.','Never stand still after a pass.','2 minutes then switch roles. 4 sets.'],tip:'Standing still after a pass kills attacking play. Movement after the pass is the habit that creates it.',sig:'Cecil Nyoni · Sheffield Wednesday · UEFA B Licence'},
+{id:11,name:'2v1 Attack',skill:'Decision Making',duration:20,home:false,week:'Weeks 7-8',equip:['Ball','3 Players','Markers'],desc:'When to pass, when to go. The most important decision in football.',steps:['2 attackers vs 1 defender. 20m wide, 15m deep.','Attacker with ball drives at defender.','If defender commits — play the pass.','If defender drops — go alone.','10 rounds. Rotate defender. No instructions from coach.'],tip:'Never tell them what to do. Ask after: "What did you see?" The decision has to be theirs. That is the whole point.',sig:'Cecil Nyoni · Sheffield Wednesday · UEFA B Licence'},
+{id:12,name:'Scan Before You Receive',skill:'Decision Making',duration:15,home:false,week:'Weeks 7-8',equip:['Ball','4+ Players'],desc:'See the game before the ball arrives. This is football IQ.',steps:['Set up a passing pattern — 4 players in a square.','Before each player receives — they must look over BOTH shoulders.','Coach stands behind players and holds up fingers.','Player must say how many fingers BEFORE touching ball.','No touch allowed without scanning first.'],tip:'The player who knows where everyone is before the ball arrives makes every decision faster. Build this habit from age 6.',sig:'Cecil Nyoni · Sheffield Wednesday · UEFA B Licence'},
+{id:13,name:'Transition — Win It, Attack It',skill:'Decision Making',duration:20,home:false,week:'Weeks 7-8',equip:['Ball','6 Players','Markers'],desc:'Win the ball — what happens in the next 5 seconds is everything.',steps:['3v3 in 25x20m area.','Normal play. When team wins ball — they have 5 seconds to score.','If no shot in 5 seconds — ball goes back to other team.','Coach counts out loud: 1, 2, 3, 4, 5.','10 minutes. Every player attacks immediately after winning ball.'],tip:'Most goals come within 6 seconds of winning possession. Train that instinct from age 8.',sig:'Cecil Nyoni · Sheffield Wednesday · UEFA B Licence'},
+{id:14,name:'1-Touch Wall Pass',skill:'Speed of Play',duration:15,home:true,week:'Weeks 9-10',equip:['Ball','Wall'],desc:'No second touch allowed. Forces the brain to work before the ball arrives.',steps:['Stand 3m from a wall.','Pass with right foot. Immediately pass back with left. ONE touch only.','No pausing. Ball must go back immediately.','If ball gets away — restart. No frustration.','3 minutes. Rest. 3 minutes. Rest. 3 minutes.'],tip:'When this feels easy at 3m, move to 4m. Then 5m. The distance forces faster thinking.',sig:'Cecil Nyoni · Sheffield Wednesday · UEFA B Licence'},
+{id:15,name:'2-Touch Maximum Game',skill:'Speed of Play',duration:25,home:false,week:'Weeks 9-10',equip:['Ball','6-8 Players','Markers'],desc:'Constraints force quality. Two touches maximum. No exceptions.',steps:['4v4 in 25x20m. Cone goals.','Maximum 2 touches for every player on every possession.','If player takes 3 touches — ball goes to other team.','No offsides. Play continuous.','Coach enforces strictly. Trust the constraint.'],tip:'The first 5 minutes will be a mess. By minute 15 the team will be moving and thinking faster than they ever have.',sig:'Cecil Nyoni · Sheffield Wednesday · UEFA B Licence'},
+{id:16,name:'Juggling — Both Feet',skill:'Ball Mastery',duration:10,home:true,week:'Weeks 1-2',equip:['Ball only'],desc:'Ball familiarity. Soft touch. Both feet. Count your record every session.',steps:['Start with ball in hands. Drop and catch before it bounces twice.','Progress: drop, one kick up, catch.','Progress: two kick ups before catch.','Alternate feet: right, left, right, left.','Count your record. Aim to beat it every session.'],tip:'Do not aim for 100 on day one. Aim for 3. Then 5. Then 10. The number does not matter — the daily habit does.',sig:'Cecil Nyoni · Sheffield Wednesday · UEFA B Licence'},
+{id:17,name:'3v3 Free Play',skill:'Game',duration:25,home:false,week:'Weeks 1-2',equip:['Ball','6 Players','Markers'],desc:"No instructions. Just play. The game is the best teacher.",steps:['3v3. Small pitch. Cone goals or stones.','No rules except no hands.','Coach does not shout instructions.','Let them solve problems themselves.','After 10 mins: ask one question to everyone. Then play again.'],tip:'Your job in this game is to watch and learn. Who makes decisions? Who hides? Who leads? That information is gold.',sig:'Cecil Nyoni · Sheffield Wednesday · UEFA B Licence'},
+{id:18,name:'4v4 to Small Goals',skill:'Game',duration:25,home:false,week:'Weeks 3-4',equip:['Ball','8 Players','Markers'],desc:'More players, more decisions. Still small. Still intense.',steps:['4v4. 30x20m pitch. Small cone goals each end.','No goalkeeper. Both teams attack and defend.','Goal only counts if scored from inside the box area.','Rotate players every 5 minutes.','Coach pauses once only — one question, restart.'],tip:'Watch which players attack the space and which ones wait for it. That is the difference between football IQ and just running.',sig:'Cecil Nyoni · Sheffield Wednesday · UEFA B Licence'},
+{id:19,name:'Rondo with Transition',skill:'Game',duration:20,home:false,week:'Weeks 7-8',equip:['Ball','8 Players','Markers'],desc:'Possession becomes attack instantly. The full game in miniature.',steps:['6 outside, 2 inside a 12x12m grid.','Outer players keep ball. Max 2 touches.','When inside player wins ball — they break out and attack a mini goal 15m away.','Outer team defends immediately.','4-minute rounds. Rotate the 2 inside players.'],tip:'From keeping possession to attacking in under one second. That is modern football. Build it from age 6.',sig:'Cecil Nyoni · Sheffield Wednesday · UEFA B Licence'},
+{id:20,name:'5v5 Position Rotation',skill:'Game',duration:30,home:false,week:'Weeks 11-12',equip:['Ball','10 Players','Markers'],desc:'Every player plays everywhere. La Masia rule. No exceptions.',steps:['5v5. Proper small pitch.','Every 5 minutes — coach calls rotation.','Players shift positions. No one stays in same position.','No complaining. Everyone everywhere.','At end: ask each player which position felt hardest and why.'],tip:'The player who has played every position understands every teammate. That understanding cannot be taught. It must be experienced.',sig:'Cecil Nyoni · Sheffield Wednesday · UEFA B Licence'},
+{id:21,name:'Winning Scenario Game',skill:'Game',duration:20,home:false,week:'Weeks 11-12',equip:['Ball','8-10 Players','Markers'],desc:'Perform under pressure. This is academy preparation.',steps:['Set up a 5v5 game.','One team starts losing 2-0 with 8 minutes left.','They must come back.','Winning team must hold on.','Repeat with roles reversed.'],tip:'The fear of losing is real. Training in these scenarios means when it happens in a real game — they have been here before.',sig:'Cecil Nyoni · Sheffield Wednesday · UEFA B Licence'},
+{id:22,name:'Full Skill Challenge Routine',skill:'Ball Mastery',duration:10,home:true,week:'Weeks 11-12',equip:['Ball only'],desc:'Everything from 12 weeks combined. The full daily routine.',steps:['2 mins: toe taps and sole rolls — both feet.','2 mins: inside-outside cuts — both feet.','2 mins: stepovers — both feet.','2 mins: first touch against wall — alternating feet.','2 mins: juggling — count your record and beat it.'],tip:'This routine takes 10 minutes. Every player in Sizinda doing this daily for one year — the difference will be visible to every scout.',sig:'Cecil Nyoni · Sheffield Wednesday · UEFA B Licence'}
+];
+const PLAN_PHASES=[
+{id:'ph1',weeks:'Weeks 1-2',name:'Ball Mastery & Confidence',color:'#5b9cf6',obj:'Comfort on the ball. Remove fear. Build the love.',cues:['Keep the ball close','Use both feet','No wrong answer'],drills:[{n:'Toe Taps & Sole Rolls',d:'10 mins daily. Both feet. Fast then slow. Non-negotiable.',home:true,id:1},{n:'Inside-Outside Cut',d:'Dribble in small space. Change direction. Both feet.',home:true,id:2},{n:'Stop-Start Dribbling',d:'Explosive start, sharp stop. Builds first gear.',home:true,id:3},{n:'Juggling — Both Feet',d:'Count your record. Beat it next session.',home:true,id:16},{n:'3v3 Free Play',d:'No instructions. Just play. Coach watches and learns.',home:false,id:17}]},
+{id:'ph2',weeks:'Weeks 3-4',name:'Dribbling & 1v1 Dominance',color:'#4caf78',obj:'Beat players confidently. Attack space. Be positive.',cues:['Attack space','Be positive','Commit to the move'],drills:[{n:'Stepover to Burst',d:'3 stepovers then explosive burst past marker. 10 reps each foot.',home:true,id:4},{n:'Body Feint',d:'Drop shoulder, shift weight, drive opposite direction.',home:true,id:5},{n:'1v1 Channel',d:'Apply the moves vs a real defender. No coaching — just do.',home:false,id:6},{n:'4v4 to Small Goals',d:'Encourage attacking mindset. Reward skill attempts.',home:false,id:18}]},
+{id:'ph3',weeks:'Weeks 5-6',name:'Passing & First Touch',color:'#F5A623',obj:'Clean technique under light pressure. Quick decisions.',cues:['Open your body','First touch away from pressure','Move after every pass'],drills:[{n:'Wall Passing — Both Feet',d:'5m from wall. Pass with right, control with left. Alternate. 5 mins.',home:true,id:7},{n:'First Touch Direction',d:'Receive — push it into space not back to pressure.',home:true,id:8},{n:'Rondo 3v1',d:'3 keep ball from 1. Max 2 touches. Rotate defender.',home:false,id:9},{n:'Passing Pairs — Move After',d:'Partners 10m apart. Move to a new position after every pass.',home:false,id:10}]},
+{id:'ph4',weeks:'Weeks 7-8',name:'Decision Making',color:'#e05252',obj:'When to dribble vs pass. Read the game. Act fast.',cues:['Can you go alone?','Where is the space?','What do you see?'],drills:[{n:'Scan Before You Receive',d:'Look over BOTH shoulders before every touch. No exceptions.',home:false,id:12},{n:'2v1 Attack',d:'2 attackers vs 1 defender. Read when to pass, when to go.',home:false,id:11},{n:'Transition Game',d:'Win the ball — attack within 5 seconds. Coach counts out loud.',home:false,id:13},{n:'Rondo with Transition',d:'Keep ball then immediately attack when you win it.',home:false,id:19}]},
+{id:'ph5',weeks:'Weeks 9-10',name:'Speed of Play',color:'#9b59b6',obj:'Play faster under pressure. Think before the ball arrives.',cues:['Think before you get the ball','Play quick, not rushed','One touch when you can'],drills:[{n:'1-Touch Wall Pass',d:'No second touch allowed. Forces pre-planning.',home:true,id:14},{n:'2-Touch Maximum Game',d:'Maximum 2 touches. No exceptions. Trust the constraint.',home:false,id:15},{n:'Rondo 3v1',d:'Now mandatory 1 touch. Speed the game up.',home:false,id:9}]},
+{id:'ph6',weeks:'Weeks 11-12',name:'Game Realism & Academy Prep',color:'#e67e22',obj:'Match-like scenarios. Position rotation. Perform under pressure.',cues:['Play like it matters','Every position is yours','Show them what you can do'],drills:[{n:'Full Skill Challenge Routine',d:'Everything from weeks 1-10 combined. 10 mins daily. No shortcuts.',home:true,id:22},{n:'5v5 Position Rotation',d:'Everyone plays everywhere. La Masia rule.',home:false,id:20},{n:'Winning Scenario Game',d:'Start losing 2-0 with 8 mins left. Must come back.',home:false,id:21}]}
+];
+
+const SESSION_TEMPLATE=[
+{n:1,phase:'Ball Mastery',note:'Always include weak foot focus',time:'10 min'},
+{n:2,phase:'Technical Drill',note:'Based on weekly theme',time:'15 min'},
+{n:3,phase:'Opposed Practice',note:'1v1, 2v1, or small game',time:'15 min'},
+{n:4,phase:'Game',note:'3v3, 4v4, or 5v5 — free play',time:'30 min'},
+{n:5,phase:'Challenge',note:'Skill competition or fun activity',time:'5 min'}
+];
+
+const COACH_STAGES=[
+{id:'roots',num:1,name:'Roots',label:'L1 · Foundation Coach',tag:'Ages 6-12 · 2 weeks',desc:'A teacher first. Technically confident footballers second. Your players will remember you long after they forget any drill.',
+modules:[
+{id:'cr1',name:'Football gave you something',tag:'Understanding why you are here',body:'Every coach arrives with a story. Maybe football kept you off the streets. Maybe it gave you your first feeling of belonging. Before you can give anything to a player, you must understand what the game gave you. That is where your coaching begins.',cruyff:'Quality without results is pointless. Results without quality is boring.',reflection:['What did football give you that nothing else could?','What is the one feeling you want every player you coach to experience?','Why did you say yes to coaching this group?'],pills:['Purpose','Coaching identity','Self-awareness']},
+{id:'cr2',name:'The child before the player',tag:'Seeing the human first',body:'When a young person stands in front of you at training, they have already had a full day. Maybe they are hungry. Maybe something happened at home. You cannot develop a footballer from a closed heart. Your first job every session is to make every child feel safe, seen, and welcome before you touch a single ball.',cruyff:'Every disadvantage has its advantage.',reflection:['How do you greet each player when they arrive?','Which player do you know the least about as a person?','What does a child who feels unsafe look like on a football pitch?'],pills:['Child development','Emotional safety','Presence']},
+{id:'cr3',name:'Your voice is the environment',tag:'What you say and how you say it',body:'In Sizinda, you are the environment. Research shows that a child remembers their coach\'s words for decades. The tone you use in week one shapes how that player relates to challenge, to failure, and to other people — long after they have stopped playing.',cruyff:'Playing football is very simple, but playing simple football is the hardest thing there is.',reflection:['When things go wrong, what does your voice do?','Think of a coach who made you feel small. What did they do?','Think of a coach who made you feel capable. What did they do differently?'],pills:['Communication','Body language','Emotional intelligence']},
+{id:'cr4',name:'The game is the greatest teacher',tag:'Get out of the way and let it teach',body:'Cruyff believed the best teacher in football is the game itself. Not the coach talking from the touchline. The game — where decisions happen in real time, where mistakes have consequences, and where joy is immediate. Your most important coaching habit: designing the right game, then letting it teach.',cruyff:'I always threw the ball away quickly because I did not want to get hit.',reflection:['In your last session, how much time did players spend standing still?','When you were learning football — was it on a formal pitch or playing freely?','What is the difference between a player told what to do and one who discovers it?'],pills:['Game-based learning','Decision making','Play over instruction']},
+{id:'cr5',name:'You are building a legacy',tag:'The coach you are becoming',body:'La Masia did not just produce players. It produced a culture that outlasted every individual. Xavi coached the way he was coached. Guardiola built his philosophy on the principles Cruyff planted in him at age 13. You are doing the same in Sizinda. This is not just a training session. This is a generational project.',cruyff:'In my teams, the goalkeeper is the first attacker and the striker is the first defender.',reflection:['In 10 years, what do you want a player to say they learned from you?','What kind of coach does Sizinda need right now — and how close are you?','What is one thing you will do differently from tomorrow?'],pills:['Legacy','Culture building','Generational impact']}
+]},
+{id:'soil',num:2,name:'Soil',label:'L2 · Development Coach',tag:'Ages 12-15 · 4 weeks',desc:'Shifts from building technique to applying it tactically. Players still lead. Positions introduced.',
+modules:[
+{id:'cs1',name:'Space is everything',tag:'The invisible resource all football is built on',body:'Most new coaches watch the ball. Great coaches watch the space. Every decision a player makes — where to run, when to pass, when to hold — is a decision about space. Creating it. Finding it. Protecting it. Cruyff built his entire philosophy on this one idea.',cruyff:'Playing football is very simple, but playing simple football is the hardest thing there is.',reflection:['Watch any game this week. Where does the space open up most often?','Think of a moment a player was in space but nobody found them. Why?','How would you explain space to a 9-year-old using something from daily life in Sizinda?'],pills:['Spatial awareness','Positioning','Game intelligence']},
+{id:'cs2',name:'The four moments',tag:'Football is always in one of four states',body:'At any point in a match, your team is in one of four moments: in possession, out of possession, transition after winning the ball, transition after losing it. When your players understand the four moments, they stop being reactive. They start reading the game before it happens. That is football intelligence.',cruyff:'Before I make a mistake, I do not make that mistake.',reflection:['Think of the last goal your team conceded. Which moment did it happen in?','Which of the four moments do you spend most time coaching? Which do you ignore?','How do you help a player good in possession but who loses focus when the team loses the ball?'],pills:['Tactical understanding','Game moments','Reading the game']},
+{id:'cs3',name:'Every player, every position',tag:'The La Masia principle that changes everything',body:'La Masia had one rule: before the age of 12, no child was told they were a striker or a defender. They played everywhere. A winger who understands what a centre-back needs becomes a winger who runs the right channel at the right moment. Football intelligence is whole-game understanding, not position-specific.',cruyff:'If you have the ball you must make the field as large as possible and if you do not have the ball you must make it as small as possible.',reflection:['Have you put a player in one position all season? What did they miss?','Which position do you understand least? How might that affect those players?','How would your best striker play differently after three sessions as a goalkeeper?'],pills:['Player development','Positional play','Holistic coaching']},
+{id:'cs4',name:'Questions over instructions',tag:'The Socratic method on a football pitch',body:'Most coaches coach by telling. Great coaches coach by asking. The player who is told the answer never truly owns it. The player who discovers it never forgets it. This is about retraining your coaching voice — the single most important habit that separates a CKN coach from every other coach in Sizinda.',cruyff:'I always gave the team the solution — but I wanted them to find it themselves first.',reflection:['In your last session, how many times did you tell compared to ask?','What question could you ask a switched-off player this week to re-engage them?','What is the difference between a quiet player who is thinking deeply and one who is disengaged?'],pills:['Questioning','Guided discovery','Player ownership']},
+{id:'cs5',name:'Football in your community',tag:'Seeing the game through Zimbabwean eyes',body:'Every country has its own football intelligence. Brazil has the ginga. Spain has the rondo. Zimbabwe has its own — the courage, the physical intensity, the spontaneous creativity that comes from playing without coaches directing every moment. Do not copy the FA or La Masia. Understand what already exists in your players and build on it.',cruyff:'There is only one ball, so you need to have it.',reflection:['What do your players do naturally — without coaching — that you should be protecting?','What does football mean to the community in Sizinda?','If someone watched your team and had to guess where they came from — what would give it away?'],pills:['Identity','Community','Contextual intelligence']}
+]},
+{id:'growth',num:3,name:'Growth',label:'L3 · Advanced Coach',tag:'Prepares players for senior · 6 weeks',desc:'Prepares players for senior, scholarship and professional football. Development still leads.',
+modules:[
+{id:'cg1',name:'Planning your first block',tag:'A simple framework built for your reality',body:'A block of learning is a period of sessions — usually four to eight weeks — where you focus on one main theme. Not a different topic every session. One theme, explored from multiple angles, until your players genuinely understand it. Your block does not have to be sophisticated. It has to be honest — chosen because your players genuinely need it.',cruyff:'Technique is not being able to juggle a ball 1,000 times. Then you can work in the circus.',reflection:['What is the one thing your group most needs right now?','What would a four-week block on that theme look like, one session at a time?','What resources do you actually have — and how do you build the best session with exactly those?'],pills:['Session planning','Block structure','Resource-aware coaching']},
+{id:'cg2',name:'Managing the player ahead and behind',tag:'No group is ever the same level',body:'In every group you will ever coach, there will be one who seems like they already know everything — and one who cannot grasp the simplest thing. Both are your responsibility. La Masia managed this not by separating players but by designing sessions where the level of challenge could flex within the same game.',cruyff:'Every disadvantage has its advantage.',reflection:['Name the most advanced player. Are you challenging them enough?','Name the player who finds it hardest. When did you last have a private one-to-one with them?','How do you ensure the player who is behind never feels humiliated in front of peers?'],pills:['Differentiation','Inclusion','Individual development']},
+{id:'cg3',name:'Connecting training to match day',tag:'The full loop — game to session to game',body:'The greatest failure in grassroots coaching is the gap between what happens in training and what happens on match day. Cruyff designed every Barcelona session around the problems he saw in the previous match. Training was always a direct response to the game. The loop was never broken.',cruyff:'After the game is before the game.',reflection:['Think of your last three sessions. Do they connect to each other?','What did your last match tell you that you have not addressed in training?','How do you currently close the loop between game day and the next session?'],pills:['Game-to-training loop','Match analysis','Session continuity']}
+]},
+{id:'legacy',num:4,name:'Legacy',label:'L4 · Coach Educator',tag:'Develops coaches · 12 weeks',desc:'Develops coaches, not players. Safeguards the methodology across clubs and educators.',
+modules:[
+{id:'cl1',name:'The next coach is already in your group',tag:'Seeing future coaches before they see themselves',body:'In your group right now, there is a player who organises teammates without being asked. Who asks questions you did not expect. Who stays behind to figure something out. That player is your next coach. They do not know it yet. But you do — and what you do with that knowledge is one of the most important decisions you will make.',cruyff:'I was always a player who thought about the game first. That is what made me a coach before I ever stopped playing.',reflection:['Who in your current group has the instincts of a future coach?','What are you doing to nurture that in them?','Was there a moment someone saw something in you before you saw it yourself?'],pills:['Coach development','Talent identification','Succession']},
+{id:'cl2',name:'Running your first coach education session',tag:'Teaching another coach what you know',body:'There is a principle in education that says you do not truly understand something until you can teach it. The moment you sit down with another coach and share what you have learned — you will discover exactly which parts of your knowledge are deep and which are still borrowed.',cruyff:'The best coaches are the ones who can make complex things simple.',reflection:['What is the single most important thing you have learned that another coach needs to hear?','How will you share it as a peer — not a teacher?','What do you hope they feel after the conversation?'],pills:['Peer coaching','Coach education','Knowledge sharing']},
+{id:'cl3',name:'Graduation — and what comes next',tag:'You are not finished. You are ready.',body:'Graduating from CKN Coach Education does not mean you have arrived. It means you have built the foundation from which real coaching begins. You are a CKN coach now. From the dust pitch. For the players in front of you. With the philosophy of the greatest football thinker who ever lived — made real in Sizinda.',cruyff:'I always say that football is not about what you know. It is about what you understand.',reflection:['Who are you as a coach today compared to when you started Stage 1?','What is the single most important thing this programme gave you?','What do you want the next CKN coach who starts this to feel when they reach this moment?'],pills:['Graduation','Continuous learning','CKN legacy']}
+]}
+];
+const MODULES=[
+{id:'m1',icon:'🔑',title:'The 3 Pillars of Coaching',sub:'What makes a great coach',lessons:[
+{title:'Your role as a coach',content:[{type:'p',text:'A coach is not just someone who runs drills. A coach is a teacher, a mentor, a psychologist, and a role model. Your players will remember you long after they forget any specific drill you taught them.'},{type:'h',text:'The 3 pillars'},{type:'list',items:['Technical — teaching the skills of the game','Tactical — teaching players when and why to use those skills','Personal — developing confidence, discipline, and character']},{type:'p',text:'Most youth coaches only focus on Technical. The coaches who produce great players pay equal attention to all three. That is the CKN standard.'}],quiz:{q:'What is the most important pillar for long-term player development?',opts:['Technical skills only','All three equally','Tactical only'],ans:1}},
+{title:'Creating a safe training environment',content:[{type:'p',text:'Players learn best when they feel safe to make mistakes. If a player is afraid of being shouted at for a missed pass, they will stop trying difficult things. That is how development dies.'},{type:'h',text:'Rules for your training ground'},{type:'list',items:['No mockery — players must support each other','Mistakes are learning, not failure','Every player gets equal time, regardless of ability','Your voice is a coaching tool, not a weapon']},{type:'h',text:'The 4:1 rule'},{type:'p',text:'For every correction you give a player, give 4 positive acknowledgements. This is not about being soft — it is about building the confidence that allows a player to take coaching on board.'}],quiz:{q:'For every 1 correction you give, how many positive acknowledgements should follow?',opts:['1','2','4'],ans:2}}
+]},
+{id:'m2',icon:'⚽',title:'Ball Mastery First',sub:'Why technique is the foundation of everything',lessons:[
+{title:'The La Masia principle',content:[{type:'p',text:'Johan Cruyff built La Masia on one belief: technique is not a skill you develop alongside tactics. It is the foundation everything else is built on. Without it, nothing else works.'},{type:'p',text:'At CKN we coach players between 6 and 12 in the Foundation Phase. This is the only window you have. The patterns you build now will stay with them for the rest of their playing lives.'},{type:'h',text:'The CKN 5 non-negotiables'},{type:'list',items:['Ball Mastery — thousands of quality touches every session','Both Feet — equal development, always','First Touch — every control sets up the next action','1v1 Ability — confidence to take players on','Love of the Ball — joy first, instruction second']}],quiz:{q:'At what age is the technical development window most critical?',opts:['15-18','6-12','5-7 only'],ans:1}},
+{title:'Ball mastery in every session',content:[{type:'p',text:'At La Masia, players worked alone with a ball for 15 minutes before the session began. Not as a warm-up. As the foundation of everything. Start every CKN session this way.'},{type:'h',text:'The daily 10-minute routine'},{type:'list',items:['2 mins toe taps — both feet','2 mins sole rolls — both feet','2 mins inside-outside cuts — both feet','2 mins juggling — count the record','2 mins wall passing — alternate feet']},{type:'h',text:'For Zimbabwe'},{type:'p',text:'No equipment needed. One ball. This works on a dust pitch in Sizinda exactly as it works at La Masia. That is the genius of ball mastery — it travels anywhere.'}],quiz:{q:'What is the primary purpose of ball mastery in every session?',opts:['Warm up muscles','Build hundreds of ball contacts with both feet','Give coach time to set up cones'],ans:1}}
+]},
+{id:'m3',icon:'🔄',title:"The Rondo",sub:"Cruyff's philosophy in one drill",lessons:[
+{title:'The Rondo is not a drill. It is a belief.',content:[{type:'p',text:'Every session at La Masia, at Barcelona, at every club Cruyff influenced, started with the Rondo. Not because it is a good warm-up. Because it contains everything Cruyff believed about football in one exercise.'},{type:'h',text:'What the Rondo teaches'},{type:'list',items:['Playing under pressure','Movement off the ball','One and two touch play','Communication','Composure']},{type:'p',text:'Guardiola said: "The Rondo is the basis of our game." Not a drill. The basis of the game. Run it every session without exception.'}],quiz:{q:'What is the most important thing the Rondo teaches?',opts:['Fitness and stamina','Playing and deciding under pressure','Shooting technique'],ans:1}},
+{title:'Running a perfect Rondo',content:[{type:'h',text:'Basic setup'},{type:'list',items:['5 or 6 players on outside of circle — 8 metres across','1 player in the middle as defender','Outer players keep the ball away — max 2 touches','When defender wins it — player who lost it goes in middle','Play 10 minutes continuous']},{type:'h',text:'The coaching question after every Rondo'},{type:'p',text:'"Why did you lose the ball?" The answer should always be: I held it too long. I did not move. My touch was poor. In the Rondo the fault is always with the player on the ball. That accountability is part of the lesson.'}],quiz:{q:'When should you stop the Rondo to make a coaching point?',opts:['Every time there is an error','Once per session, one point only','Never'],ans:1}}
+]},
+{id:'m4',icon:'👁️',title:'Seeing the Game',sub:'Teaching players to think, not just react',lessons:[
+{title:'The player who scans wins',content:[{type:'p',text:'Cruyff said the best players are not the fastest or the strongest. They are the ones who see the most. They scan before the ball arrives. When they receive, the decision is already made.'},{type:'h',text:'How to coach scanning'},{type:'p',text:'Stand behind a player during the Rondo. If they receive without scanning — stop the drill. Ask: "What is behind you?" They will not know. That is the lesson. Do it again. This time they scan. They know. That is the difference.'},{type:'p',text:'Every time a player receives the ball they should already know their next action. If they receive and then look — they are one second behind. At academy level that one second costs possession every time.'}],quiz:{q:'When should a player decide their next action?',opts:['After receiving the ball','Before receiving the ball','Whilst the ball is at their feet'],ans:1}},
+{title:'Movement without the ball',content:[{type:'p',text:'Cruyff believed 80% of football is played without the ball. Most coaches coach only the 20%. That is why most coaches produce average players.'},{type:'h',text:'What movement without the ball means'},{type:'list',items:['Creating passing angles — moving so your teammate can always play to you','Making runs to stretch the defence','Dropping deep to receive','Moving immediately after you pass — never stand still']},{type:'p',text:'In your next 4v4, tell players they cannot touch the ball unless they have moved in the last 3 seconds. Standing still is not allowed. The first time it will be chaotic. By the third session the movement becomes natural.'}],quiz:{q:'What percentage of football does Cruyff say is played without the ball?',opts:['20%','50%','80%'],ans:2}}
+]},
+{id:'m5',icon:'🛡️',title:'Safeguarding',sub:'Protecting every child in your squad',lessons:[
+{title:'Your responsibility to every child',content:[{type:'p',text:'Every child under 18 in your squad is your responsibility the moment they step onto your training ground. Safeguarding is not optional — it is the foundation of everything.'},{type:'h',text:'Basic safeguarding rules'},{type:'list',items:['Never be alone with a child — always have another adult present or visible','Never use physical punishment under any circumstances','Any injury must be recorded and reported to the parent','If a child tells you something concerning — listen. Do not investigate yourself. Report to a trusted authority.','Physical contact for technique demonstration must be appropriate, brief, and necessary only']},{type:'h',text:'CKN policy'},{type:'p',text:'Any safeguarding concern must be reported to CKN Foundation UK directly via WhatsApp. Cess and the team will advise and support. You are not alone in this.'}],quiz:{q:'If a child tells you something concerning about their home life, you should:',opts:['Investigate it yourself','Listen and report to a trusted authority','Ignore it'],ans:1}}
+]}
+];
+
+const PARENT_MSGS=[
+{title:'After a session',desc:'Send after every training session.',msg:'Hi [Parent name],\n\nThis is [Coach name] — CKN Foundation Zimbabwe.\n\n*[Child name]* trained with us today.\n\nFocus: [drill/theme]\nDuration: [X] mins\nHow they did: [your observation]\n\nNext session: [date and time]\n\nAny questions, reply here. Thank you for trusting us with your child.\n\n— CKN Foundation Zimbabwe'},
+{title:'Monthly development update',desc:'Send at end of each month.',msg:'Hi [Parent name],\n\nMonthly update for *[Child name]* — CKN Foundation.\n\nThis month we worked on: [focus areas]\n\nProgress:\n• [Skill 1] — [brief note]\n• [Skill 2] — [brief note]\n\nSessions attended: [X of Y]\n\nTo support at home: encourage [Child] to do 10 mins ball work daily — even just against a wall.\n\nThank you for your continued support.\n\n— CKN Foundation Zimbabwe'},
+{title:'Home training task',desc:'Send with the weekly home drill assignment.',msg:'Hi [Parent name],\n\nThis week *[Child name]* is working on: *[Phase name]*\n\nHome task — 10-15 mins daily:\n⚽ [Drill name]\n[Drill description]\n\nJust a ball needed — no special equipment.\n\nPlease encourage them to do this every day. This is what separates academy players.\n\n— [Coach name], CKN Foundation Zimbabwe'},
+{title:'Missed session follow-up',desc:'Send when a player misses without notice.',msg:'Hi [Parent name],\n\nWe missed *[Child name]* at training today. Hope everything is okay.\n\nNext session: [date, time, location]\n\nIf there are any issues stopping [Child] from attending, please let us know.\n\n— [Coach name], CKN Foundation Zimbabwe'},
+{title:'What is CKN? (New parents)',desc:'Send when a new player joins.',msg:'Welcome to CKN Foundation Zimbabwe.\n\n*CKN* was founded by Cecil Nyoni — ex-professional footballer (Sheffield Wednesday, Boston United, Harrogate Town), UEFA B Licence holder.\n\nWe provide professional-standard coaching and personal development — free of charge.\n\nEvery child gets a personal development plan. Same approach used in professional academies.\n\nWe ask:\n• Get your child to training on time\n• Encourage positive behaviour\n• Contact us if anything changes\n\nThank you for trusting us.\n\n— CKN Foundation Zimbabwe'}
+];
+function load(){try{const d=localStorage.getItem('ckn_v4');if(d){const p=JSON.parse(d);S={...S,...p};}}catch(e){}}
+function save(){try{localStorage.setItem('ckn_v4',JSON.stringify(S));}catch(e){}}
+
+let prevDrillScreen='drills';
+function navTo(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('screen-'+id).classList.add('active');
+  document.querySelectorAll('.ni').forEach(b=>b.classList.remove('active'));
+  const navMap={home:0,squad:1,drills:2,plan:3,edu:4,parents:5};
+  if(navMap[id]!==undefined)document.querySelectorAll('.ni')[navMap[id]].classList.add('active');
+  window.scrollTo(0,0);
+  const renders={home:renderHome,squad:renderSquad,drills:()=>renderDrills('All'),plan:renderPlan,edu:renderEdu,sessions:renderSessions,parents:renderParents,settings:renderSettings};
+  if(renders[id])renders[id]();
+}
+
+function renderHome(){
+  document.getElementById('hm-name').textContent=S.name;
+  document.getElementById('st-p').textContent=S.players.length;
+  document.getElementById('st-s').textContent=S.sessions.length;
+  const d=DRILLS[new Date().getDay()%DRILLS.length];
+  document.getElementById('today-wrap').innerHTML=`<div class="today-card"><div class="today-top"><div class="today-lbl">Today's Drill</div></div><div class="today-body"><div style="font-size:17px;font-weight:600;margin-bottom:3px">${d.name}</div><div style="font-size:12px;color:var(--muted2);margin-bottom:12px">${d.skill} · ${d.duration} mins · ${d.week}${d.home?' · 🏠 Home':''}</div><button class="btn-gold" style="font-size:14px;padding:10px" onclick="openDrill(${d.id},'home')">View drill →</button></div></div>`;
+  const recent=[...S.sessions].reverse().slice(0,3);
+  document.getElementById('hm-sessions').innerHTML=recent.length?recent.map(s=>`<div class="sentry"><div class="sdate">${s.date}</div><div class="sdrill">${s.drill}</div><div class="smeta">${s.duration||'?'} mins · ${s.present||0} present${s.theme?' · '+s.theme:''}</div></div>`).join(''):'<div style="color:var(--muted);font-size:13px;padding:8px 16px">No sessions yet.</div>';
+}
+
+function pos2badge(p){if(['ST','CF','CAM','LW','RW'].includes(p))return'b-fwd';if(['CM','CDM'].includes(p))return'b-mid';if(['CB','LB','RB','LWB','RWB'].includes(p))return'b-def';return'b-gk';}
+function ini(n){return n.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();}
+
+function renderSquad(){
+  const el=document.getElementById('player-list');
+  if(!S.players.length){el.innerHTML='<div style="color:var(--muted);font-size:14px;padding:30px 16px;text-align:center">No players yet.<br>Add your first player below.</div>';return;}
+  const p1=S.players.filter(p=>(p.age||0)<=12);
+  const p2=S.players.filter(p=>(p.age||0)>12&&(p.age||0)<=15);
+  const p3=S.players.filter(p=>(p.age||0)>15);
+  function grp(label,color,list){
+    if(!list.length)return'';
+    return`<div style="padding:12px 16px 6px;font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:${color}">${label} (${list.length})</div>`+
+    list.map(p=>{
+      const i=S.players.indexOf(p);
+      const avg=p.ratings?Math.round(Object.values(p.ratings).reduce((a,b)=>a+b,0)/Math.max(Object.values(p.ratings).length,1)*20):0;
+      return`<div class="prow" onclick="openPlayer(${i})"><div class="pav">${ini(p.name)}</div><div class="pinfo"><div class="pname">${p.name}</div><div class="pmeta">Age ${p.age||'?'} · ${(p.focus&&p.focus[0])||'General'}${avg?' · '+avg+'%':''}</div></div><div class="badge ${pos2badge(p.pos)}">${p.pos||'?'}</div></div>`;
+    }).join('');
+  }
+  el.innerHTML=grp('Phase 3 · Competitor (15+)','#4caf78',p3)+grp('Phase 2 · Footballer (12-15)','#5b9cf6',p2)+grp('Phase 1 · Technician (6-12)','#F5A623',p1);
+}
+
+function openPlayer(i){
+  const p=S.players[i];
+  const ratings=[['technique','Technique'],['pace','Pace'],['touch','Touch'],['passing','Passing'],['attitude','Attitude']];
+  const starsHtml=ratings.map(([k,lbl])=>{const v=(p.ratings&&p.ratings[k])||0;const stars=[1,2,3,4,5].map(n=>`<span class="star${n<=v?' on':''}" onclick="setRating(${i},'${k}',${n})">★</span>`).join('');return`<div class="star-row"><span class="star-lbl">${lbl}</span><div class="stars">${stars}</div></div>`;}).join('');
+  const focusTags=FOCUS.map(f=>`<span class="tag${(p.focus&&p.focus.includes(f))?' on':''}" onclick="togFocus(${i},'${f}')">${f}</span>`).join('');
+  const avg=p.ratings?Math.round(Object.values(p.ratings).reduce((a,b)=>a+b,0)/Math.max(Object.values(p.ratings).length,1)*20):0;
+  const phase=(p.age||0)<=12?'Phase 1 · The Technician':(p.age||0)<=15?'Phase 2 · The Footballer':'Phase 3 · The Competitor';
+  const phaseCol=(p.age||0)<=12?'var(--gold)':(p.age||0)<=15?'var(--blue)':'var(--green)';
+  const assigns=p.assignments||{};
+  const assignHtml=Object.keys(assigns).length?`<div style="padding:16px;border-bottom:1px solid var(--border)"><div style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:10px">Drill Assignments</div>${Object.entries(assigns).map(([phId,drillName])=>{const ph=PLAN_PHASES.find(p=>p.id===phId);return`<div style="background:var(--gold2);border:1px solid var(--gold3);border-radius:8px;padding:10px 12px;margin-bottom:8px"><div style="font-size:10px;color:var(--gold);font-weight:600;margin-bottom:3px">${ph?ph.weeks+' · '+ph.name:'Assigned'}</div><div style="font-size:13px;font-weight:600">${drillName}</div></div>`;}).join('')}</div>`:'';
+  document.getElementById('player-detail').innerHTML=`
+    <div style="background:var(--bg2);padding:20px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:14px">
+      <div style="width:54px;height:54px;border-radius:50%;background:var(--bg3);border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700;color:var(--gold);flex-shrink:0">${ini(p.name)}</div>
+      <div><div style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:700">${p.name}</div><div style="font-size:12px;color:var(--muted2)">Age ${p.age||'?'} · ${p.pos||'?'}</div><div style="font-size:11px;font-weight:600;color:${phaseCol};margin-top:2px">${phase}${avg?' · '+avg+'%':''}</div></div>
+    </div>
+    <div style="padding:16px;border-bottom:1px solid var(--border)"><div style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:12px">Development ratings</div>${starsHtml}</div>
+    <div style="padding:16px;border-bottom:1px solid var(--border)"><div style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:10px">Focus areas (max 3)</div><div class="tags">${focusTags}</div></div>
+    ${assignHtml}
+    <div style="padding:16px;border-bottom:1px solid var(--border)"><div style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:8px">Coach notes</div><textarea class="finp" id="notes-${i}" placeholder="Observations, progress, concerns...">${p.notes||''}</textarea><button class="btn-gold" style="margin-top:10px;font-size:14px;padding:11px" onclick="saveNotes(${i})">Save notes</button></div>
+    <div style="padding:16px"><button onclick="removePlayer(${i})" style="width:100%;background:rgba(224,82,82,.08);border:1px solid rgba(224,82,82,.25);color:var(--red);border-radius:10px;padding:12px;font-size:13px;font-weight:600;cursor:pointer">Remove player</button></div>`;
+  navTo('player');
+}
+
+function setRating(pi,key,val){if(!S.players[pi].ratings)S.players[pi].ratings={};S.players[pi].ratings[key]=val;save();openPlayer(pi);}
+function togFocus(pi,f){const p=S.players[pi];if(!p.focus)p.focus=[];if(p.focus.includes(f)){p.focus=p.focus.filter(x=>x!==f);}else{if(p.focus.length>=3){showToast('Max 3 focus areas');return;}p.focus.push(f);}save();openPlayer(pi);}
+function saveNotes(i){S.players[i].notes=document.getElementById('notes-'+i).value;save();showToast('Notes saved');}
+function removePlayer(i){if(confirm('Remove '+S.players[i].name+'?')){S.players.splice(i,1);save();navTo('squad');}}
+
+let addFocus=[];
+function openAddPlayer(){
+  addFocus=[];
+  ['np-name','np-age'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('np-pos').value='';
+  document.getElementById('np-focus').innerHTML=FOCUS.map(f=>`<span class="tag" onclick="togAddFocus('${f}',this)">${f}</span>`).join('');
+  document.getElementById('modal-player').classList.add('open');
+}
+function togAddFocus(f,el){if(addFocus.includes(f)){addFocus=addFocus.filter(x=>x!==f);el.classList.remove('on');}else{if(addFocus.length>=3){showToast('Max 3 focus areas');return;}addFocus.push(f);el.classList.add('on');}}
+function saveNewPlayer(){
+  const name=document.getElementById('np-name').value.trim();
+  const age=document.getElementById('np-age').value;
+  const pos=document.getElementById('np-pos').value;
+  if(!name||!age||!pos){showToast('Fill in all fields');return;}
+  S.players.push({name,age:parseInt(age),pos,focus:[...addFocus],ratings:{},notes:''});
+  save();closeModal('modal-player');renderSquad();showToast(name+' added');
+  document.getElementById('st-p').textContent=S.players.length;
+}
+
+function renderDrills(filter){
+  const skills=['All','Ball Mastery','Dribbling','Passing','First Touch','Decision Making','Speed of Play','Game'];
+  document.getElementById('drill-filters').innerHTML=skills.map(s=>`<div class="pill${s===filter?' on':''}" onclick="renderDrills('${s}')">${s}</div>`).join('');
+  const list=filter==='All'?DRILLS:DRILLS.filter(d=>d.skill===filter);
+  document.getElementById('drill-list').innerHTML=list.map(d=>`<div class="dcard" onclick="openDrill(${d.id},'drills')"><div class="dtop"><div class="dname">${d.name}</div><div class="dtime">${d.duration} min</div></div><div class="ddesc">${d.desc}</div><div class="dtags"><span class="dtag" style="color:var(--gold);border-color:rgba(245,166,35,.25)">${d.skill}</span><span class="dtag">${d.week}</span>${d.home?'<span class="dtag home-tag">🏠 Home</span>':''}</div></div>`).join('');
+}
+
+function openDrill(id,from){
+  prevDrillScreen=from||'drills';
+  document.getElementById('drill-back-btn').onclick=()=>navTo(prevDrillScreen);
+  const d=DRILLS.find(x=>x.id===id);if(!d)return;
+  document.getElementById('drill-detail').innerHTML=`<div style="font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:700;margin-bottom:4px">${d.name}</div><div style="color:var(--muted2);font-size:13px;margin-bottom:${d.home?'8px':'18px'}">${d.skill} · ${d.duration} mins · ${d.week}</div>${d.home?'<div style="display:inline-flex;align-items:center;gap:6px;background:var(--green2);border:1px solid var(--green3);border-radius:20px;padding:5px 12px;font-size:12px;font-weight:600;color:var(--green);margin-bottom:14px">🏠 Home training — just a ball needed</div>':''}<div class="dsec"><div class="dsec-lbl">What you need</div><div class="equips">${d.equip.map(e=>`<div class="equip">${e}</div>`).join('')}</div></div><div class="dsec"><div class="dsec-lbl">How to run it</div>${d.steps.map((s,i)=>`<div class="step"><div class="step-n">${i+1}</div><div class="step-t">${s}</div></div>`).join('')}</div><div class="dsec"><div class="dsec-lbl">Coaching Tip</div><div class="tip-box"><div class="tip-lbl">From Cess</div><div class="tip-txt">"${d.tip}"</div><div class="tip-sig">— ${d.sig}</div></div></div>`;
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('screen-drill-detail').classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function renderPlan(){
+  document.getElementById('session-template').innerHTML=SESSION_TEMPLATE.map(s=>`<div class="tmpl-row"><div class="tmpl-n">${s.n}</div><div style="flex:1"><div class="tmpl-phase">${s.phase}</div><div class="tmpl-note">${s.note}</div></div><div class="tmpl-time">${s.time}</div></div>`).join('');
+  document.getElementById('plan-phases').innerHTML=PLAN_PHASES.map((ph,i)=>`<div class="plan-phase" onclick="openPhase(${i})"><div style="display:flex;align-items:center;gap:12px;margin-bottom:8px"><div class="plan-dot" style="background:${ph.color}"></div><div style="flex:1"><div class="plan-weeks">${ph.weeks}</div><div class="plan-name">${ph.name}</div></div><div style="color:var(--muted);font-size:20px">›</div></div><div class="plan-obj">${ph.obj}</div><div class="cue-row">${ph.cues.map(c=>`<div class="cue">"${c}"</div>`).join('')}</div></div>`).join('');
+}
+
+let ASSIGN_PI=0,ASSIGN_PHASE_ID='',ASSIGN_PHASE_IDX=0;
+function openPhase(phaseIdx){
+  const ph=PLAN_PHASES[phaseIdx];
+  document.getElementById('phase-hdr-lbl').textContent=ph.weeks+' · '+ph.name;
+  const playerRows=S.players.length?`<div class="sec-lbl">Assign drill to player</div><div style="margin:0 16px 16px;background:var(--bg3);border:1px solid var(--border);border-radius:12px;overflow:hidden">${S.players.map((p,pi)=>{const assigned=p.assignments&&p.assignments[ph.id];return`<div style="display:flex;align-items:center;gap:10px;padding:13px 14px;border-bottom:1px solid var(--border)"><div style="width:8px;height:8px;border-radius:50%;background:${assigned?'var(--green)':'var(--border2)'};flex-shrink:0"></div><div style="flex:1"><div style="font-size:14px;font-weight:600">${p.name.split(' ')[0]}</div><div style="font-size:12px;color:var(--muted2)">${assigned?'✓ '+assigned:'Not assigned'}</div></div><button onclick="openAssignModal(${pi},'${ph.id}','${ph.name.replace(/'/g,"\\'")}',${phaseIdx})" style="background:var(--gold2);border:1px solid var(--gold3);color:var(--gold);border-radius:8px;padding:6px 12px;font-size:11px;font-weight:700;cursor:pointer;font-family:'Barlow',sans-serif">Assign</button></div>`;}).join('')}</div>`:'';
+  const homeTask=ph.drills.find(d=>d.home);
+  const waMsg=`Hi [Parent name],\n\nThis week *[child name]* is working on: *${ph.name}*\n\nHome task (10-15 mins daily):\n${homeTask?'⚽ '+homeTask.n+'\n'+homeTask.d+'\n\n':''}Just a ball needed.\n\n— [Coach name], CKN Foundation Zimbabwe`;
+  document.getElementById('phase-detail').innerHTML=`
+    <div style="background:var(--bg2);padding:16px;border-bottom:1px solid var(--border)">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><div style="width:10px;height:10px;border-radius:50%;background:${ph.color}"></div><div style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-weight:600">${ph.weeks}</div></div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:700;margin-bottom:4px">${ph.name}</div>
+      <div style="font-size:13px;color:var(--muted2);margin-bottom:10px">${ph.obj}</div>
+      <div class="cue-row">${ph.cues.map(c=>`<div class="cue">"${c}"</div>`).join('')}</div>
+    </div>
+    <div class="sec-lbl">Drills this phase</div>
+    <div style="margin:0 16px 14px;background:var(--bg3);border:1px solid var(--border);border-radius:12px;overflow:hidden">
+      ${ph.drills.map(d=>`<div class="plan-drill-item" onclick="openDrill(${d.id},'phase')"><div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><div class="plan-drill-name">${d.n}</div>${d.home?'<div style="background:var(--green2);color:var(--green);border:1px solid var(--green3);border-radius:5px;padding:2px 7px;font-size:10px;font-weight:700">🏠 HOME</div>':''}</div><div class="plan-drill-desc">${d.d}</div></div>`).join('')}
+    </div>
+    ${playerRows}
+    <div class="sec-lbl">WhatsApp Home Training Message</div>
+    <div style="margin:0 16px 8px"><div class="wa-msg">${waMsg.replace(/\n/g,'<br>')}</div><button class="copy-btn" onclick="copyText(${JSON.stringify(waMsg)})">Copy WhatsApp Message</button></div>
+    <div style="height:20px"></div>`;
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('screen-phase').classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function copyText(txt){if(navigator.clipboard){navigator.clipboard.writeText(txt).then(()=>showToast('Copied ✓'));}else{const ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);showToast('Copied');}}
+
+function openAssignModal(pi,phaseId,phaseName,phaseIdx){
+  ASSIGN_PI=pi;ASSIGN_PHASE_ID=phaseId;ASSIGN_PHASE_IDX=phaseIdx;
+  const ph=PLAN_PHASES.find(p=>p.id===phaseId);if(!ph)return;
+  document.getElementById('assign-modal-content').innerHTML=`<div class="mhandle"></div><div class="mtitle">Assign to ${S.players[pi].name.split(' ')[0]}</div><div style="font-size:13px;color:var(--muted2);margin-bottom:14px">Choose the drill for ${ph.weeks}:</div>${ph.drills.map(d=>`<div class="quiz-opt" onclick="confirmAssign(${JSON.stringify(d.n)})">${d.n}${d.home?' 🏠':''}<div style="font-size:11px;color:var(--muted2);margin-top:2px">${d.d.substring(0,60)}...</div></div>`).join('')}<button class="btn-ghost" onclick="closeModal('modal-assign')">Cancel</button>`;
+  document.getElementById('modal-assign').classList.add('open');
+}
+function confirmAssign(drillName){
+  if(!S.players[ASSIGN_PI].assignments)S.players[ASSIGN_PI].assignments={};
+  S.players[ASSIGN_PI].assignments[ASSIGN_PHASE_ID]=drillName;
+  save();closeModal('modal-assign');showToast(S.players[ASSIGN_PI].name.split(' ')[0]+' assigned ✓');
+  openPhase(ASSIGN_PHASE_IDX);
+}
+
+function renderEdu(){
+  const pwProg=JSON.parse(localStorage.getItem('ckn_pw')||'{}');
+  document.getElementById('pathway-stages').innerHTML=COACH_STAGES.map((st,si)=>{
+    const visited=st.modules.filter(m=>pwProg[m.id]).length;
+    const total=st.modules.length;
+    const done=visited===total&&total>0;const started=visited>0&&!done;
+    return`<div class="pathway-stage${done?' done':started?' started':''}" onclick="openCoachStage(${si})"><div class="ps-num">${st.num}</div><div class="ps-info"><div class="ps-name">${st.name} · ${st.label}</div><div class="ps-tag">${st.tag}</div><div style="height:2px;background:var(--bg4);border-radius:2px;margin-top:7px"><div style="height:100%;width:${Math.round(visited/total*100)}%;background:${done?'var(--green)':'var(--gold)'};border-radius:2px"></div></div><div style="font-size:10px;color:var(--muted);margin-top:4px">${visited} of ${total} modules opened</div></div><div style="color:var(--muted);font-size:20px">›</div></div>`;
+  }).join('');
+  const prog=JSON.parse(localStorage.getItem('ckn_edu')||'{}');
+  document.getElementById('edu-list').innerHTML=MODULES.map(m=>{const total=m.lessons.length;const done=m.lessons.filter((_,i)=>prog[m.id+'_'+i]).length;const pct=Math.round(done/total*100);return`<div class="mod-card" onclick="openModule('${m.id}',0)"><div class="mod-top"><div class="mod-icon">${m.icon}</div><div><div class="mod-title">${m.title}</div><div class="mod-sub">${m.sub} · ${total} lessons</div></div></div><div class="prog-bar"><div class="prog-fill" style="width:${pct}%"></div></div><div style="font-size:11px;color:var(--muted);margin-top:5px">${done}/${total} complete</div></div>`;}).join('');
+}
+
+function openCoachStage(si){
+  const st=COACH_STAGES[si];
+  const pwProg=JSON.parse(localStorage.getItem('ckn_pw')||'{}');
+  document.getElementById('cstage-hdr').textContent='Stage '+st.num+' · '+st.name;
+  document.getElementById('cstage-content').innerHTML=`<div style="background:var(--bg2);padding:16px;border-bottom:1px solid var(--border)"><div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:4px">${st.label}</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:700;color:var(--gold);margin-bottom:4px">${st.name}</div><div style="font-size:13px;color:var(--muted2);margin-bottom:6px">${st.tag}</div><div style="font-size:13px;color:var(--muted2);line-height:1.6">${st.desc}</div></div>${st.modules.map((m,mi)=>`<div class="pw-mod-row${pwProg[m.id]?' visited':''}" onclick="openCoachMod(${si},${mi})"><div class="pw-dot"></div><div style="flex:1"><div class="pw-mod-name">${m.name}</div><div class="pw-mod-sub">${m.tag}</div></div><div style="color:var(--muted);font-size:18px">›</div></div>`).join('')}`;
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('screen-cstage').classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function openCoachMod(si,mi){
+  const st=COACH_STAGES[si];const m=st.modules[mi];
+  const pwProg=JSON.parse(localStorage.getItem('ckn_pw')||'{}');
+  pwProg[m.id]=Date.now();localStorage.setItem('ckn_pw',JSON.stringify(pwProg));
+  document.getElementById('cmod-back-btn').onclick=()=>openCoachStage(si);
+  document.getElementById('cmod-hdr').textContent=st.name+' · '+(mi+1);
+  const nextBtn=mi<st.modules.length-1?`<button class="btn-gold" onclick="openCoachMod(${si},${mi+1})">Next Module →</button>`:(si<COACH_STAGES.length-1?`<button class="btn-gold" style="background:var(--green)" onclick="openCoachStage(${si+1})">Next Stage →</button>`:`<button class="btn-gold" onclick="navTo('edu')">Complete ✓</button>`);
+  const prevBtn=mi>0?`<button class="btn-gold" style="background:var(--bg4);color:var(--text);margin-bottom:10px" onclick="openCoachMod(${si},${mi-1})">← Previous</button>`:'';
+  document.getElementById('cmod-content').innerHTML=`<div style="padding:16px"><div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:4px">${st.name} · Module ${mi+1} of ${st.modules.length}</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:700;margin-bottom:4px">${m.name}</div><div style="font-size:13px;color:var(--muted2);font-style:italic;margin-bottom:16px;line-height:1.6">${m.tag}</div><p style="font-size:14px;line-height:1.75;color:var(--muted2);margin-bottom:18px">${m.body}</p><div style="background:var(--gold2);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:12px 14px;margin-bottom:18px"><div style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:6px">Cruyff</div><div style="font-size:13px;font-style:italic;color:var(--text);line-height:1.6">"${m.cruyff}"</div></div><div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:18px"><div style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:10px">Reflection</div>${m.reflection.map(q=>`<div style="font-size:13px;color:var(--text);line-height:1.65;padding:8px 0 8px 12px;border-left:2px solid var(--gold3);margin-bottom:8px">${q}</div>`).join('')}</div><div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px">${m.pills.map(p=>`<div style="background:var(--bg4);border:1px solid var(--border);border-radius:20px;padding:4px 10px;font-size:11px;color:var(--muted2)">${p}</div>`).join('')}</div>${prevBtn}${nextBtn}</div>`;
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('screen-cmod').classList.add('active');
+  window.scrollTo(0,0);
+}
+
+let currentModule=null,currentLesson=0,quizAnswered=false;
+function openModule(modId,lessonIdx){
+  currentModule=MODULES.find(m=>m.id===modId);currentLesson=lessonIdx;quizAnswered=false;
+  renderLesson();
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('screen-lesson').classList.add('active');
+  window.scrollTo(0,0);
+}
+function renderLesson(){
+  if(!currentModule)return;
+  const l=currentModule.lessons[currentLesson];const total=currentModule.lessons.length;
+  const contentHtml=l.content.map(c=>{if(c.type==='p')return`<p class="lesson-p" style="margin-bottom:12px">${c.text}</p>`;if(c.type==='h')return`<div class="lesson-h">${c.text}</div>`;if(c.type==='list')return`<ul class="lesson-list">${c.items.map(i=>`<li>${i}</li>`).join('')}</ul>`;return'';}).join('');
+  const quizHtml=l.quiz?`<div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border)"><div style="font-size:12px;font-weight:600;color:var(--gold);margin-bottom:10px;letter-spacing:1px;text-transform:uppercase">Quick check</div><div style="font-size:14px;margin-bottom:12px">${l.quiz.q}</div><div id="quiz-opts">${l.quiz.opts.map((o,i)=>`<div class="quiz-opt" onclick="answerQuiz(${i},${l.quiz.ans})">${o}</div>`).join('')}</div></div>`:'';
+  document.getElementById('lesson-content').innerHTML=`<div class="lesson-body"><div style="font-size:10px;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:1.5px">${currentModule.title} · ${currentLesson+1} of ${total}</div><div class="lesson-title">${l.title}</div><div class="prog-bar" style="margin-bottom:18px"><div class="prog-fill" style="width:${Math.round((currentLesson+1)/total*100)}%"></div></div>${contentHtml}${quizHtml}<div style="display:flex;gap:10px;margin-top:16px">${currentLesson>0?`<button class="btn-gold" style="flex:1;padding:11px;font-size:14px" onclick="openModule('${currentModule.id}',${currentLesson-1})">← Prev</button>`:''} ${currentLesson<total-1?`<button class="btn-gold" style="flex:1;padding:11px;font-size:14px" onclick="nextLesson()">Next →</button>`:`<button class="btn-gold" style="flex:1;padding:11px;font-size:14px" onclick="completeModule()">Complete ✓</button>`}</div></div>`;
+}
+function answerQuiz(chosen,correct){if(quizAnswered)return;quizAnswered=true;document.querySelectorAll('.quiz-opt').forEach((el,i)=>{if(i===correct)el.classList.add('correct');else if(i===chosen&&chosen!==correct)el.classList.add('wrong');});if(chosen===correct)showToast('Correct! ✓');else showToast('Not quite — see highlighted answer');markLessonDone();}
+function markLessonDone(){const prog=JSON.parse(localStorage.getItem('ckn_edu')||'{}');prog[currentModule.id+'_'+currentLesson]=true;localStorage.setItem('ckn_edu',JSON.stringify(prog));}
+function nextLesson(){markLessonDone();openModule(currentModule.id,currentLesson+1);}
+function completeModule(){markLessonDone();showToast('Module complete! 🎓');navTo('edu');}
+
+function renderSessions(){
+  const el=document.getElementById('session-list');
+  if(!S.sessions.length){el.innerHTML='<div style="color:var(--muted);font-size:14px;padding:20px 16px">No sessions logged yet.</div>';return;}
+  el.innerHTML=[...S.sessions].reverse().map(s=>`<div class="sentry"><div class="sdate">${s.date}</div><div class="sdrill">${s.drill}</div><div class="smeta">${s.duration||'?'} mins · ${s.present||0} present${s.theme?' · '+s.theme:''}</div>${s.notes?`<div style="margin-top:5px;font-size:12px;color:var(--muted);font-style:italic">"${s.notes}"</div>`:''}</div>`).join('');
+}
+function openLogSession(){
+  document.getElementById('ss-date').value=new Date().toISOString().split('T')[0];
+  ['ss-dur','ss-theme','ss-notes'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('ss-drill').innerHTML='<option value="">Select drill</option>'+DRILLS.map(d=>`<option value="${d.name}">${d.name}</option>`).join('');
+  document.getElementById('ss-attend').innerHTML=S.players.length?S.players.map((p,i)=>`<div class="att-item" id="at-${i}" onclick="togAttend(${i})"><div class="att-check" id="ac-${i}"></div><div class="att-nm">${p.name.split(' ')[0]}</div></div>`).join(''):'<div style="color:var(--muted);font-size:13px;grid-column:1/-1">Add players to your squad first</div>';
+  document.getElementById('modal-session').classList.add('open');
+}
+function togAttend(i){const item=document.getElementById('at-'+i);const check=document.getElementById('ac-'+i);item.classList.toggle('present');check.textContent=item.classList.contains('present')?'✓':'';}
+function saveSession(){
+  const date=document.getElementById('ss-date').value;const drill=document.getElementById('ss-drill').value;
+  if(!date||!drill){showToast('Fill in date and drill');return;}
+  const present=document.querySelectorAll('.att-item.present').length;
+  S.sessions.push({date,duration:document.getElementById('ss-dur').value||'?',drill,theme:document.getElementById('ss-theme').value,notes:document.getElementById('ss-notes').value,present});
+  save();closeModal('modal-session');renderSessions();renderHome();showToast('Session saved ✓');
+}
+
+function renderParents(){
+  document.getElementById('parents-content').innerHTML=PARENT_MSGS.map((m,i)=>`<div class="parent-card"><div class="parent-title">${m.title}</div><div class="parent-desc">${m.desc}</div><div class="wa-msg">${m.msg.replace(/\n/g,'<br>')}</div><button class="copy-btn" onclick="copyText(${JSON.stringify(m.msg)})">Copy message</button></div>`).join('')+`<div style="margin:0 16px 20px;background:rgba(91,156,246,.05);border:1px solid rgba(91,156,246,.2);border-radius:12px;padding:16px"><div style="font-size:14px;font-weight:600;color:var(--blue);margin-bottom:8px">📡 NetOne / Econet Partnership</div><div style="font-size:13px;color:var(--muted2);line-height:1.65">600+ users is real commercial leverage. Approach NetOne and Econet — discounted data bundles for CKN coaches and parents in exchange for co-branding.</div></div>`;
+}
+
+function renderSettings(){
+  document.getElementById('settings-content').innerHTML=`<div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:700;margin-bottom:18px">Settings</div><div class="fgrp"><label class="flbl">Your name</label><input class="finp" id="set-name" value="${S.name}" placeholder="Coach name"></div><div class="fgrp"><label class="flbl">Squad name</label><input class="finp" id="set-squad" value="${S.squad||''}" placeholder="e.g. CKN Sizinda U12"></div><button class="btn-gold" onclick="saveSettings()" style="margin-bottom:20px">Save</button><div style="background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:12px"><div style="font-size:14px;font-weight:600;margin-bottom:8px">📲 Save to home screen</div><div style="font-size:13px;color:var(--muted2);line-height:1.8"><b style="color:var(--text)">Android Chrome:</b> 3 dots → Add to Home screen → Add<br><b style="color:var(--text)">iPhone Safari:</b> Share button → Add to Home Screen → Add</div></div><div style="background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:12px"><div style="font-size:14px;font-weight:600;margin-bottom:6px">📤 Export squad report</div><button class="btn-gold" style="font-size:13px;padding:11px" onclick="exportReport()">Generate report</button><div id="export-out" style="margin-top:12px"></div></div><div style="background:rgba(224,82,82,.06);border:1px solid rgba(224,82,82,.2);border-radius:12px;padding:16px"><div style="font-size:14px;font-weight:600;color:var(--red);margin-bottom:8px">Clear all data</div><button onclick="clearAll()" style="background:none;border:1px solid var(--red);color:var(--red);border-radius:8px;padding:10px 18px;font-size:13px;font-weight:600;cursor:pointer">Clear all data</button></div>`;
+}
+function saveSettings(){S.name=document.getElementById('set-name').value.trim()||'Coach';S.squad=document.getElementById('set-squad').value.trim();save();showToast('Saved');renderHome();}
+function exportReport(){
+  const lines=[`*CKN Foundation Zimbabwe — Weekly Report*`,`Coach: ${S.name}${S.squad?' · '+S.squad:''}`,`Date: ${new Date().toLocaleDateString()}`,``,`*Squad: ${S.players.length} players*`];
+  S.players.forEach(p=>{const avg=p.ratings?Math.round(Object.values(p.ratings).reduce((a,b)=>a+b,0)/Math.max(Object.values(p.ratings).length,1)*20):0;lines.push(`${p.name} (${p.pos||'?'}, Age ${p.age||'?'})${avg?' — '+avg+'%':''}${p.focus&&p.focus.length?' — '+p.focus.join(', '):''}${p.assignments&&Object.keys(p.assignments).length?' — Drills: '+Object.values(p.assignments).join(', '):''}`)});
+  lines.push(``,`*Recent sessions: ${S.sessions.slice(-7).length}*`);
+  S.sessions.slice(-7).forEach(s=>lines.push(`${s.date} · ${s.drill} · ${s.present||0} present`));
+  const txt=lines.join('\n');
+  document.getElementById('export-out').innerHTML=`<div style="background:var(--bg4);border-radius:8px;padding:12px;font-size:12px;white-space:pre-wrap;line-height:1.6;margin-bottom:8px">${txt}</div><button class="copy-btn" onclick="copyText(${JSON.stringify(txt)})">Copy for WhatsApp</button>`;
+}
+function clearAll(){if(confirm('Delete ALL data? Cannot be undone.')){S.players=[];S.sessions=[];save();showToast('Cleared');renderSettings();}}
+
+function closeModal(id){document.getElementById(id).classList.remove('open');}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200);}
+document.querySelectorAll('.modal').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open');}));
+
+load();
+if(!localStorage.getItem('ckn_v4')){const n=prompt('Welcome to CKN Foundation Zimbabwe!\n\nWhat is your name, Coach?')||'Coach';S.name=n.trim()||'Coach';save();}
+renderHome();
+</script>
+</body>
+</html>
