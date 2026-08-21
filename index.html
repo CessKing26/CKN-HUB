@@ -7,8 +7,6 @@
 <meta name="apple-mobile-web-app-title" content="CKN">
 <meta name="theme-color" content="#060606">
 <title>CKN Foundation — Zimbabwe</title>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&display=swap');
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
@@ -262,6 +260,19 @@ select.f-inp{appearance:none;}
 .exam-nav{display:flex;gap:10px;margin-top:20px;}.exam-nav button{flex:1;}
 .exam-review{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:14px;margin:10px 16px;}
 .exam-result{font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--gold);letter-spacing:1px;}
+.handbook-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;padding:10px 16px 18px}
+.handbook-card{background:var(--bg3);border:1px solid var(--border);border-radius:14px;padding:14px;min-height:145px;cursor:pointer;position:relative;overflow:hidden}
+.handbook-card:active{border-color:var(--gold)}
+.handbook-no{font-family:'Bebas Neue',sans-serif;font-size:27px;color:var(--gold);line-height:1}
+.handbook-name{font-size:13px;font-weight:700;line-height:1.25;margin:8px 0 5px}
+.handbook-copy{font-size:10px;color:var(--muted2);line-height:1.45}
+.handbook-arrow{position:absolute;right:10px;bottom:8px;color:var(--gold);font-size:17px}
+.hb-wrap{padding:16px 16px 30px}.hb-title{font-family:'Bebas Neue',sans-serif;font-size:34px;letter-spacing:1px;line-height:1.05;margin:7px 0}.hb-intro{font-size:13px;color:var(--muted2);line-height:1.65;margin-bottom:18px}
+.hb-flow{display:flex;flex-direction:column;gap:8px}.hb-step{background:var(--bg3);border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:10px;padding:12px}.hb-step b{display:block;font-size:13px;margin-bottom:4px}.hb-step span{font-size:11px;color:var(--muted2);line-height:1.5}
+.hb-petal{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:12px;margin-bottom:8px}.hb-petal b{font-size:13px;color:var(--gold)}.hb-petal div{font-size:11px;color:var(--muted2);line-height:1.55;margin-top:4px}
+.matrix{width:100%;border-collapse:collapse;font-size:9px;margin-top:10px}.matrix th,.matrix td{border:1px solid var(--border);padding:7px 3px;text-align:center}.matrix th{color:var(--gold);font-size:8px}.matrix td:first-child{text-align:left;font-weight:700;color:var(--text)}
+.value-row{display:flex;flex-wrap:wrap;gap:7px;padding:0 16px 18px}.value-chip{border:1px solid rgba(245,166,35,.3);background:rgba(245,166,35,.07);border-radius:20px;padding:8px 11px;font-size:11px;font-weight:700;color:var(--gold)}
+.admin-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:14px 16px 0}.admin-action{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:13px;cursor:pointer}.admin-action b{display:block;color:var(--gold);font-size:18px;margin-bottom:4px}.admin-action span{font-size:11px;color:var(--muted2);line-height:1.35}.admin-panel{margin:0 16px 10px;background:var(--bg3);border:1px solid var(--border);border-radius:14px;overflow:hidden}.admin-panel-head{padding:13px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}.admin-panel-title{font-size:13px;font-weight:700}.admin-panel-count{font-family:'Bebas Neue';font-size:20px;color:var(--gold)}.admin-row{padding:12px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}.admin-row:last-child{border-bottom:0}.admin-row-main{flex:1;min-width:0}.admin-row-name{font-size:13px;font-weight:700}.admin-row-meta{font-size:10px;color:var(--muted2);margin-top:3px;line-height:1.4}.status-pill{font-size:8px;letter-spacing:.7px;text-transform:uppercase;border-radius:20px;padding:5px 8px;font-weight:700;white-space:nowrap}.status-pending{color:var(--gold);background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.25)}.status-live{color:var(--green);background:rgba(61,184,122,.08);border:1px solid rgba(61,184,122,.22)}.status-stop{color:var(--red);background:rgba(224,69,69,.08);border:1px solid rgba(224,69,69,.22)}.admin-tools{display:flex;gap:8px;padding:0 16px 12px}.admin-tools>*{flex:1}.mini-btn{background:var(--bg4);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:9px;font-size:10px;font-weight:700;cursor:pointer}.qual-badge{display:inline-flex;margin-top:6px;border-left:2px solid var(--gold);padding-left:7px;font-size:10px;color:var(--gold);font-weight:700}.manage-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:8px}.manage-actions button{margin:0!important;padding:9px 5px!important}.admin-empty{padding:18px 14px;color:var(--muted);font-size:12px;text-align:center}.admin-search{display:grid;grid-template-columns:1fr 115px;gap:8px;margin-bottom:10px}.audit-time{font-size:9px;color:var(--muted);margin-top:3px}.security-note{background:rgba(77,142,245,.07);border:1px solid rgba(77,142,245,.2);border-radius:12px;padding:14px;margin-bottom:14px;font-size:12px;color:var(--muted2);line-height:1.6}.security-note b{color:var(--blue)}
 </style>
 </head>
 <body>
@@ -309,6 +320,7 @@ select.f-inp{appearance:none;}
     <div class="cycle-card"><div class="cycle-n">04</div><div class="cycle-name">Regain</div><div class="cycle-copy">Trigger the press, collapse together and attack immediately.</div></div>
   </div>
   <div class="sec-lbl">Continue the work</div>
+  <div class="route" onclick="go('handbook')" style="border-color:rgba(245,166,35,.3)"><div class="route-top"><div class="route-code">12</div><div class="route-main"><div class="route-name">CKN Methodology Handbook</div><div class="route-desc">The complete CKN system: players, coaches, clubs, learning, assessment and the game.</div></div><div class="route-arrow">›</div></div></div>
   <div class="route" onclick="go('pathway')"><div class="route-top"><div class="route-code">01</div><div class="route-main"><div class="route-name">The Compress Game Model</div><div class="route-desc">See the complete in-possession and out-of-possession identity.</div></div><div class="route-arrow">›</div></div></div>
   <div class="route" onclick="go('academy')"><div class="route-top"><div class="route-code">02</div><div class="route-main"><div class="route-name">Compress Methodology</div><div class="route-desc">Learn the mechanisms, roles, triggers and coaching language.</div></div><div class="route-arrow">›</div></div></div>
   <div class="route" onclick="go('drills')"><div class="route-top"><div class="route-code">03</div><div class="route-main"><div class="route-name">Compress Practice Plans</div><div class="route-desc">Rehearse the four moments, mechanisms and match-state behaviours.</div></div><div class="route-arrow">›</div></div></div>
@@ -318,6 +330,22 @@ select.f-inp{appearance:none;}
   <div class="tile" onclick="openSession()"><div class="tile-row"><div class="tile-ico">📋</div><div><div class="tile-title">Log Session</div><div class="tile-sub">Record today's training</div></div><div class="tile-arr">›</div></div></div>
   <div class="sec-lbl">Recent sessions</div>
   <div id="hm-sessions" style="padding-bottom:8px"></div>
+</div>
+
+<!-- CKN METHODOLOGY HANDBOOK -->
+<div class="pg" id="pg-handbook">
+  <div class="hdr"><div class="hdr-logo">CKN</div><span style="font-size:12px;color:var(--muted)">Methodology Handbook</span><div style="width:32px"></div></div>
+  <div class="os-hero"><div class="os-kicker">Our models · Our language · Our standard</div><div class="os-title">The complete<br>CKN system.</div><div class="os-copy">Twelve connected models governing player development, coach education, club standards, learning, assessment and The Compress game identity.</div></div>
+  <div class="handbook-grid" id="handbook-grid"></div>
+  <div class="sec-lbl">Our values</div>
+  <div class="value-row"><div class="value-chip">☆ Excellence</div><div class="value-chip">Respect</div><div class="value-chip">Integrity</div><div class="value-chip">Passion</div><div class="value-chip">Unity</div></div>
+  <div class="tip-box" style="margin:0 16px 20px"><div class="tip-lbl">Our mission</div><div class="tip-txt" style="font-style:normal">To develop players, coaches and clubs through a world-class methodology that inspires excellence on and off the pitch.</div></div>
+</div>
+
+<!-- HANDBOOK MODEL DETAIL -->
+<div class="pg" id="pg-handbook-detail">
+  <div class="hdr"><button class="back-btn" onclick="go('handbook')">←</button><span style="font-size:12px;color:var(--muted)">CKN Standard™</span><div style="width:32px"></div></div>
+  <div id="handbook-detail"></div>
 </div>
 
 <!-- DEVELOPMENT PATHWAY -->
@@ -402,6 +430,21 @@ select.f-inp{appearance:none;}
     <div class="stat-cell"><div class="stat-num" id="a-sessions">0</div><div class="stat-lbl">Sessions</div></div>
     <div class="stat-cell"><div class="stat-num" id="a-active">0</div><div class="stat-lbl">Active</div></div>
   </div>
+  <div class="admin-actions">
+    <div class="admin-action" onclick="adminJump('admin-review-panel')"><b id="a-pending">0</b><span>Assessment decisions awaiting Cecil</span></div>
+    <div class="admin-action" onclick="adminJump('admin-cert-panel')"><b id="a-certified">0</b><span>Current certified coaches</span></div>
+    <div class="admin-action" onclick="adminJump('admin-location-panel')"><b id="a-locations">0</b><span>Delivery locations represented</span></div>
+    <div class="admin-action" onclick="adminJump('admin-audit-panel')"><b id="a-expiring">0</b><span>Certificates needing attention</span></div>
+  </div>
+  <div class="sec-lbl">Assessment Queue</div>
+  <div class="admin-panel" id="admin-review-panel"></div>
+  <div class="sec-lbl">Certificate Register</div>
+  <div class="admin-tools"><button class="mini-btn" onclick="printCertificateRegister()">Print register</button><button class="mini-btn" onclick="exportAdminCsv()">Export CSV</button></div>
+  <div class="admin-panel" id="admin-cert-panel"></div>
+  <div class="sec-lbl">Locations & Delivery</div>
+  <div class="admin-panel" id="admin-location-panel"></div>
+  <div class="sec-lbl">Admin Activity</div>
+  <div class="admin-panel" id="admin-audit-panel"></div>
   <div class="sec-lbl">All Coaches</div>
   <div id="coach-list"></div>
 </div>
@@ -423,8 +466,9 @@ select.f-inp{appearance:none;}
 <div class="pg" id="pg-admin-coaches">
   <div class="hdr"><div class="hdr-logo">CKN</div><span style="font-size:12px;color:var(--muted)">Coaches</span><div style="width:32px"></div></div>
   <div style="padding:16px">
-    <div style="font-size:13px;color:var(--muted2);margin-bottom:16px;line-height:1.65">Add a coach and assign them a 4-digit PIN. They open the app, select Coach, enter their name and PIN — their data syncs to your database instantly.</div>
+    <div style="font-size:13px;color:var(--muted2);margin-bottom:16px;line-height:1.65">Issue controlled access, edit records, suspend accounts, reset codes or permanently remove a coach.</div>
     <button class="btn-gold" style="margin-bottom:20px" onclick="openAddCoach()">＋ Issue Coach Access</button>
+    <div class="admin-search"><input class="f-inp" id="coach-admin-search" placeholder="Search coach, ID or location" oninput="filterAdminCoaches()"><select class="f-inp" id="coach-admin-filter" onchange="filterAdminCoaches()"><option value="all">All status</option><option value="active">Active</option><option value="suspended">Suspended</option><option value="pending">Needs review</option><option value="certified">Certified</option></select></div>
     <div id="manage-coaches"></div>
   </div>
 </div>
@@ -433,7 +477,8 @@ select.f-inp{appearance:none;}
 <div class="pg" id="pg-admin-settings">
   <div class="hdr"><div class="hdr-logo">CKN</div><span style="font-size:12px;color:var(--muted)">Settings</span><div style="width:32px"></div></div>
   <div style="padding:16px">
-    <div style="background:rgba(61,184,122,.08);border:1px solid rgba(61,184,122,.2);border-radius:12px;padding:14px;margin-bottom:20px;font-size:13px;color:var(--green);line-height:1.6">✓ Connected to Firebase — all coaches sync in real time.</div>
+    <div style="background:rgba(61,184,122,.08);border:1px solid rgba(61,184,122,.2);border-radius:12px;padding:14px;margin-bottom:14px;font-size:13px;color:var(--green);line-height:1.6">✓ Connected to Firebase — coach records sync in real time.</div>
+    <div class="security-note"><b>Admin session protection</b><br>Five incorrect PIN attempts trigger a five-minute lock. An authenticated admin session locks automatically after 15 minutes without activity.</div>
     <div style="background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:16px">
       <div style="font-size:14px;font-weight:600;margin-bottom:10px">📲 Save to home screen</div>
       <div style="font-size:13px;color:var(--muted2);line-height:1.8"><b style="color:var(--text)">Android Chrome:</b> 3 dots → Add to Home screen → Add<br><b style="color:var(--text)">iPhone Safari:</b> Share button → Add to Home Screen → Add</div>
@@ -445,7 +490,7 @@ select.f-inp{appearance:none;}
 <!-- COACH NAV -->
 <nav class="nav" id="coach-nav">
   <button class="ni on" onclick="go('home')"><span class="ni-ico">⊞</span>Home</button>
-  <button class="ni" onclick="go('pathway')"><span class="ni-ico">↗</span>Game Model</button>
+  <button class="ni" onclick="go('handbook')"><span class="ni-ico">▦</span>Handbook</button>
   <button class="ni" onclick="go('academy')"><span class="ni-ico">◎</span>Method</button>
   <button class="ni" onclick="go('drills')"><span class="ni-ico">▦</span>Blueprint</button>
   <button class="ni" onclick="go('parents')"><span class="ni-ico">✓</span>Workshop</button>
@@ -457,7 +502,7 @@ select.f-inp{appearance:none;}
   <button class="ni" onclick="goAdmin('admin-coaches')"><span class="ni-ico">🏆</span>Coaches</button>
   <button class="ni" onclick="goAdminDrills()"><span class="ni-ico">⚽</span>Blueprints</button>
   <button class="ni" onclick="goAdminAcademy()"><span class="ni-ico">🎓</span>Method</button>
-  <button class="ni" onclick="goAdminParents()"><span class="ni-ico">✓</span>Standard</button>
+  <button class="ni" onclick="goAdminParents()"><span class="ni-ico">✓</span>Handbook</button>
 </nav>
 
 <!-- MODALS -->
@@ -529,6 +574,20 @@ select.f-inp{appearance:none;}
     </div>
     <button class="btn-gold" onclick="saveCoach()">Create Coach Access</button>
     <button class="btn-ghost" onclick="cm('modal-coach')">Cancel</button>
+  </div>
+</div>
+
+<div class="modal" id="modal-edit-coach">
+  <div class="mbox">
+    <div class="mhandle"></div>
+    <div class="mtitle">Edit Coach Record</div>
+    <input type="hidden" id="ec-id">
+    <div class="f-grp"><label class="f-lbl">Name</label><input class="f-inp" id="ec-name"></div>
+    <div class="f-grp"><label class="f-lbl">Location</label><input class="f-inp" id="ec-loc"></div>
+    <div class="f-grp"><label class="f-lbl">WhatsApp</label><input class="f-inp" id="ec-phone"></div>
+    <div class="f-grp"><label class="f-lbl">Admin notes</label><textarea class="f-inp" id="ec-notes" placeholder="Internal governance notes"></textarea></div>
+    <button class="btn-gold" onclick="saveCoachEdit()">Save Coach Record</button>
+    <button class="btn-ghost" onclick="cm('modal-edit-coach')">Cancel</button>
   </div>
 </div>
 
@@ -781,7 +840,7 @@ var PARENT_MSGS=[
 
 // STATE
 var db=null,USER=null,COACH_PROFILE={},CD={players:[],sessions:[]};
-var ALL_COACHES=[],ALL_PLAYERS=[],ALL_SESSIONS=[];
+var ALL_COACHES=[],ALL_PLAYERS=[],ALL_SESSIONS=[],ADMIN_ACTIVITY=[];
 var ADD_FOCUS=[],CUR_MOD=null,CUR_LES=0,QUIZ_DONE=false,DRILL_BACK='drills';
 var EXAM_INDEX=0,EXAM_ANSWERS=[],EXAM_STARTED_AT=null,EXAM_TIMER=null;
 var COMPRESS_VERSION='1.0';
@@ -819,13 +878,22 @@ var COMPRESS_EXAM=[
 
 // INIT - no async, keep it simple
 window.onload=function(){
-  try{
-    firebase.initializeApp(FB_CFG);
-    db=firebase.firestore();
-  }catch(e){}
   document.getElementById('pg-login').classList.add('on');
   setRole('coach');
+  loadFirebase();
 };
+
+function loadRemoteScript(src){
+ return new Promise(function(resolve,reject){
+  var s=document.createElement('script');s.src=src;s.async=true;s.onload=resolve;s.onerror=reject;document.head.appendChild(s);
+ });
+}
+function loadFirebase(){
+ loadRemoteScript('https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js')
+  .then(function(){return loadRemoteScript('https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js');})
+  .then(function(){firebase.initializeApp(FB_CFG);db=firebase.firestore();})
+  .catch(function(){console.warn('CKN database connection unavailable. Interface remains available.');});
+}
 
 // SCREENS
 function showPg(id){
@@ -859,7 +927,13 @@ function goAdmin(id){
 }
 
 // LOGIN
-var selRole='coach',pinVal='';
+var selRole='coach',pinVal='',ADMIN_SESSION_TIMER=null,ADMIN_LAST_ACTIVITY=0;
+function adminLockState(){try{return JSON.parse(localStorage.getItem('ckn_admin_lock')||'{"fails":0,"until":0}');}catch(e){return{fails:0,until:0};}}
+function recordAdminFailure(){var x=adminLockState();x.fails=(x.fails||0)+1;if(x.fails>=5){x.until=Date.now()+5*60*1000;x.fails=0;}localStorage.setItem('ckn_admin_lock',JSON.stringify(x));return x;}
+function clearAdminFailures(){localStorage.removeItem('ckn_admin_lock');}
+function touchAdminSession(){if(USER&&USER.role==='admin')ADMIN_LAST_ACTIVITY=Date.now();}
+function startAdminSession(){ADMIN_LAST_ACTIVITY=Date.now();clearInterval(ADMIN_SESSION_TIMER);ADMIN_SESSION_TIMER=setInterval(function(){if(USER&&USER.role==='admin'&&Date.now()-ADMIN_LAST_ACTIVITY>15*60*1000){clearInterval(ADMIN_SESSION_TIMER);alert('Admin session locked after 15 minutes of inactivity.');location.reload();}},30000);}
+['click','keydown','touchstart'].forEach(function(e){document.addEventListener(e,touchAdminSession,{passive:true});});
 
 function setRole(r){
   selRole=r;
@@ -901,8 +975,10 @@ function getCoachLoginId(coach,id){
 }
 async function doLogin(){
   if(selRole==='admin'){
+    var lock=adminLockState();if(lock.until&&Date.now()<lock.until){toast('Admin locked — try again in '+Math.ceil((lock.until-Date.now())/60000)+' minute(s)');pinVal='';updateDots();return;}
     var enteredHash='';try{enteredHash=await hashValue(pinVal);}catch(e){toast('Secure login unavailable');return;}
     if(enteredHash===ADMIN_PIN_HASH){
+      clearAdminFailures();
       USER={role:'admin',name:'Cess'};
       document.getElementById('pg-login').classList.remove('on');
       document.getElementById('admin-nav').classList.add('on');
@@ -910,8 +986,9 @@ async function doLogin(){
       document.querySelectorAll('#admin-nav .ni')[0].classList.add('on');
       renderAdminHome();
       if(db){loadAdminData();}
+      startAdminSession();logAdminActivity('Admin signed in');
     }else{
-      toast('Wrong PIN — try again');
+      var failed=recordAdminFailure();toast(failed.until?'Too many attempts — locked for 5 minutes':'Wrong PIN — try again');
       pinVal='';updateDots();
     }
     return;
@@ -1470,6 +1547,29 @@ function renderParents(){
 }
 
 // ADMIN
+function certificateNumber(c,id){return c.certificateId||('CKN-'+String(id||c.id||'COACH').replace(/[^a-z0-9]/gi,'').toUpperCase().slice(-8));}
+function coachQualification(c){
+ if(c.educatorApproved)return'Coach Educator · Legacy';
+ if(c.leadApproved)return'Lead Coach · Identity';
+ if(c.performanceApproved)return'Performance Coach · Growth';
+ if(c.developmentApproved)return'Development Coach · Soil';
+ if(foundationPassed(c))return'Foundation Coach · Roots';
+ return'Candidate';
+}
+function coachNeedsReview(c){return c.examStatus==='submitted'||c.growthExamStatus==='submitted'||c.certificationStatus==='pending';}
+function getAdminActivity(){if(ADMIN_ACTIVITY.length)return ADMIN_ACTIVITY;try{return JSON.parse(localStorage.getItem('ckn_admin_activity')||'[]');}catch(e){return[];}}
+function logAdminActivity(action,c){
+ var item={action:action,coach:(c&&c.name)||'',coachId:(c&&c.id)||'',at:new Date().toISOString(),by:'Cecil Nyoni'};
+ var list=getAdminActivity().slice();list.unshift(item);ADMIN_ACTIVITY=list.slice(0,100);localStorage.setItem('ckn_admin_activity',JSON.stringify(ADMIN_ACTIVITY));
+ if(db){db.collection('adminActivity').add(item).catch(function(){});}
+}
+function adminJump(id){var el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});}
+function adminCoachCard(c){
+ var pCount=c.playerCount!=null?c.playerCount:ALL_PLAYERS.filter(function(p){return p.coachId===c.id;}).length;
+ var sCount=c.sessionCount!=null?c.sessionCount:ALL_SESSIONS.filter(function(s){return s.coachId===c.id||s.coachName===c.name;}).length;
+ var wk=new Date(Date.now()-7*864e5).toISOString(),isActive=c.lastActive&&c.lastActive>wk,status=c.accessStatus==='suspended'?'Suspended':isActive?'Active':'Inactive';
+ return'<div class="c-card" onclick="openCoachDetail(\''+c.id+'\')"><div class="c-top"><div class="c-av">'+ini(c.name||'?')+'</div><div style="flex:1"><div class="c-name">'+esc(c.name||'Unknown')+'</div><div class="c-sub">'+esc(c.location||'No location')+' · '+esc(getCoachLoginId(c,c.id))+'</div><div class="qual-badge">'+esc(coachQualification(c))+'</div></div><div class="status-pill '+(c.accessStatus==='suspended'?'status-stop':isActive?'status-live':'status-pending')+'">'+status+'</div></div><div class="c-stats"><div class="c-stat"><div class="c-sn">'+pCount+'</div><div class="c-sl">Players</div></div><div class="c-stat"><div class="c-sn">'+sCount+'</div><div class="c-sl">Sessions</div></div><div class="c-stat"><div class="c-sn" style="font-size:16px">'+esc(c.examStatus||'—')+'</div><div class="c-sl">Exam</div></div></div></div>';
+}
 function renderAdminHome(){
   document.getElementById('a-coaches').textContent=ALL_COACHES.length;
   document.getElementById('a-players').textContent=ALL_PLAYERS.length;
@@ -1477,18 +1577,19 @@ function renderAdminHome(){
   var wk=new Date(Date.now()-7*864e5).toISOString();
   var active=ALL_COACHES.filter(function(c){return c.lastActive&&c.lastActive>wk;}).length;
   document.getElementById('a-active').textContent=active;
-  var el=document.getElementById('coach-list');
-  if(!ALL_COACHES.length){el.innerHTML='<div class="empty">No coaches yet.<br>Go to Coaches tab to add your first coach.</div>';return;}
-  el.innerHTML=ALL_COACHES.map(function(c){
-    var pCount=ALL_PLAYERS.filter(function(p){return p.coachId===c.id;}).length;
-    var sCount=ALL_SESSIONS.filter(function(s){return s.coachName===c.name;}).length;
-    var isActive=c.lastActive&&c.lastActive>wk;
-    return'<div class="c-card" onclick="openCoachDetail(\''+c.id+'\')"><div class="c-top"><div class="c-av">'+ini(c.name||'?')+'</div><div style="flex:1"><div class="c-name">'+esc(c.name||'Unknown')+'</div><div class="c-sub">'+esc(c.location||'No location')+'</div></div><div style="font-size:10px;font-weight:700;color:'+(isActive?'var(--green)':'var(--muted)')+'">'+'\u25cf '+(isActive?'Active':'Inactive')+'</div></div><div class="c-stats"><div class="c-stat"><div class="c-sn">'+pCount+'</div><div class="c-sl">Players</div></div><div class="c-stat"><div class="c-sn">'+sCount+'</div><div class="c-sl">Sessions</div></div><div class="c-stat"><div class="c-sn" style="font-size:17px">'+esc(c.examStatus||'—')+'</div><div class="c-sl">Exam</div></div></div></div>';
-  }).join('');
+  var pending=ALL_COACHES.filter(coachNeedsReview),certified=ALL_COACHES.filter(foundationPassed),now=Date.now(),attention=ALL_COACHES.filter(function(c){return c.examStatus==='passed'&&(!c.examValidUntil||new Date(c.examValidUntil).getTime()<=now+60*864e5);});
+  var locations={};ALL_COACHES.forEach(function(c){var x=(c.location||'Unassigned').trim()||'Unassigned';locations[x]=(locations[x]||0)+1;});
+  document.getElementById('a-pending').textContent=pending.length;document.getElementById('a-certified').textContent=certified.length;document.getElementById('a-locations').textContent=Object.keys(locations).length;document.getElementById('a-expiring').textContent=attention.length;
+  document.getElementById('admin-review-panel').innerHTML='<div class="admin-panel-head"><div class="admin-panel-title">Decisions requiring action</div><div class="admin-panel-count">'+pending.length+'</div></div>'+(pending.length?pending.map(function(c){var type=c.examStatus==='submitted'?'Foundation exam':c.growthExamStatus==='submitted'?'Growth written':'Certification evidence';return'<div class="admin-row" onclick="openCoachDetail(\''+c.id+'\')"><div class="admin-row-main"><div class="admin-row-name">'+esc(c.name)+'</div><div class="admin-row-meta">'+type+' · '+esc(c.location||'No location')+'</div></div><span class="status-pill status-pending">Review</span></div>';}).join(''):'<div class="admin-empty">No assessments are waiting for a decision.</div>');
+  document.getElementById('admin-cert-panel').innerHTML='<div class="admin-panel-head"><div class="admin-panel-title">Current qualifications</div><div class="admin-panel-count">'+certified.length+'</div></div>'+(certified.length?certified.map(function(c){var valid=c.examValidUntil?c.examValidUntil.slice(0,10):'Review required';return'<div class="admin-row" onclick="openCoachDetail(\''+c.id+'\')"><div class="admin-row-main"><div class="admin-row-name">'+esc(c.name)+'</div><div class="admin-row-meta">'+esc(certificateNumber(c,c.id))+' · Valid until '+esc(valid)+'</div></div><span class="status-pill '+(c.examValidUntil&&new Date(c.examValidUntil)>new Date()?'status-live':'status-stop')+'">'+esc(coachQualification(c))+'</span></div>';}).join(''):'<div class="admin-empty">No current certificates recorded.</div>');
+  document.getElementById('admin-location-panel').innerHTML='<div class="admin-panel-head"><div class="admin-panel-title">Coach coverage</div><div class="admin-panel-count">'+Object.keys(locations).length+'</div></div>'+Object.keys(locations).sort().map(function(k){var ses=ALL_SESSIONS.filter(function(s){return s.coachName&&ALL_COACHES.some(function(c){return c.location===k&&c.name===s.coachName;});}).length;return'<div class="admin-row"><div class="admin-row-main"><div class="admin-row-name">'+esc(k)+'</div><div class="admin-row-meta">'+locations[k]+' coach'+(locations[k]===1?'':'es')+' · '+ses+' recent session'+(ses===1?'':'s')+'</div></div></div>';}).join('');
+  var audit=getAdminActivity();document.getElementById('admin-audit-panel').innerHTML='<div class="admin-panel-head"><div class="admin-panel-title">Governance trail</div><div class="admin-panel-count">'+audit.length+'</div></div>'+(audit.length?audit.slice(0,12).map(function(a){return'<div class="admin-row"><div class="admin-row-main"><div class="admin-row-name">'+esc(a.action)+'</div><div class="admin-row-meta">'+esc(a.coach||'System')+' · '+esc(a.by||'CKN Admin')+'</div><div class="audit-time">'+esc(new Date(a.at).toLocaleString())+'</div></div></div>';}).join(''):'<div class="admin-empty">Admin decisions will appear here.</div>');
+  var el=document.getElementById('coach-list');el.innerHTML=ALL_COACHES.length?ALL_COACHES.map(adminCoachCard).join(''):'<div class="empty">No coaches yet.<br>Go to Coaches to issue access.</div>';
 }
 
 function loadAdminData(){
   if(!db){return;}
+  db.collection('adminActivity').orderBy('at','desc').limit(50).get().then(function(snap){ADMIN_ACTIVITY=snap.docs.map(function(d){return d.data();});localStorage.setItem('ckn_admin_activity',JSON.stringify(ADMIN_ACTIVITY));renderAdminHome();}).catch(function(){});
   db.collection('coaches').get().then(function(snap){
     ALL_COACHES=snap.docs.map(function(d){return Object.assign({id:d.id},d.data());});
     ALL_PLAYERS=[];ALL_SESSIONS=[];
@@ -1498,7 +1599,7 @@ function loadAdminData(){
       db.collection('coaches').doc(c.id).collection('players').get().then(function(ps){
         ALL_PLAYERS=ALL_PLAYERS.concat(ps.docs.map(function(d){return Object.assign({coachId:c.id,coachName:c.name},d.data());}));
         db.collection('coaches').doc(c.id).collection('sessions').limit(20).get().then(function(ss){
-          ALL_SESSIONS=ALL_SESSIONS.concat(ss.docs.map(function(d){return Object.assign({coachName:c.name},d.data());}));
+          ALL_SESSIONS=ALL_SESSIONS.concat(ss.docs.map(function(d){return Object.assign({coachId:c.id,coachName:c.name},d.data());}));
           done++;if(done===total){renderAdminHome();}
         }).catch(function(){done++;if(done===total){renderAdminHome();}});
       }).catch(function(){done++;if(done===total){renderAdminHome();}});
@@ -1528,8 +1629,8 @@ function openCoachDetail(id){
 function approveCertification(id){
   if(!db){toast('Database connection required');return;}
   if(!confirm('Pass this coach and release The Compress Foundation certificate?'))return;
-  var c=ALL_COACHES.filter(function(x){return x.id===id;})[0]||{},when=new Date().toISOString(),valid=new Date(Date.now()+365*24*60*60*1000).toISOString(),latest=Object.assign({},c.latestExam||{},{decision:'passed',decidedAt:when,decidedBy:'Cecil Nyoni'});db.collection('coaches').doc(id).set({examStatus:'passed',certificationStatus:'approved',certifiedAt:when,certifiedBy:'Cecil Nyoni',examVersion:COMPRESS_VERSION,examValidUntil:valid,examRetakeAvailableAt:null,latestExam:latest},{merge:true}).then(function(){
-    ALL_COACHES.forEach(function(c){if(c.id===id){c.examStatus='passed';c.certificationStatus='approved';c.certifiedAt=when;c.certifiedBy='Cecil Nyoni';c.examVersion=COMPRESS_VERSION;c.examValidUntil=valid;c.examRetakeAvailableAt=null;if(c.latestExam)c.latestExam.decision='passed';}});toast('Exam passed, delivery unlocked and certificate released ✓');openCoachDetail(id);
+  var c=ALL_COACHES.filter(function(x){return x.id===id;})[0]||{},when=new Date().toISOString(),valid=new Date(Date.now()+365*24*60*60*1000).toISOString(),certId=certificateNumber(c,id),latest=Object.assign({},c.latestExam||{},{decision:'passed',decidedAt:when,decidedBy:'Cecil Nyoni'});db.collection('coaches').doc(id).set({examStatus:'passed',certificationStatus:'approved',certificateId:certId,certifiedAt:when,certifiedBy:'Cecil Nyoni',examVersion:COMPRESS_VERSION,examValidUntil:valid,examRetakeAvailableAt:null,latestExam:latest},{merge:true}).then(function(){
+    ALL_COACHES.forEach(function(c){if(c.id===id){c.examStatus='passed';c.certificationStatus='approved';c.certificateId=certId;c.certifiedAt=when;c.certifiedBy='Cecil Nyoni';c.examVersion=COMPRESS_VERSION;c.examValidUntil=valid;c.examRetakeAvailableAt=null;if(c.latestExam)c.latestExam.decision='passed';}});logAdminActivity('Foundation exam passed and certificate released',c);toast('Exam passed, delivery unlocked and certificate released ✓');openCoachDetail(id);
   }).catch(function(){toast('Approval failed — check Firebase rules');});
 }
 
@@ -1537,7 +1638,7 @@ function failCompressExam(id){
  if(!db){toast('Database connection required');return;}
  var reason=prompt('Reason / revision instruction for the coach:');if(reason===null)return;
  reason=reason.trim()||'Review The Compress methodology and apply to retake the exam.';
- var c=ALL_COACHES.filter(function(x){return x.id===id;})[0]||{},when=new Date().toISOString(),locked=(c.examAttempts||0)>=3?new Date(Date.now()+24*60*60*1000).toISOString():null,latest=Object.assign({},c.latestExam||{},{decision:'failed',decisionReason:reason,decidedAt:when,decidedBy:'Cecil Nyoni'});db.collection('coaches').doc(id).set({examStatus:'failed',certificationStatus:'not submitted',examDecisionReason:reason,examDecidedAt:when,examDecidedBy:'Cecil Nyoni',examRetakeAvailableAt:locked,latestExam:latest},{merge:true}).then(function(){ALL_COACHES.forEach(function(c){if(c.id===id){c.examStatus='failed';c.certificationStatus='not submitted';c.examDecisionReason=reason;c.examRetakeAvailableAt=locked;if(c.latestExam){c.latestExam.decision='failed';c.latestExam.decisionReason=reason;}}});toast(locked?'Not Yet recorded—24-hour retake review applies':'Not Yet recorded—immediate reapplication available');openCoachDetail(id);}).catch(function(){toast('Decision could not be saved');});
+ var c=ALL_COACHES.filter(function(x){return x.id===id;})[0]||{},when=new Date().toISOString(),locked=(c.examAttempts||0)>=3?new Date(Date.now()+24*60*60*1000).toISOString():null,latest=Object.assign({},c.latestExam||{},{decision:'failed',decisionReason:reason,decidedAt:when,decidedBy:'Cecil Nyoni'});db.collection('coaches').doc(id).set({examStatus:'failed',certificationStatus:'not submitted',examDecisionReason:reason,examDecidedAt:when,examDecidedBy:'Cecil Nyoni',examRetakeAvailableAt:locked,latestExam:latest},{merge:true}).then(function(){ALL_COACHES.forEach(function(c){if(c.id===id){c.examStatus='failed';c.certificationStatus='not submitted';c.examDecisionReason=reason;c.examRetakeAvailableAt=locked;if(c.latestExam){c.latestExam.decision='failed';c.latestExam.decisionReason=reason;}}});logAdminActivity('Foundation exam marked Not Yet',c);toast(locked?'Not Yet recorded—24-hour retake review applies':'Not Yet recorded—immediate reapplication available');openCoachDetail(id);}).catch(function(){toast('Decision could not be saved');});
 }
 
 function adminExamAnswers(c){
@@ -1547,7 +1648,7 @@ function adminExamAnswers(c){
 
 function approvePractical(id){
  if(!db){toast('Database connection required');return;}
- var when=new Date().toISOString();db.collection('coaches').doc(id).set({practicalApproved:true,practicalApprovedAt:when,practicalAssessor:'Cecil Nyoni'},{merge:true}).then(function(){ALL_COACHES.forEach(function(c){if(c.id===id){c.practicalApproved=true;c.practicalApprovedAt=when;c.practicalAssessor='Cecil Nyoni';}});toast('Practical assessment recorded ✓');openCoachDetail(id);}).catch(function(){toast('Could not record assessment');});
+ var c=ALL_COACHES.filter(function(x){return x.id===id;})[0]||{},when=new Date().toISOString();db.collection('coaches').doc(id).set({practicalApproved:true,practicalApprovedAt:when,practicalAssessor:'Cecil Nyoni'},{merge:true}).then(function(){ALL_COACHES.forEach(function(c){if(c.id===id){c.practicalApproved=true;c.practicalApprovedAt=when;c.practicalAssessor='Cecil Nyoni';}});logAdminActivity('Practical assessment recorded',c);toast('Practical assessment recorded ✓');openCoachDetail(id);}).catch(function(){toast('Could not record assessment');});
 }
 
 function renderAllPlayers(){filterPlayers('');}
@@ -1556,8 +1657,29 @@ function filterPlayers(q){
   document.getElementById('all-players').innerHTML=list.length?list.map(function(p){return'<div class="p-row"><div class="p-av">'+ini(p.name||'?')+'</div><div class="p-info"><div class="p-name">'+p.name+'</div><div class="p-sub">'+(p.coachName||'?')+' \u00b7 Age '+(p.age||'?')+'</div></div><div class="pos '+posCls(p.pos)+'">'+(p.pos||'?')+'</div></div>';}).join(''):'<div class="empty">No players found</div>';
 }
 
-function renderManageCoaches(){
-  document.getElementById('manage-coaches').innerHTML=ALL_COACHES.length?ALL_COACHES.map(function(c){var lid=getCoachLoginId(c,c.id);return'<div style="background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:9px"><div style="display:flex;align-items:center;gap:12px"><div class="c-av">'+ini(c.name||'?')+'</div><div style="flex:1"><div style="font-size:14px;font-weight:600">'+esc(c.name||'?')+'</div><div style="font-size:12px;color:var(--muted2)">'+esc(c.location||'No location')+'</div></div><div style="font-size:9px;letter-spacing:1px;text-transform:uppercase;color:'+(c.accessStatus==='suspended'?'#e55':'var(--green)')+'">'+(c.accessStatus==='suspended'?'Suspended':'Active')+'</div></div><div style="margin-top:12px;background:var(--bg4);border-radius:8px;padding:10px"><div style="font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--muted)">Coach ID</div><div style="font-family:\'Bebas Neue\',sans-serif;font-size:21px;letter-spacing:1px;color:var(--gold)">'+lid+'</div></div><button class="copy-btn" style="margin-top:8px" onclick="resetCoachAccess(\''+c.id+'\')">Issue new access code</button></div>';}).join(''):'<div class="empty">No coaches yet</div>';
+function renderManageCoaches(list){
+  list=list||ALL_COACHES;
+  document.getElementById('manage-coaches').innerHTML=list.length?list.map(function(c){var lid=getCoachLoginId(c,c.id),suspended=c.accessStatus==='suspended';return'<div style="background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:9px"><div style="display:flex;align-items:center;gap:12px"><div class="c-av">'+ini(c.name||'?')+'</div><div style="flex:1"><div style="font-size:14px;font-weight:600">'+esc(c.name||'?')+'</div><div style="font-size:12px;color:var(--muted2)">'+esc(c.location||'No location')+'</div><div class="qual-badge">'+esc(coachQualification(c))+'</div></div><div class="status-pill '+(suspended?'status-stop':'status-live')+'">'+(suspended?'Suspended':'Active')+'</div></div><div style="margin-top:12px;background:var(--bg4);border-radius:8px;padding:10px"><div style="font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--muted)">Coach ID</div><div style="font-family:\'Bebas Neue\',sans-serif;font-size:21px;letter-spacing:1px;color:var(--gold)">'+esc(lid)+'</div></div><div class="manage-actions"><button class="copy-btn" onclick="openEditCoach(\''+c.id+'\')">Edit record</button><button class="copy-btn" onclick="resetCoachAccess(\''+c.id+'\')">New code</button><button class="copy-btn" style="color:'+(suspended?'var(--green)':'var(--gold)')+'" onclick="toggleCoachAccess(\''+c.id+'\')">'+(suspended?'Reinstate':'Suspend')+'</button><button class="danger-btn" onclick="removeCoach(\''+c.id+'\')">Remove</button></div></div>';}).join(''):'<div class="empty">No matching coaches.</div>';
+}
+function filterAdminCoaches(){
+ var q=((document.getElementById('coach-admin-search')||{}).value||'').trim().toLowerCase(),f=((document.getElementById('coach-admin-filter')||{}).value||'all');
+ var list=ALL_COACHES.filter(function(c){var hay=[c.name,c.location,getCoachLoginId(c,c.id),coachQualification(c)].join(' ').toLowerCase();var status=f==='all'||(f==='active'&&c.accessStatus!=='suspended')||(f==='suspended'&&c.accessStatus==='suspended')||(f==='pending'&&coachNeedsReview(c))||(f==='certified'&&foundationPassed(c));return(!q||hay.indexOf(q)>-1)&&status;});
+ renderManageCoaches(list);
+}
+function openEditCoach(id){
+ var c=ALL_COACHES.filter(function(x){return x.id===id;})[0];if(!c)return;
+ document.getElementById('ec-id').value=id;document.getElementById('ec-name').value=c.name||'';document.getElementById('ec-loc').value=c.location||'';document.getElementById('ec-phone').value=c.phone||'';document.getElementById('ec-notes').value=c.adminNotes||'';om('modal-edit-coach');
+}
+function saveCoachEdit(){
+ var id=document.getElementById('ec-id').value,c=ALL_COACHES.filter(function(x){return x.id===id;})[0];if(!c||!db)return;
+ var data={name:document.getElementById('ec-name').value.trim(),location:document.getElementById('ec-loc').value.trim(),phone:document.getElementById('ec-phone').value.trim(),adminNotes:document.getElementById('ec-notes').value.trim(),recordUpdatedAt:new Date().toISOString(),recordUpdatedBy:'Cecil Nyoni'};
+ if(!data.name){toast('Coach name is required');return;}
+ db.collection('coaches').doc(id).set(data,{merge:true}).then(function(){Object.assign(c,data);cm('modal-edit-coach');logAdminActivity('Coach record updated',c);renderManageCoaches();renderAdminHome();toast('Coach record updated ✓');}).catch(function(){toast('Could not update coach');});
+}
+function toggleCoachAccess(id){
+ var c=ALL_COACHES.filter(function(x){return x.id===id;})[0];if(!c||!db)return;var suspend=c.accessStatus!=='suspended',next=suspend?'suspended':'active';
+ if(!confirm((suspend?'Suspend ':'Reinstate ')+(c.name||'this coach')+'?'))return;
+ db.collection('coaches').doc(id).set({accessStatus:next,accessChangedAt:new Date().toISOString(),accessChangedBy:'Cecil Nyoni'},{merge:true}).then(function(){c.accessStatus=next;logAdminActivity(suspend?'Coach access suspended':'Coach access reinstated',c);renderManageCoaches();renderAdminHome();toast(suspend?'Access suspended':'Access reinstated');}).catch(function(){toast('Could not change access');});
 }
 
 function openAddCoach(){
@@ -1583,8 +1705,8 @@ function goAdminAcademy(){
 function goAdminParents(){
   document.querySelectorAll('#admin-nav .ni').forEach(function(b){b.classList.remove('on');});
   document.querySelectorAll('#admin-nav .ni')[4].classList.add('on');
-  renderParents();
-  showPg('parents');
+  renderHandbook();
+  showPg('handbook');
 }
 async function saveCoach(){
   var name=document.getElementById('nc-name').value.trim();
@@ -1595,7 +1717,7 @@ async function saveCoach(){
   var c={name:name,loginId:loginId,pinHash:pinHash,accessStatus:'active',mustChangeCode:true,location:document.getElementById('nc-loc').value.trim(),phone:document.getElementById('nc-phone').value.trim(),playerCount:0,sessionCount:0,createdAt:new Date().toISOString()};
   if(!db){toast('Database connection required to create access');return;}
   db.collection('coaches').add(c).then(function(r){
-    ALL_COACHES.push(Object.assign({id:r.id},c));
+    c.id=r.id;ALL_COACHES.push(c);logAdminActivity('Coach access issued',c);
     cm('modal-coach');renderManageCoaches();renderAdminHome();showAccessDetails(name,loginId,pin);
   }).catch(function(){toast('Error saving \u2014 check Firebase rules');});
 }
@@ -1610,7 +1732,61 @@ async function resetCoachAccess(id){
  var c=ALL_COACHES.filter(function(x){return x.id===id;})[0];if(!c)return;
  var pin=String(Math.floor(1000+Math.random()*9000)),pinHash=await hashValue(pin),loginId=getCoachLoginId(c,id);
  if(!db){toast('Database connection required');return;}
- db.collection('coaches').doc(id).set({loginId:loginId,pinHash:pinHash,accessStatus:'active',mustChangeCode:true,pin:firebase.firestore.FieldValue.delete()},{merge:true}).then(function(){c.loginId=loginId;c.pinHash=pinHash;delete c.pin;showAccessDetails(c.name||'Coach',loginId,pin);renderManageCoaches();}).catch(function(){toast('Could not reset access');});
+ db.collection('coaches').doc(id).set({loginId:loginId,pinHash:pinHash,accessStatus:'active',mustChangeCode:true,pin:firebase.firestore.FieldValue.delete()},{merge:true}).then(function(){c.loginId=loginId;c.pinHash=pinHash;c.accessStatus='active';delete c.pin;logAdminActivity('New temporary access code issued',c);showAccessDetails(c.name||'Coach',loginId,pin);renderManageCoaches();}).catch(function(){toast('Could not reset access');});
+}
+
+async function removeCoach(id){
+ var c=ALL_COACHES.filter(function(x){return x.id===id;})[0];if(!c)return;
+ var name=c.name||'this coach';
+ if(!confirm('Permanently remove '+name+'?\n\nThis deletes their login, player records, sessions and assessment record. This cannot be undone.'))return;
+ if(!db){toast('Database connection required');return;}
+ try{
+  var ref=db.collection('coaches').doc(id);
+  var results=await Promise.all([ref.collection('players').get(),ref.collection('sessions').get()]);
+  var deletes=[];
+  results.forEach(function(snap){snap.docs.forEach(function(d){deletes.push(d.ref.delete());});});
+  await Promise.all(deletes);
+  await ref.delete();
+  logAdminActivity('Coach permanently removed',c);
+  ALL_COACHES=ALL_COACHES.filter(function(x){return x.id!==id;});
+  ALL_PLAYERS=ALL_PLAYERS.filter(function(x){return x.coachId!==id;});
+  ALL_SESSIONS=ALL_SESSIONS.filter(function(x){return x.coachId!==id&&x.coachName!==name;});
+  renderManageCoaches();renderAdminHome();toast(name+' removed permanently');
+ }catch(e){
+  console.error(e);toast('Could not remove coach — check Firebase permissions');
+ }
+}
+
+function adminCoachControls(c){
+ var renew=c.examStatus==='passed'?'<button class="mini-btn" onclick="renewFoundation(\''+c.id+'\')">Renew Foundation</button>':'';
+ return'<div class="admin-tools" style="padding-top:14px"><button class="mini-btn" onclick="openEditCoach(\''+c.id+'\')">Edit record</button><button class="mini-btn" onclick="printAdminCoachReport(\''+c.id+'\')">Print report</button>'+renew+'<button class="mini-btn" onclick="toggleCoachAccess(\''+c.id+'\')">'+(c.accessStatus==='suspended'?'Reinstate':'Suspend')+'</button></div>'+(c.adminNotes?'<div class="s-card"><div class="s-date">Admin notes</div><div class="s-note">'+esc(c.adminNotes)+'</div></div>':'');
+}
+function renewFoundation(id){
+ var c=ALL_COACHES.filter(function(x){return x.id===id;})[0];if(!c||!db)return;
+ if(!confirm('Confirm that '+(c.name||'this coach')+' has completed the required annual methodology review? This renews Foundation for 12 months.'))return;
+ var data={examStatus:'passed',certificationStatus:'approved',examVersion:COMPRESS_VERSION,examValidUntil:new Date(Date.now()+365*864e5).toISOString(),renewedAt:new Date().toISOString(),renewedBy:'Cecil Nyoni'};
+ db.collection('coaches').doc(id).set(data,{merge:true}).then(function(){Object.assign(c,data);logAdminActivity('Foundation qualification renewed for 12 months',c);toast('Qualification renewed ✓');openCoachDetail(id);renderAdminHome();}).catch(function(){toast('Could not renew qualification');});
+}
+function approveHigherLevel(id,level){
+ var c=ALL_COACHES.filter(function(x){return x.id===id;})[0];if(!c||!db)return;
+ var isLead=level==='lead',label=isLead?'Level 4 · Lead Coach':'Level 5 · Coach Educator';
+ if(isLead&&!c.performanceApproved){toast('Growth must be completed before Lead assessment');return;}
+ if(!isLead&&!c.leadApproved){toast('Lead Coach must be approved before Educator');return;}
+ if(!confirm('Confirm Cecil Nyoni has completed the required on-pitch assessment and approves '+(c.name||'this coach')+' as '+label+'?'))return;
+ var data={},when=new Date().toISOString();data[isLead?'leadApproved':'educatorApproved']=true;data[isLead?'leadApprovedAt':'educatorApprovedAt']=when;data[isLead?'leadAssessor':'educatorAssessor']='Cecil Nyoni';
+ db.collection('coaches').doc(id).set(data,{merge:true}).then(function(){Object.assign(c,data);logAdminActivity(label+' approved after live assessment',c);toast(label+' approved ✓');openCoachDetail(id);renderAdminHome();}).catch(function(){toast('Could not save higher-level approval');});
+}
+function printAdminCoachReport(id){
+ var c=ALL_COACHES.filter(function(x){return x.id===id;})[0];if(!c)return;var edu=completionSummary(c.educationProgress||{}),players=ALL_PLAYERS.filter(function(p){return p.coachId===id;}),sessions=ALL_SESSIONS.filter(function(s){return s.coachId===id||s.coachName===c.name;}),cert=levelOnePassed(c)?qualificationCertificate(c):'Not issued',valid=qualificationValidUntil(c)?qualificationValidUntil(c).slice(0,10):'—';
+ var w=window.open('','_blank');if(!w){toast('Allow pop-ups to open report');return;}
+ w.document.write('<!doctype html><html><head><title>CKN Admin Coach Record</title><style>@page{size:A4;margin:17mm}body{font-family:Arial;color:#151515}.head{border-bottom:5px solid #f5a623;padding-bottom:15px}.logo{font-size:40px;font-weight:900;color:#f5a623;letter-spacing:6px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0}.box{background:#f2f2f2;padding:12px}.label{font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#666}.value{font-size:16px;font-weight:700;margin-top:4px}table{width:100%;border-collapse:collapse;margin-top:18px}th,td{text-align:left;padding:9px;border-bottom:1px solid #ddd;font-size:11px}th{background:#111;color:white}.foot{margin-top:25px;color:#666;font-size:10px}</style></head><body><div class="head"><div class="logo">CKN</div><h1>Coach Governance Record</h1><div>Generated by Cecil Nyoni · '+new Date().toISOString().slice(0,10)+'</div></div><h2>'+esc(c.name)+'</h2><p>'+esc(getCoachLoginId(c,id))+' · '+esc(c.location||'No location')+' · '+esc(c.phone||'No contact')+'</p><div class="grid"><div class="box"><div class="label">Qualification</div><div class="value">'+esc(coachQualification(c))+'</div></div><div class="box"><div class="label">Education</div><div class="value">'+edu.pct+'%</div></div><div class="box"><div class="label">Access</div><div class="value">'+esc(c.accessStatus||'active')+'</div></div><div class="box"><div class="label">Players</div><div class="value">'+players.length+'</div></div><div class="box"><div class="label">Sessions loaded</div><div class="value">'+sessions.length+'</div></div><div class="box"><div class="label">Level 1 exam</div><div class="value">'+esc(c.level1ExamStatus||'not started')+'</div></div></div><table><tr><th>Highest certificate</th><td>'+esc(cert)+'</td></tr><tr><th>Valid until</th><td>'+esc(valid)+'</td></tr><tr><th>Level 1 approval</th><td>'+(levelOnePassed(c)?'Approved · '+esc(c.level1CertifiedBy||'Cecil Nyoni'):'Not approved')+'</td></tr><tr><th>Level 2 written</th><td>'+(c.compressKnowledgeApproved?'Meets standard':'Not approved')+'</td></tr><tr><th>Level 2 pitch</th><td>'+(compressPassed(c)?'Approved · '+esc(c.compressCertifiedBy||'Cecil Nyoni'):'Not approved')+'</td></tr><tr><th>Level 3 written</th><td>'+(c.growthWrittenApproved?'Meets standard':'Not approved')+'</td></tr><tr><th>Level 3 pitch</th><td>'+(c.growthPracticalApproved?'Meets standard':'Not approved')+'</td></tr><tr><th>Level 4</th><td>'+(c.leadApproved?'Approved':'Not approved')+'</td></tr><tr><th>Level 5</th><td>'+(c.educatorApproved?'Approved':'Not approved')+'</td></tr><tr><th>Admin notes</th><td>'+esc(c.adminNotes||'None')+'</td></tr></table><div class="foot">CKN Foundation Zimbabwe · Internal governance record. Every qualification decision remains under CKN Admin control.</div></body></html>');w.document.close();
+}
+function certificateRows(){return ALL_COACHES.filter(function(c){return c.examStatus==='passed';}).map(function(c){return[c.name,getCoachLoginId(c,c.id),coachQualification(c),certificateNumber(c,c.id),(c.certifiedAt||'').slice(0,10),(c.examValidUntil||'').slice(0,10),c.location||''];});}
+function printCertificateRegister(){
+ var rows=certificateRows(),w=window.open('','_blank');if(!w){toast('Allow pop-ups to open register');return;}w.document.write('<!doctype html><html><head><title>CKN Certificate Register</title><style>@page{size:A4 landscape;margin:15mm}body{font-family:Arial}.logo{font-size:38px;font-weight:900;color:#f5a623;letter-spacing:5px}table{width:100%;border-collapse:collapse;margin-top:20px}th,td{padding:9px;border-bottom:1px solid #ddd;text-align:left;font-size:11px}th{background:#111;color:#fff}</style></head><body><div class="logo">CKN</div><h1>Certificate Register</h1><p>Generated '+new Date().toISOString().slice(0,10)+' · Controlled by Cecil Nyoni</p><table><thead><tr><th>Coach</th><th>Coach ID</th><th>Qualification</th><th>Certificate</th><th>Issued</th><th>Valid until</th><th>Location</th></tr></thead><tbody>'+rows.map(function(r){return'<tr>'+r.map(function(x){return'<td>'+esc(x||'—')+'</td>';}).join('')+'</tr>';}).join('')+'</tbody></table></body></html>');w.document.close();
+}
+function exportAdminCsv(){
+ var head=['Coach','Coach ID','Qualification','Certificate','Issued','Valid until','Location'],rows=[head].concat(certificateRows()),csv=rows.map(function(r){return r.map(function(x){return'"'+String(x||'').replace(/"/g,'""')+'"';}).join(',');}).join('\n'),blob=new Blob([csv],{type:'text/csv'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='CKN-Certificate-Register-'+new Date().toISOString().slice(0,10)+'.csv';a.click();setTimeout(function(){URL.revokeObjectURL(a.href);},500);logAdminActivity('Certificate register exported');
 }
 
 /* ===== CKN OPERATING SYSTEM EXPERIENCE ===== */
@@ -1688,6 +1864,72 @@ MODULES=[
   {title:'The pitch-side audit',content:[{t:'p',v:'Before and during every session, the coach audits the work against the identity.'},{t:'l',v:['Was the weaker centre back trigger nominated?','Was shared language used: Invert, Trigger, Show one side, Third man, Compress, Reset—don’t chase?','Were roles coached on both sides of the ball?','Was the correct mechanism coached, not only the outcome?','Was every intervention linked to a Compress principle?','Was the format adapted without diluting the model?']},{t:'p',v:'If one of these is missing, the coach identifies the correction before the next delivery.'}],quiz:{q:'Why is the pitch-side audit used?',opts:['To count equipment','To protect consistent delivery of The Compress identity','To replace practical assessment'],ans:1}}
  ]}
 ];
+
+var HANDBOOK_MODELS=[
+ {id:1,title:'CKN Player Development Pathway',sub:'Technician → Footballer → Competitor',intro:'Ages guide the development emphasis without fixing young players into permanent positions.',sections:[
+  {h:'Phase 1 · The Technician · Ages 6–12',p:'Foundation phase',items:['Technical mastery','Build confidence','Enjoyment','Learn to train','Rotate roles and develop both feet']},
+  {h:'Phase 2 · The Footballer · Ages 12–15',p:'Development phase',items:['Game understanding','Decision-making','Develop physically','Learn to compete','Connect individual quality to the team model']},
+  {h:'Phase 3 · The Competitor · Ages 15–18',p:'Performance phase',items:['Perform with purpose','High-level development','Compete to win','Prepare for the next level']},
+  {h:'The complete player',items:['Technically excellent','Tactically intelligent','Physically prepared','Mentally strong','Socially responsible','Emotionally resilient']}
+ ]},
+ {id:2,title:'CKN Coach Education Pathway',sub:'Foundation → Development → Advanced → Educator',intro:'Coaches progress by proving deeper understanding and delivery—not simply by attending.',sections:[
+  {h:'Foundation Coach · Rise',p:'Builds safe, enjoyable and technically strong foundations. Platform learning and Cecil Nyoni’s knowledge-exam decision.'},
+  {h:'Development Coach · Soar',p:'Develops players and implements the model. Requires an observed representative SSG.'},
+  {h:'Advanced Coach · Grow',p:'Prepares teams for performance, mentors coaches and drives development. Requires written tactical understanding plus the full live rubric.'},
+  {h:'Coach Educator · Leader',p:'Develops coaches, influences practice, leads education and protects CKN standards.'}
+ ]},
+ {id:3,title:'CKN Club Accreditation Pyramid',sub:'Registered → Developing → Accredited → Centre of Excellence',intro:'Club status measures whether the CKN methodology is embedded consistently—not whether a badge has been purchased.',sections:[
+  {h:'Level 1 · Registered Club',p:'Registered to operate, introduced to the methodology and beginning the improvement journey.'},
+  {h:'Level 2 · Developing Club',p:'The methodology is embedded, the framework introduced and standards implemented and monitored.'},
+  {h:'Level 3 · Accredited Club',p:'The methodology is delivered consistently across age groups through certified coaches and aligned programmes.'},
+  {h:'Level 4 · Centre of Excellence',p:'The highest standard of excellence, leading player development and contributing knowledge back to the game.'}
+ ]},
+ {id:4,title:'The CKN Ecosystem',sub:'A closed loop of standards, delivery and improvement',intro:'Every part of CKN feeds evidence back into the next version of the methodology.',sections:[
+  {h:'The eight-part loop',items:['1 · The Standard defines the identity','2 · Coach Education teaches the identity','3 · Coaches are assessed and certified','4 · Clubs are assessed and accredited','5 · Players are assessed consistently','6 · Delivery data returns to CKN','7 · The methodology is improved','8 · Coach education is updated']},
+  {h:'Continuous improvement',p:'The system never ends at certification. Evidence from coaches, players and clubs strengthens the next delivery cycle.'}
+ ]},
+ {id:5,title:'The CKN Coach Compass',sub:'Eight behaviours around the player',intro:'The coach guides development through deliberate behaviours rather than constant instruction alone.',sections:[
+  {h:'Observe',p:'See everything with purpose.'},{h:'Challenge',p:'Stretch thinking and ability.'},{h:'Question',p:'Ask to unlock understanding.'},{h:'Demonstrate',p:'Show the way and lead by example.'},
+  {h:'Encourage',p:'Build belief and confidence.'},{h:'Review',p:'Reflect and improve.'},{h:'Assess',p:'Measure progress.'},{h:'Adapt',p:'Respond to the moment.'}
+ ]},
+ {id:6,title:'The CKN Learning Cycle',sub:'Learn → Practise → Play → Review → Improve',intro:'Understanding becomes game behaviour only through a repeated learning cycle.',sections:[
+  {h:'1 · Learn',p:'Understand the game.'},{h:'2 · Practise',p:'Develop the behaviour in training.'},{h:'3 · Play',p:'Apply it in the game.'},{h:'4 · Review',p:'Analyse and reflect.'},{h:'5 · Improve',p:'Make the next action better.'},{h:'Repeat to master',p:'Mastery is accumulated through purposeful repetition.'}
+ ]},
+ {id:7,title:'CKN Homework Cycle',sub:'Consistency creates progress',intro:'Development continues between coached sessions through short, measurable and reviewed tasks.',sections:[
+  {h:'1 · Coach sets the task',p:'State the behaviour, duration and success measure.'},{h:'2 · Player completes',p:'The player owns the work.'},{h:'3 · Parent supports',p:'Support consistency without replacing the player’s responsibility.'},{h:'4 · Coach reviews',p:'Check evidence at the agreed point.'},{h:'5 · Next challenge',p:'Use the result to set the next action.'}
+ ]},
+ {id:8,title:'CKN Assessment Matrix',sub:'Six domains · Five development levels',intro:'One shared assessment language tracks the whole player, not only technical performance.',sections:[]},
+ {id:9,title:'CKN Four Moments of the Game',sub:'Attack · Defensive transition · Defend · Attacking transition',intro:'Every match repeatedly moves through four connected moments. The Compress gives coaches a shared response in each.',sections:[
+  {h:'1 · We have the ball · Attack',p:'Establish control, create the extra player, overload centrally and progress into the opposition final third.'},
+  {h:'2 · We lose the ball · Transition',p:'Counter-press immediately when connected; otherwise recover the compact structure.'},
+  {h:'3 · They have the ball · Defend',p:'Protect the centre, stay narrow and connected, show one side and wait for the shared trigger.'},
+  {h:'4 · They lose the ball · Transition',p:'Use the regain to attack vertically before the opponent reorganises.'}
+ ]},
+ {id:10,title:'CKN Game Model Pyramid',sub:'Skills → Structures → Principles → Outcome',intro:'Collective performance is built from individual mastery rather than detached from it.',sections:[
+  {h:'Individual Brilliance · Skills',p:'Mastery of football fundamentals.'},{h:'Positional Play · Structures',p:'Organisation, spacing and relationships.'},{h:'Play The Right Way · Principles',p:'How CKN translates its philosophy.'},{h:'Play To Win · Outcome',p:'Score more goals than the opponent while developing players through the model.'}
+ ]},
+ {id:11,title:'CKN Club Structure Model',sub:'Eight functions around one club vision',intro:'A sustainable development club aligns its football, leadership, welfare and community work.',sections:[
+  {h:'The eight connected functions',items:['Community Engagement','Leadership & Governance','Coaching & Education','Player Development','Games Programme','Safeguarding & Welfare','Facilities & Equipment','Parent Partnership']},
+  {h:'Club vision',p:'Every function must reinforce the same development identity. Strong football delivery cannot compensate for weak welfare, governance or community trust.'}
+ ]},
+ {id:12,title:'CKN Coach Pathway',sub:'Learn · Practise · Experience · Reflect · Grow · Lead',intro:'A coach moves from supporting delivery to protecting the standard across other coaches and environments.',sections:[
+  {h:'Entry · Volunteer Coach',p:'Supports safe delivery and begins the learning pathway.'},{h:'Level 1 · Foundation Coach',p:'Understands the knowledge floor and foundational coaching standard.'},{h:'Level 2 · Development Coach',p:'Delivers representative practice to observed standard.'},{h:'Level 3 · Advanced Coach',p:'Understands, adapts and delivers all four moments.'},{h:'Level 4 · Coach Educator',p:'Develops other coaches and audits the standard.'},{h:'Mentor / Leader function',p:'Leads improvement across coaches, clubs and the wider CKN system.'}
+ ]}
+];
+
+function renderHandbook(){
+ document.getElementById('handbook-grid').innerHTML=HANDBOOK_MODELS.map(function(m){return'<div class="handbook-card" onclick="openHandbookModel('+m.id+')"><div class="handbook-no">'+String(m.id).padStart(2,'0')+'</div><div class="handbook-name">'+m.title+'</div><div class="handbook-copy">'+m.sub+'</div><div class="handbook-arrow">›</div></div>';}).join('');
+}
+function assessmentMatrix(){
+ var domains=['Technical','Tactical','Physical','Psychological','Social','Learning'],levels=['Emerging','Developing','Secure','Advanced','Excelling'];
+ return'<div class="bp-section"><div class="bp-label">Whole-player matrix</div><table class="matrix"><thead><tr><th>Domain</th>'+levels.map(function(x){return'<th>'+x+'</th>';}).join('')+'</tr></thead><tbody>'+domains.map(function(d){return'<tr><td>'+d+'</td>'+levels.map(function(_,i){return'<td style="color:'+['#e04545','#f08a24','#f5c623','#56b95e','#4d8ef5'][i]+'">●</td>';}).join('')+'</tr>';}).join('')+'</tbody></table></div><div class="tip-box"><div class="tip-lbl">Assessment rule</div><div class="tip-txt" style="font-style:normal">Ratings must be supported by current observation. The matrix shows the player’s present development level and guides the next action; it is not a permanent label.</div></div>';
+}
+function openHandbookModel(id){
+ var m=HANDBOOK_MODELS.filter(function(x){return x.id===id;})[0];if(!m)return;
+ var sections=m.sections.map(function(s){return'<div class="hb-step"><b>'+s.h+'</b>'+(s.p?'<span>'+s.p+'</span>':'')+(s.items?'<ul class="detail-list" style="margin-top:7px">'+s.items.map(function(x){return'<li>'+x+'</li>';}).join('')+'</ul>':'')+'</div>';}).join('');
+ var links=id===1?'<button class="btn-gold" style="margin-top:16px" onclick="go(\'squad\')">Open player development records →</button>':id===2||id===12?'<button class="btn-gold" style="margin-top:16px" onclick="go(\'academy\')">Open coach education →</button>':id===9||id===10?'<button class="btn-gold" style="margin-top:16px" onclick="go(\'pathway\')">Open The Compress game model →</button>':id===8?'<button class="btn-gold" style="margin-top:16px" onclick="go(\'squad\')">Open player assessments →</button>':'';
+ document.getElementById('handbook-detail').innerHTML='<div class="hb-wrap"><div class="os-kicker">CKN Methodology Handbook · Model '+String(m.id).padStart(2,'0')+'</div><div class="hb-title">'+m.title+'</div><div class="hb-intro">'+m.intro+'</div>'+(id===8?assessmentMatrix():'<div class="hb-flow">'+sections+'</div>')+links+'</div>';showPg('handbook-detail');
+}
 
 function renderPathway(){
  var micro=[['S1','Moment 4 · Build-up','CB2 inversion','15 min + rondo'],['S2','Moment 2 · Break low block','Overload finishing','12 min + finishing'],['S3','Moment 1 · Defensive shape','Trigger and show one side','12 min + walkthrough'],['S4 / Match','Moment 3 · Press to score','Weaker CB trigger','10 min + 8-sec finishing']];
@@ -1789,17 +2031,18 @@ function adminGrowthReview(c){
  var written=c.growthWrittenApproved?'Meets standard':c.growthExamStatus==='submitted'?'Review required':'Not submitted';
  var practical=c.growthPracticalApproved?'All 7 meet standard':'Live rubric required';
  var answers=(c.latestGrowthExam&&c.latestGrowthExam.answers)||[];
- return'<div class="s-card"><div class="s-date">Soil · observed single-SSG gate</div><div class="s-meta">'+(c.developmentApproved?'Signed off by '+esc(c.developmentAssessor||'authorised assessor'):'Not yet observed')+'</div>'+(!c.developmentApproved&&foundationPassed(c)?'<button class="btn-gold" style="margin-top:10px" onclick="approveSoil(\''+c.id+'\')">Sign Off Observed SSG</button>':'')+'</div><div class="s-card"><div class="s-date">Growth Upgrade · two-part gate</div><div class="s-meta">Written: '+written+' · Practical: '+practical+'</div>'+(answers.length?'<details style="margin-top:12px"><summary style="cursor:pointer;color:var(--gold);font-weight:700">Review seven tactical answers</summary>'+GROWTH_EXAM.map(function(q,i){return'<div class="exam-review"><div class="s-date">'+q.id+' · '+q.topic+'</div><div style="font-size:13px;font-weight:600;margin:5px 0">'+q.q+'</div><div class="s-note"><b>Coach:</b> '+esc(answers[i]||'No answer')+'</div><div class="s-note" style="color:var(--gold)"><b>Assessor guide:</b> '+q.model+'</div></div>';}).join('')+'</details>':'<div class="s-note">No tactical submission yet.</div>')+(c.growthExamStatus==='submitted'?'<div style="display:flex;gap:8px;margin-top:12px"><button class="btn-gold" style="flex:1" onclick="markGrowthWritten(\''+c.id+'\',true)">Written Meets</button><button class="danger-btn" style="flex:1;margin:0" onclick="markGrowthWritten(\''+c.id+'\',false)">Not Yet</button></div>':'')+'<button class="btn-gold" style="margin-top:10px" onclick="recordGrowthPractical(\''+c.id+'\')">Record 7-Criterion Pitch Rubric</button></div>';
+ var higher='<div class="s-card"><div class="s-date">Higher-level on-pitch progression</div><div class="s-meta">Lead: '+(c.leadApproved?'Approved':'Live assessment required')+' · Educator: '+(c.educatorApproved?'Approved':'Not approved')+'</div>'+(c.performanceApproved&&!c.leadApproved?'<button class="btn-gold" style="margin-top:10px" onclick="approveHigherLevel(\''+c.id+'\',\'lead\')">Approve Lead Coach After Live Assessment</button>':'')+(c.leadApproved&&!c.educatorApproved?'<button class="btn-gold" style="margin-top:10px" onclick="approveHigherLevel(\''+c.id+'\',\'educator\')">Approve Coach Educator After Live Assessment</button>':'')+'<div class="s-note" style="margin-top:10px">These upgrades cannot be self-awarded. Cecil records them only after observing the coach on the pitch.</div></div>';
+ return'<div class="s-card"><div class="s-date">Soil · observed single-SSG gate</div><div class="s-meta">'+(c.developmentApproved?'Signed off by '+esc(c.developmentAssessor||'authorised assessor'):'Not yet observed')+'</div>'+(!c.developmentApproved&&foundationPassed(c)?'<button class="btn-gold" style="margin-top:10px" onclick="approveSoil(\''+c.id+'\')">Sign Off Observed SSG</button>':'')+'</div><div class="s-card"><div class="s-date">Growth Upgrade · two-part gate</div><div class="s-meta">Written: '+written+' · Practical: '+practical+'</div>'+(answers.length?'<details style="margin-top:12px"><summary style="cursor:pointer;color:var(--gold);font-weight:700">Review seven tactical answers</summary>'+GROWTH_EXAM.map(function(q,i){return'<div class="exam-review"><div class="s-date">'+q.id+' · '+q.topic+'</div><div style="font-size:13px;font-weight:600;margin:5px 0">'+q.q+'</div><div class="s-note"><b>Coach:</b> '+esc(answers[i]||'No answer')+'</div><div class="s-note" style="color:var(--gold)"><b>Assessor guide:</b> '+q.model+'</div></div>';}).join('')+'</details>':'<div class="s-note">No tactical submission yet.</div>')+(c.growthExamStatus==='submitted'?'<div style="display:flex;gap:8px;margin-top:12px"><button class="btn-gold" style="flex:1" onclick="markGrowthWritten(\''+c.id+'\',true)">Written Meets</button><button class="danger-btn" style="flex:1;margin:0" onclick="markGrowthWritten(\''+c.id+'\',false)">Not Yet</button></div>':'')+'<button class="btn-gold" style="margin-top:10px" onclick="recordGrowthPractical(\''+c.id+'\')">Record 7-Criterion Pitch Rubric</button></div>'+higher;
 }
 function approveSoil(id){
  if(!confirm('Confirm you observed this coach deliver one Compress single-SSG session to standard?'))return;
  var data={developmentApproved:true,developmentApprovedAt:new Date().toISOString(),developmentAssessor:'Cecil Nyoni'};
- db.collection('coaches').doc(id).set(data,{merge:true}).then(function(){ALL_COACHES.forEach(function(c){if(c.id===id)Object.assign(c,data);});toast('Soil observation signed off ✓');openCoachDetail(id);});
+ db.collection('coaches').doc(id).set(data,{merge:true}).then(function(){var c=ALL_COACHES.filter(function(x){return x.id===id;})[0];if(c)Object.assign(c,data);logAdminActivity('Soil practical assessment passed',c);toast('Soil observation signed off ✓');openCoachDetail(id);});
 }
 function markGrowthWritten(id,pass){
  var reason=pass?'':(prompt('Revision instruction:')||'Explain the tactical mechanism and consequence in greater depth.');
  var c=ALL_COACHES.filter(function(x){return x.id===id;})[0]||{};var data={growthExamStatus:pass?'passed':'failed',growthWrittenApproved:pass,growthExamDecisionReason:reason,growthExamDecidedAt:new Date().toISOString(),growthExamAssessor:'Cecil Nyoni'};if(pass&&c.growthPracticalApproved)data.performanceApproved=true;
- db.collection('coaches').doc(id).set(data,{merge:true}).then(function(){ALL_COACHES.forEach(function(c){if(c.id===id)Object.assign(c,data);});toast(pass?'Written understanding recorded ✓':'Not Yet recorded');openCoachDetail(id);});
+ db.collection('coaches').doc(id).set(data,{merge:true}).then(function(){var c=ALL_COACHES.filter(function(x){return x.id===id;})[0];if(c)Object.assign(c,data);logAdminActivity(pass?'Growth written assessment passed':'Growth written assessment marked Not Yet',c);toast(pass?'Written understanding recorded ✓':'Not Yet recorded');openCoachDetail(id);});
 }
 function recordGrowthPractical(id){
  var labels=['System recognition','Trigger coaching','Shared language','Correction quality','Format adaptation','Session design','Safe, organised delivery'];
@@ -1807,20 +2050,119 @@ function recordGrowthPractical(id){
  for(var i=0;i<labels.length;i++){var v=prompt(labels[i]+' — enter Below, Meets or Exceeds:','Meets');if(v===null)return;v=v.trim().toLowerCase();if(v!=='meets'&&v!=='exceeds'&&v!=='below'){toast('Use Below, Meets or Exceeds');return;}scores[labels[i]]=v;if(v==='below')all=false;}
  var data={growthRubric:scores,growthPracticalApproved:all,growthPracticalAssessedAt:new Date().toISOString(),growthPracticalAssessor:'Cecil Nyoni'};
  if(all){var c=ALL_COACHES.filter(function(x){return x.id===id;})[0]||{};if(c.growthWrittenApproved)data.performanceApproved=true;}
- db.collection('coaches').doc(id).set(data,{merge:true}).then(function(){ALL_COACHES.forEach(function(c){if(c.id===id)Object.assign(c,data);});toast(all?'Pitch rubric meets standard ✓':'Pitch rubric saved—upgrade remains locked');openCoachDetail(id);});
+ db.collection('coaches').doc(id).set(data,{merge:true}).then(function(){var c=ALL_COACHES.filter(function(x){return x.id===id;})[0];if(c)Object.assign(c,data);logAdminActivity(all?'Growth pitch rubric passed':'Growth pitch rubric recorded below standard',c);toast(all?'Pitch rubric meets standard ✓':'Pitch rubric saved—upgrade remains locked');openCoachDetail(id);});
 }
 
 var _openCoachDetail=openCoachDetail;
-openCoachDetail=function(id){_openCoachDetail(id);var c=ALL_COACHES.filter(function(x){return x.id===id;})[0];var el=document.getElementById('coach-detail');if(c&&el)el.insertAdjacentHTML('beforeend',adminGrowthReview(c));};
+openCoachDetail=function(id){_openCoachDetail(id);var c=ALL_COACHES.filter(function(x){return x.id===id;})[0],el=document.getElementById('coach-detail');if(c&&el){var first=el.firstElementChild;if(first)first.insertAdjacentHTML('afterend',adminCoachControls(c));el.insertAdjacentHTML('beforeend',adminGrowthReview(c));}};
 var _renderCertification=renderCertification;
 renderCertification=function(){_renderCertification();var el=document.getElementById('certification-content');if(!el)return;var lock=retakeLocked()?'<div class="tip-box"><div class="tip-lbl">24-hour review period</div><div class="tip-txt">Retake available '+esc(new Date(COACH_PROFILE.examRetakeAvailableAt).toLocaleString())+'.</div></div>':'';el.insertAdjacentHTML('beforeend','<div class="sec-lbl">Growth written assessment</div>'+lock+growthExamForm());};
 
 go=function(id){
  showPg(id);document.querySelectorAll('#coach-nav .ni').forEach(function(b){b.classList.remove('on');});
- var m={home:0,pathway:1,academy:2,drills:3,parents:4};if(m[id]!==undefined)document.querySelectorAll('#coach-nav .ni')[m[id]].classList.add('on');
+ var m={home:0,handbook:1,academy:2,drills:3,parents:4};if(m[id]!==undefined)document.querySelectorAll('#coach-nav .ni')[m[id]].classList.add('on');
  if((id==='squad'||id==='drills'||id==='sessions')&&!foundationPassed()){showPg('certification');renderCertification();toast('Foundation pass required for pitch-side features');return;}
- if(id==='home')renderHome();else if(id==='pathway')renderPathway();else if(id==='squad')renderSquad();else if(id==='drills')renderDrills('All');else if(id==='academy')renderAcademy();else if(id==='sessions')renderSessions();else if(id==='parents')renderParents();
+ if(id==='home')renderHome();else if(id==='handbook')renderHandbook();else if(id==='pathway')renderPathway();else if(id==='squad')renderSquad();else if(id==='drills')renderDrills('All');else if(id==='academy')renderAcademy();else if(id==='sessions')renderSessions();else if(id==='parents')renderParents();
 };
+
+/* ===== FEDERATION-STYLE FIVE-LEVEL COACH PATHWAY ===== */
+var COMPRESS_MODULES=MODULES.slice();
+var FOUNDATION_MODULES=[
+ {id:'f1',icon:'⚽',title:'Understanding Football',sub:'The game, its moments and its basic language',lessons:[
+  {title:'What is happening in a football match?',content:[{t:'p',v:'A coach must first learn to see the game. Football constantly moves through four moments: we have the ball, we lose it, they have it, and they lose it.'},{t:'h',v:'The four moments'},{t:'l',v:['In possession: create space, support the ball and progress towards goal','Losing possession: react immediately, protect the centre and stop the counter','Out of possession: deny space, stay connected and regain with purpose','Winning possession: secure the first action or attack the disorganisation']},{t:'p',v:'A formation is only a starting reference. The game is understood through roles, relationships, space and decisions.'}],quiz:{q:'What should a coach recognise before choosing an intervention?',opts:['Only the formation','Which game moment is happening','The loudest player'],ans:1}},
+  {title:'Space, support and numerical advantage',content:[{t:'p',v:'Football is a game of space and numbers. The player on the ball needs width, depth and close support so there is more than one safe solution.'},{t:'l',v:['Width stretches the opponent horizontally','Depth stretches the opponent vertically','Support creates passing angles around the ball','Balance protects the team if possession is lost','An overload means having an extra player in the relevant area']},{t:'p',v:'The coach asks: Where is the space? Where is the spare player? What happens if the ball is lost?'}],quiz:{q:'What is an overload?',opts:['More players than the opponent in the relevant area','A very large pitch','Every player attacking at once'],ans:0}}
+ ]},
+ {id:'f2',icon:'◎',title:'Roles & Principles',sub:'Positions explain a starting job; principles guide every player',lessons:[
+  {title:'Basic player roles',content:[{t:'p',v:'Goalkeepers protect the goal and support possession. Defenders protect space and begin attacks. Midfielders connect units. Attackers create and finish chances.'},{t:'l',v:['Players must understand what to do with and without the ball','Roles change as the ball, teammates and opponents move','Young players should experience different roles','A position is not permission to stand still']},{t:'p',v:'A coach teaches the reason for a movement, not only a place on a diagram.'}],quiz:{q:'Why should young players experience different roles?',opts:['To avoid coaching them','To build a complete understanding of the game','Because positions have no purpose'],ans:1}},
+  {title:'Principles in and out of possession',content:[{t:'h',v:'With the ball'},{t:'l',v:['Create width and depth','Support at useful angles','Secure possession before forcing play','Penetrate when the route opens']},{t:'h',v:'Without the ball'},{t:'l',v:['Protect the goal and centre','Apply pressure with cover and balance','Stay compact and connected','Recognise collective pressing triggers']},{t:'p',v:'These principles exist before any CKN game model. The Compress later gives them a specific shared structure.'}],quiz:{q:'What supports the first defender applying pressure?',opts:['Cover and balance','Every teammate chasing the ball','The goalkeeper leaving the goal'],ans:0}}
+ ]},
+ {id:'f3',icon:'🎓',title:'How Players Learn',sub:'Age, ability, inclusion and the coaching process',lessons:[
+  {title:'Player-centred learning',content:[{t:'p',v:'A coach creates an environment where players think, practise, make mistakes and improve. The player is not a container for instructions.'},{t:'l',v:['Observe before intervening','Ask questions that reveal understanding','Demonstrate when a visual picture helps','Allow immediate repetition after a correction','Encourage effort, responsibility and reflection']},{t:'p',v:'The best intervention is the shortest one that improves the next action.'}],quiz:{q:'What should follow a coaching correction?',opts:['A long speech','Immediate opportunity to repeat','The end of the practice'],ans:1}},
+  {title:'Age, ability and inclusion',content:[{t:'p',v:'Children develop at different rates. Activities must be safe, enjoyable and challenging without humiliating or excluding anyone.'},{t:'l',v:['Use suitable space, equipment and opposition','Progress or regress one condition at a time','Give every player meaningful involvement','Avoid fixed positions before 12','Recognise physical, emotional and confidence differences']},{t:'p',v:'Equal standards do not mean identical challenges. The coach adapts so every player can learn.'}],quiz:{q:'What does an inclusive coach adapt?',opts:['The challenge so every player can learn','The result after the match','Only the strongest player’s role'],ans:0}}
+ ]},
+ {id:'f4',icon:'🧭',title:'The Coaching Process',sub:'Plan, organise, observe, intervene and review',lessons:[
+  {title:'Plan with a clear purpose',content:[{t:'p',v:'A session begins with one clear learning objective. The organisation, rules and coaching details must all serve that objective.'},{t:'l',v:['State what players should learn','Choose a game-related practice','Prepare area, equipment and numbers','Identify the observable coaching detail','Plan a progression, regression and review']},{t:'p',v:'An activity without an objective is occupation, not coaching.'}],quiz:{q:'What should determine the activity selected?',opts:['How impressive it looks','The learning objective','How many cones are available'],ans:1}},
+  {title:'Observe, intervene and review',content:[{t:'p',v:'The coach watches whether the intended behaviour appears, identifies why it succeeds or fails, and chooses whether to let play continue, question, demonstrate or stop briefly.'},{t:'l',v:['Intervene on the cause, not only the outcome','Connect technical detail to the player’s intention','Do not stop every mistake','Check whether the correction transfers into play','Record what improved and what comes next']},{t:'p',v:'Review turns one session into the starting point for the next.'}],quiz:{q:'What should a useful intervention correct?',opts:['Only the final outcome','The cause of the problem','Every action at once'],ans:1}}
+ ]},
+ {id:'f5',icon:'🛡',title:'Safe & Professional Coaching',sub:'Duty of care, standards and responsible conduct',lessons:[
+  {title:'Safety and safeguarding',content:[{t:'p',v:'The welfare of the child is always more important than football. Coaches work within CKN safeguarding procedures and report concerns rather than investigating them alone.'},{t:'l',v:['Check the playing area and equipment','Use age-appropriate contact and communication','Keep attendance and emergency information','Never promise secrecy about a safeguarding concern','Report concerns through the designated safeguarding route']},{t:'p',v:'A safe environment is the first measure of a successful session.'}],quiz:{q:'What should a coach do with a safeguarding concern?',opts:['Investigate it alone','Report it through the designated procedure','Promise the child complete secrecy'],ans:1}},
+  {title:'The CKN professional standard',content:[{t:'p',v:'A CKN coach represents the foundation before, during and after training.'},{t:'l',v:['Arrive prepared and on time','Use respectful language','Communicate clearly with families and colleagues','Protect confidential information','Record attendance, learning and incidents accurately','Never claim a qualification that Cecil Nyoni has not approved']},{t:'p',v:'Completing lessons is evidence of study. Only an admin decision creates a qualification.'}],quiz:{q:'Who awards a CKN coaching qualification?',opts:['The coach after finishing the lessons','Cecil Nyoni through the admin assessment process','Any parent at the session'],ans:1}}
+ ]}
+];
+MODULES=FOUNDATION_MODULES.concat(COMPRESS_MODULES);
+var FOUNDATION_EXAM=[
+ {q:'Which four moments must a coach recognise?',o:['Attack, defend, corners, free kicks','We have it, lose it, they have it, they lose it','Warm-up, drill, game, cool-down'],a:1},
+ {q:'What does width do in possession?',o:['Stretches the opponent horizontally','Makes every pass longer','Removes support around the ball'],a:0},
+ {q:'What does depth do?',o:['Keeps everyone on one line','Stretches the opponent vertically and offers forward/backward support','Means playing only long balls'],a:1},
+ {q:'What is an overload?',o:['An extra player in the relevant area','Too many sessions in one week','A player becoming tired'],a:0},
+ {q:'What is the purpose of cover behind pressure?',o:['Protect space if the first defender is beaten','Give the first defender instructions','Leave the centre open'],a:0},
+ {q:'What should determine a practice?',o:['The learning objective','The number of cones','What professional clubs post online'],a:0},
+ {q:'When is a demonstration useful?',o:['When it gives players a clear picture','At every stoppage','Only after the match'],a:0},
+ {q:'What should happen after a correction?',o:['Immediate repetition','A ten-minute lecture','The player sits out'],a:0},
+ {q:'Why should young players rotate roles?',o:['To build complete game understanding','Because positions are banned','To avoid selecting a team'],a:0},
+ {q:'What is the first duty of a youth coach?',o:['Win every match','Protect player welfare','Teach a formation'],a:1},
+ {q:'What should a coach do with a safeguarding concern?',o:['Investigate alone','Report through the designated procedure','Post it in the team group'],a:1},
+ {q:'What does review achieve?',o:['Connects evidence to the next session','Proves the coach spoke enough','Replaces planning'],a:0},
+ {q:'What is an inclusive adaptation?',o:['Changing challenge so every player can learn','Giving the best player every touch','Removing struggling players'],a:0},
+ {q:'What is the difference between a role and a fixed position?',o:['A role responds to the game picture','There is no difference','A role never changes'],a:0},
+ {q:'Does completing the online material automatically qualify a coach?',o:['Yes','Only if another coach agrees','No—Cecil Nyoni must approve the assessment'],a:2}
+];
+var FEX_INDEX=0,FEX_ANSWERS=[],FEX_STARTED=0;
+function courseSummary(mods,progress){var total=0,done=0;progress=progress||getEduProgress();mods.forEach(function(m){m.lessons.forEach(function(_,i){total++;if(progress[m.id+'_'+i])done++;});});return{total:total,done:done,pct:total?Math.round(done/total*100):0};}
+function levelOnePassed(p){p=p||COACH_PROFILE||{};if(p.level1Approved===true){return !p.level1ValidUntil||Date.now()<=new Date(p.level1ValidUntil).getTime();}return p.examStatus==='passed'&&p.certificationStatus==='approved';}
+function compressPassed(p){p=p||COACH_PROFILE||{};if(p.compressApproved!==true)return false;if(p.compressValidUntil&&Date.now()>new Date(p.compressValidUntil).getTime())return false;return true;}
+foundationPassed=compressPassed;
+function renderAcademy(){
+ var progress=getEduProgress(),f=courseSummary(FOUNDATION_MODULES,progress),c=courseSummary(COMPRESS_MODULES,progress),l1=levelOnePassed(),l2=compressPassed();
+ function cards(mods,locked){return mods.map(function(m){var done=m.lessons.filter(function(_,i){return progress[m.id+'_'+i];}).length,pct=Math.round(done/m.lessons.length*100);return'<div class="mod-card" '+(locked?'style="opacity:.48" onclick="toast(\'Level 1 approval required\')"':'onclick="openModule(\''+m.id+'\',0)"')+'><div class="mod-top"><div class="mod-ico">'+m.icon+'</div><div><div class="mod-title">'+m.title+'</div><div class="mod-sub">'+m.sub+' · '+m.lessons.length+' lessons</div></div></div><div class="prog-track"><div class="prog-bar" style="width:'+pct+'%"></div></div><div class="mod-foot"><span class="mod-done">'+done+'/'+m.lessons.length+' complete</span><span class="mod-cta">'+(locked?'Locked':pct===100?'Review ↗':'Continue ↗')+'</span></div></div>';}).join('');}
+ document.getElementById('academy-list').innerHTML='<div class="os-hero"><div class="os-kicker">CKN Coach Education</div><div class="os-title">Five-Level Pathway</div><div class="os-copy">Learn football first. Earn The Compress second. Every qualification decision belongs to Cecil Nyoni.</div></div><div class="sec-lbl">Level 1 · Foundation Coach</div>'+cards(FOUNDATION_MODULES,false)+'<div class="mod-card" onclick="openCertification()" style="border-color:rgba(245,166,35,.3)"><div class="mod-top"><div class="mod-ico">1</div><div><div class="mod-title">Foundation Assessment</div><div class="mod-sub">'+f.pct+'% learning · '+esc(COACH_PROFILE.level1ExamStatus||'not started')+'</div></div></div><div class="mod-foot"><span class="mod-done">Admin approval required</span><span class="mod-cta">Open ↗</span></div></div><div class="sec-lbl">Level 2 · The Compress Coach</div>'+cards(COMPRESS_MODULES,!l1)+'<div class="mod-card" onclick="openCertification()" style="border-color:'+(l1?'rgba(245,166,35,.3)':'var(--border)')+';opacity:'+(l1?'1':'.48')+'"><div class="mod-top"><div class="mod-ico">2</div><div><div class="mod-title">The Compress Assessment</div><div class="mod-sub">'+(l1?c.pct+'% methodology':'Locked until Level 1 approval')+'</div></div></div><div class="mod-foot"><span class="mod-done">Written + on-pitch + Cecil approval</span><span class="mod-cta">'+(l2?'Qualified':'Open ↗')+'</span></div></div>';
+}
+function renderCertification(){
+ var f=courseSummary(FOUNDATION_MODULES),c=courseSummary(COMPRESS_MODULES),l1=levelOnePassed(),l2=compressPassed(),fs=COACH_PROFILE.level1ExamStatus||'not started',cs=COACH_PROFILE.examStatus||'not started';
+ var fAction=l1?'<button class="btn-gold" onclick="printLevelOneCertificate()">Print Level 1 Certificate</button>':fs==='submitted'?'<button class="btn-gold" disabled style="opacity:.5">Awaiting Cecil Nyoni</button>':f.pct===100?'<button class="btn-gold" onclick="startFoundationExam()">'+(fs==='failed'?'Reapply for Level 1':'Start Level 1 Exam')+'</button>':'<button class="btn-gold" disabled style="opacity:.5">Complete Level 1 Learning</button>';
+ var cAction=!l1?'<button class="btn-gold" disabled style="opacity:.5">Level 1 Approval Required</button>':l2?'<button class="btn-gold" onclick="printCertificate()">Print The Compress Certificate</button>':cs==='submitted'?'<button class="btn-gold" disabled style="opacity:.5">Compress Exam Awaiting Cecil</button>':c.pct===100?'<button class="btn-gold" onclick="startCompressExam()">'+(cs==='failed'?'Reapply for Compress Exam':'Start Compress Exam')+'</button>':'<button class="btn-gold" disabled style="opacity:.5">Complete The Compress Modules</button>';
+ var el=document.getElementById('certification-content');el.innerHTML='<div class="os-hero"><div class="os-kicker">CKN Qualification Centre</div><div class="os-title">'+esc(USER&&USER.name||'Coach')+'</div><div class="os-copy">Course completion is not certification. Every pass, practical sign-off and progression decision is controlled by CKN Admin Cecil Nyoni.</div></div><div class="sec-lbl">Level 1 · CKN Foundation Coach</div><div class="work-stage"><div class="work-top"><div class="work-num">01</div><div class="work-status">'+(l1?'Approved':esc(fs))+'</div></div><div class="work-title">Football & Coaching Foundations</div><div class="work-copy">Understand the game, player roles, principles, learning, session design, safety and professional conduct. Complete '+f.done+'/'+f.total+' lessons, sit the knowledge exam, then await Cecil’s decision.</div><div style="margin-top:14px">'+fAction+'</div></div><div class="sec-lbl">Level 2 · The Compress Coach</div><div class="work-stage" style="opacity:'+(l1?'1':'.5')+'"><div class="work-top"><div class="work-num">02</div><div class="work-status">'+(l2?'Approved':l1?esc(cs):'Locked')+'</div></div><div class="work-title">The Compress Methodology</div><div class="work-copy">Unlocks only after Level 1 approval. Complete the methodology, pass Cecil’s written decision and then meet the on-pitch Compress assessment standard before certification.</div><div style="margin-top:14px">'+cAction+'</div></div><div class="sec-lbl">Levels 3–5 · Assessed progression</div><div class="tip-box"><div class="tip-lbl">Admin-controlled</div><div class="tip-txt" style="font-style:normal">Performance Coach, Lead Coach and Coach Educator are awarded only after the required written evidence and live on-pitch assessment. Coaches cannot approve themselves.</div></div>';
+ if(l2)el.insertAdjacentHTML('beforeend','<div class="sec-lbl">Level 3 · Performance Coach Application</div>'+growthExamForm());
+}
+function startFoundationExam(){if(COACH_PROFILE.level1ExamStatus==='submitted'){toast('Your Level 1 exam is already under review');return;}FEX_INDEX=0;FEX_ANSWERS=new Array(FOUNDATION_EXAM.length).fill(null);FEX_STARTED=Date.now();renderFoundationExam();showPg('exam');}
+function renderFoundationExam(){var q=FOUNDATION_EXAM[FEX_INDEX],answered=FEX_ANSWERS.filter(function(x){return x!==null;}).length;document.getElementById('exam-content').innerHTML='<div class="exam-shell"><div class="exam-top"><span>Level 1 · Football Foundations</span><span>Question '+(FEX_INDEX+1)+' / '+FOUNDATION_EXAM.length+'</span></div><div class="prog-track"><div class="prog-bar" style="width:'+Math.round((FEX_INDEX+1)/FOUNDATION_EXAM.length*100)+'%"></div></div><div class="exam-q">'+q.q+'</div>'+q.o.map(function(o,i){return'<button class="exam-opt'+(FEX_ANSWERS[FEX_INDEX]===i?' on':'')+'" onclick="chooseFoundationAnswer('+i+')"><b>'+String.fromCharCode(65+i)+'.</b> '+o+'</button>';}).join('')+'<div class="exam-nav">'+(FEX_INDEX?'<button class="lesson-btn sec" onclick="foundationExamMove(-1)">← Previous</button>':'')+(FEX_INDEX<FOUNDATION_EXAM.length-1?'<button class="lesson-btn" onclick="foundationExamMove(1)">Next →</button>':'<button class="lesson-btn" onclick="submitFoundationExam()">Submit to Cecil</button>')+'</div><div style="font-size:11px;color:var(--muted);text-align:center;margin-top:14px">'+answered+' of '+FOUNDATION_EXAM.length+' answered · No automatic pass</div></div>';}
+function chooseFoundationAnswer(i){FEX_ANSWERS[FEX_INDEX]=i;renderFoundationExam();}
+function foundationExamMove(d){if(d>0&&FEX_ANSWERS[FEX_INDEX]===null){toast('Choose an answer before continuing');return;}FEX_INDEX=Math.max(0,Math.min(FOUNDATION_EXAM.length-1,FEX_INDEX+d));renderFoundationExam();}
+function submitFoundationExam(){if(FEX_ANSWERS.some(function(x){return x===null;})){toast('Answer every question');return;}if(!confirm('Submit Level 1 to Cecil Nyoni?'))return;var score=0;FOUNDATION_EXAM.forEach(function(q,i){if(FEX_ANSWERS[i]===q.a)score++;});var attempt={answers:FEX_ANSWERS.slice(),score:score,percent:Math.round(score/FOUNDATION_EXAM.length*100),submittedAt:new Date().toISOString(),durationSeconds:Math.round((Date.now()-FEX_STARTED)/1000),decision:'pending'},attempts=(COACH_PROFILE.level1Attempts||0)+1;if(!db)return toast('Connection required');db.collection('coaches').doc(USER.coachId).set({level1ExamStatus:'submitted',level1Score:score,level1Attempts:attempts,latestLevel1Exam:attempt},{merge:true}).then(function(){COACH_PROFILE.level1ExamStatus='submitted';COACH_PROFILE.level1Score=score;COACH_PROFILE.level1Attempts=attempts;COACH_PROFILE.latestLevel1Exam=attempt;toast('Level 1 submitted to Cecil ✓');openCertification();}).catch(function(){toast('Submission failed');});}
+var _startCompressExamLevel=startCompressExam;startCompressExam=function(){if(!levelOnePassed()){toast('Cecil must approve Level 1 first');return;}if(courseSummary(COMPRESS_MODULES).pct!==100){toast('Complete every Compress module first');return;}_startCompressExamLevel();};
+function foundationAnswers(c){var a=c.latestLevel1Exam&&c.latestLevel1Exam.answers;if(!Array.isArray(a))return'';return'<details style="margin-top:10px"><summary style="cursor:pointer;color:var(--gold);font-weight:700">Review Level 1 answers</summary>'+FOUNDATION_EXAM.map(function(q,i){var ok=a[i]===q.a;return'<div class="exam-review"><div class="s-date">'+(i+1)+' · '+(ok?'Correct':'Incorrect')+'</div><div style="font-size:13px;font-weight:600;margin:5px 0">'+esc(q.q)+'</div><div class="s-note">Coach: '+esc(q.o[a[i]]||'No answer')+'</div></div>';}).join('')+'</details>';}
+function adminFoundationReview(c){var submitted=c.level1ExamStatus==='submitted',passed=levelOnePassed(c);return'<div class="s-card"><div class="s-date">Level 1 · CKN Foundation Coach</div><div class="s-meta">Learning: '+courseSummary(FOUNDATION_MODULES,c.educationProgress||{}).pct+'% · Exam: '+esc(c.level1ExamStatus||'not started')+' · '+(c.level1Score==null?'No score':c.level1Score+'/'+FOUNDATION_EXAM.length)+'</div>'+foundationAnswers(c)+(submitted?'<div style="display:flex;gap:8px;margin-top:12px"><button class="btn-gold" style="flex:1" onclick="approveLevelOne(\''+c.id+'\')">Approve Level 1</button><button class="danger-btn" style="flex:1;margin:0" onclick="failLevelOne(\''+c.id+'\')">Not Yet</button></div>':'')+(passed?'<div class="status-pill status-live" style="display:inline-flex;margin-top:10px">Approved by Cecil Nyoni</div>':'')+'</div>';}
+function approveLevelOne(id){var c=ALL_COACHES.filter(function(x){return x.id===id;})[0];if(!c||!db)return;if(!confirm('Approve '+c.name+' as a Level 1 CKN Foundation Coach and unlock The Compress?'))return;var when=new Date().toISOString(),data={level1ExamStatus:'passed',level1Approved:true,level1CertifiedAt:when,level1CertifiedBy:'Cecil Nyoni',level1ValidUntil:new Date(Date.now()+365*864e5).toISOString(),level1CertificateId:'CKN-L1-'+String(id).replace(/[^a-z0-9]/gi,'').toUpperCase().slice(-8)};db.collection('coaches').doc(id).set(data,{merge:true}).then(function(){Object.assign(c,data);logAdminActivity('Level 1 Foundation Coach approved',c);toast('Level 1 approved and Compress unlocked ✓');openCoachDetail(id);renderAdminHome();});}
+function failLevelOne(id){var c=ALL_COACHES.filter(function(x){return x.id===id;})[0];if(!c||!db)return;var reason=prompt('Revision instruction for this coach:');if(reason===null)return;var data={level1ExamStatus:'failed',level1Approved:false,level1DecisionReason:reason||'Revise football and coaching foundations before reapplying.',level1DecidedAt:new Date().toISOString(),level1DecidedBy:'Cecil Nyoni'};db.collection('coaches').doc(id).set(data,{merge:true}).then(function(){Object.assign(c,data);logAdminActivity('Level 1 marked Not Yet',c);toast('Not Yet recorded');openCoachDetail(id);renderAdminHome();});}
+approveCertification=function(id){var c=ALL_COACHES.filter(function(x){return x.id===id;})[0];if(!c||!db)return;if(!levelOnePassed(c)){toast('Level 1 must be approved first');return;}if(!confirm('Confirm this coach meets the written Compress standard? On-pitch approval will still be required.'))return;var data={examStatus:'passed',compressKnowledgeApproved:true,compressKnowledgeApprovedAt:new Date().toISOString(),compressKnowledgeAssessor:'Cecil Nyoni',certificationStatus:'practical required'};db.collection('coaches').doc(id).set(data,{merge:true}).then(function(){Object.assign(c,data);logAdminActivity('Compress written assessment passed',c);toast('Written passed — on-pitch assessment remains');openCoachDetail(id);renderAdminHome();});};
+approvePractical=function(id){var c=ALL_COACHES.filter(function(x){return x.id===id;})[0];if(!c||!db)return;if(!c.compressKnowledgeApproved){toast('Pass the Compress written assessment first');return;}if(!confirm('Confirm you observed this coach deliver The Compress to standard on the pitch? This awards Level 2.'))return;var when=new Date().toISOString(),data={practicalApproved:true,compressPracticalApproved:true,practicalApprovedAt:when,practicalAssessor:'Cecil Nyoni',compressApproved:true,compressCertifiedAt:when,compressCertifiedBy:'Cecil Nyoni',compressValidUntil:new Date(Date.now()+365*864e5).toISOString(),compressCertificateId:'CKN-L2-'+String(id).replace(/[^a-z0-9]/gi,'').toUpperCase().slice(-8),certificationStatus:'approved'};db.collection('coaches').doc(id).set(data,{merge:true}).then(function(){Object.assign(c,data);logAdminActivity('Level 2 The Compress Coach approved after pitch assessment',c);toast('Level 2 awarded ✓');openCoachDetail(id);renderAdminHome();});};
+coachQualification=function(c){if(c.educatorApproved)return'Level 5 · Coach Educator';if(c.leadApproved)return'Level 4 · Lead Coach';if(c.performanceApproved)return'Level 3 · Performance Coach';if(compressPassed(c))return'Level 2 · The Compress Coach';if(levelOnePassed(c))return'Level 1 · Foundation Coach';return'Candidate';};
+coachNeedsReview=function(c){return c.level1ExamStatus==='submitted'||c.examStatus==='submitted'||c.growthExamStatus==='submitted'||c.certificationStatus==='pending';};
+var _renderAdminHomeFederation=renderAdminHome;renderAdminHome=function(){_renderAdminHomeFederation();var pending=ALL_COACHES.filter(coachNeedsReview),el=document.getElementById('admin-review-panel');if(el)el.innerHTML='<div class="admin-panel-head"><div class="admin-panel-title">Decisions requiring action</div><div class="admin-panel-count">'+pending.length+'</div></div>'+(pending.length?pending.map(function(c){var type=c.level1ExamStatus==='submitted'?'Level 1 Foundation exam':c.examStatus==='submitted'?'Level 2 Compress exam':c.growthExamStatus==='submitted'?'Level 3 written assessment':'Qualification evidence';return'<div class="admin-row" onclick="openCoachDetail(\''+c.id+'\')"><div class="admin-row-main"><div class="admin-row-name">'+esc(c.name)+'</div><div class="admin-row-meta">'+type+' · '+esc(c.location||'No location')+'</div></div><span class="status-pill status-pending">Cecil review</span></div>';}).join(''):'<div class="admin-empty">No assessments are waiting for your decision.</div>');};
+var _openCoachDetailFederation=openCoachDetail;openCoachDetail=function(id){_openCoachDetailFederation(id);var c=ALL_COACHES.filter(function(x){return x.id===id;})[0],el=document.getElementById('coach-detail');if(c&&el){var first=el.querySelector('.s-card');if(first)first.insertAdjacentHTML('beforebegin',adminFoundationReview(c));if(c.compressKnowledgeApproved&&!c.compressApproved){el.insertAdjacentHTML('beforeend','<div class="s-card"><div class="s-date">Level 2 · Final pitch decision</div><div class="s-meta">Written understanding passed. Certification remains locked until Cecil observes the coach delivering The Compress.</div><button class="btn-gold" style="margin-top:10px" onclick="approvePractical(\''+c.id+'\')">Approve Observed Compress Practice</button></div>');}}};
+function printLevelOneCertificate(){if(!levelOnePassed())return toast('Cecil approval required');printQualificationCertificate('CKN Foundation Coach','Level 1',COACH_PROFILE.level1CertificateId||'CKN-L1-'+String(USER.coachId).slice(-8),(COACH_PROFILE.level1CertifiedAt||new Date().toISOString()).slice(0,10));}
+function printQualificationCertificate(title,level,id,issued){var w=window.open('','_blank');if(!w)return toast('Allow pop-ups to open certificate');w.document.write('<!doctype html><html><head><title>'+esc(title)+'</title><style>@page{size:A4 landscape;margin:0}*{box-sizing:border-box}body{margin:0;font-family:Arial}.c{width:297mm;height:210mm;padding:18mm;border:10mm solid #050505;text-align:center}.in{height:100%;border:2px solid #f5a623;padding:16mm}.logo{font-size:54px;font-weight:900;letter-spacing:8px;color:#f5a623}.small{letter-spacing:4px;text-transform:uppercase;font-size:12px;color:#555;margin:10px}.name{font-size:42px;font-weight:700;margin:22px}.award{font-size:20px;line-height:1.6}.line{width:130px;border-top:1px solid #111;margin:28px auto 8px}.meta{font-size:11px;color:#666;margin-top:20px}</style></head><body><div class="c"><div class="in"><div class="logo">CKN</div><div class="small">'+esc(level)+' Qualification</div><p>This certifies that</p><div class="name">'+esc(USER.name)+'</div><div class="award">has met the required standard for<br><b>'+esc(title)+'</b><br>and has been approved by CKN Assessor Cecil Nyoni.</div><div class="line"></div><b>Cecil Nyoni</b><div>Founder · UEFA B Licence Coach</div><div class="meta">Issued '+esc(issued)+' · Certificate '+esc(id)+' · CKN Foundation Zimbabwe</div></div></div><script>window.onload=function(){window.print()}<\/script></body></html>');w.document.close();}
+printCertificate=function(){if(!compressPassed())return toast('Written and on-pitch approval required');printQualificationCertificate('The Compress Coach','Level 2',COACH_PROFILE.compressCertificateId||'CKN-L2-'+String(USER.coachId).slice(-8),(COACH_PROFILE.compressCertifiedAt||new Date().toISOString()).slice(0,10));};
+requireFoundation=function(){if(compressPassed())return true;toast(levelOnePassed()?'Level 2 Compress approval required for pitch-side delivery':'Complete and gain approval for Level 1 first');openCertification();return false;};
+growthExamForm=function(){
+ if(!compressPassed())return'<div class="tip-box"><div class="tip-lbl">Locked</div><div class="tip-txt">Level 2 The Compress Coach approval is required first.</div></div>';
+ if(COACH_PROFILE.growthExamStatus==='submitted')return'<div class="tip-box"><div class="tip-lbl">Under Cecil’s review</div><div class="tip-txt">Your seven tactical answers are awaiting an admin decision. Level 3 also requires the live seven-criterion pitch assessment.</div></div>';
+ if(COACH_PROFILE.performanceApproved)return'<div class="tip-box"><div class="tip-lbl">Level 3 approved</div><div class="tip-txt">Performance Coach has been awarded by Cecil Nyoni.</div></div>';
+ return'<div class="s-card"><div class="s-date">Level 3 Tactical Understanding</div><div class="s-note">Seven assessor-marked answers. The platform submits evidence; it never awards the level automatically.</div>'+GROWTH_EXAM.map(function(q,i){return'<label class="field-lbl" style="display:block;margin-top:14px">'+(i+1)+'. '+q.q+'</label><textarea class="field-in" id="growth-'+i+'" rows="4" placeholder="Explain mechanism and consequence..."></textarea>';}).join('')+'<button class="btn-gold" style="margin-top:16px" onclick="submitGrowthExam()">Submit Level 3 Application to Cecil</button></div>';
+};
+adminGrowthReview=function(c){
+ var written=c.growthWrittenApproved?'Meets standard':c.growthExamStatus==='submitted'?'Review required':'Not submitted',practical=c.growthPracticalApproved?'All 7 meet standard':'Live rubric required',answers=(c.latestGrowthExam&&c.latestGrowthExam.answers)||[];
+ var level3='<div class="s-card"><div class="s-date">Level 3 · Performance Coach</div><div class="s-meta">Written: '+written+' · Pitch: '+practical+'</div>'+(answers.length?'<details style="margin-top:12px"><summary style="cursor:pointer;color:var(--gold);font-weight:700">Review seven tactical answers</summary>'+GROWTH_EXAM.map(function(q,i){return'<div class="exam-review"><div class="s-date">'+q.id+' · '+q.topic+'</div><div style="font-size:13px;font-weight:600;margin:5px 0">'+q.q+'</div><div class="s-note"><b>Coach:</b> '+esc(answers[i]||'No answer')+'</div><div class="s-note" style="color:var(--gold)"><b>Assessor guide:</b> '+q.model+'</div></div>';}).join('')+'</details>':'<div class="s-note">No Level 3 application yet.</div>')+(c.growthExamStatus==='submitted'?'<div style="display:flex;gap:8px;margin-top:12px"><button class="btn-gold" style="flex:1" onclick="markGrowthWritten(\''+c.id+'\',true)">Written Meets</button><button class="danger-btn" style="flex:1;margin:0" onclick="markGrowthWritten(\''+c.id+'\',false)">Not Yet</button></div>':'')+(compressPassed(c)?'<button class="btn-gold" style="margin-top:10px" onclick="recordGrowthPractical(\''+c.id+'\')">Record Level 3 Pitch Rubric</button>':'')+'</div>';
+ var higher='<div class="s-card"><div class="s-date">Levels 4–5 · Live progression</div><div class="s-meta">Lead Coach: '+(c.leadApproved?'Approved':'Live assessment required')+' · Coach Educator: '+(c.educatorApproved?'Approved':'Not approved')+'</div>'+(c.performanceApproved&&!c.leadApproved?'<button class="btn-gold" style="margin-top:10px" onclick="approveHigherLevel(\''+c.id+'\',\'lead\')">Approve Level 4 After Live Assessment</button>':'')+(c.leadApproved&&!c.educatorApproved?'<button class="btn-gold" style="margin-top:10px" onclick="approveHigherLevel(\''+c.id+'\',\'educator\')">Approve Level 5 After Live Assessment</button>':'')+'<div class="s-note" style="margin-top:10px">Only Cecil Nyoni can record these decisions.</div></div>';
+ return level3+higher;
+};
+renderParents=function(){var p=COACH_PROFILE||{},stages=[['01','CKN Foundation Coach','Football knowledge, coaching process, safety and professional conduct.',levelOnePassed(p)?'Approved':'Learning + exam + Cecil'],['02','The Compress Coach','Complete the methodology, pass the written decision and deliver an observed Compress practice.',compressPassed(p)?'Approved':'Written + pitch + Cecil'],['03','Performance Coach','Apply The Compress across game moments and meet the complete live rubric.',p.performanceApproved?'Approved':'Written + pitch + Cecil'],['04','Lead Coach','Design, adapt and lead delivery while mentoring other coaches.',p.leadApproved?'Approved':'Live assessment + Cecil'],['05','Coach Educator','Educate and assess coaches while protecting federation standards.',p.educatorApproved?'Approved':'Live assessment + Cecil']];document.getElementById('parent-list').innerHTML='<div class="os-hero"><div class="os-kicker">CKN Coach Pathway</div><div class="os-title">Education · Assessment · Approval</div><div class="os-copy">Attendance and online completion are evidence—not qualifications. Cecil Nyoni controls every award and progression decision.</div></div>'+stages.map(function(s){return'<div class="work-stage"><div class="work-top"><div class="work-num">'+s[0]+'</div><div class="work-status">'+s[3]+'</div></div><div class="work-title">'+s[1]+'</div><div class="work-copy">'+s[2]+'</div></div>';}).join('');};
+function qualificationCertificate(c){var id=String(c.id||'COACH').replace(/[^a-z0-9]/gi,'').toUpperCase().slice(-8);if(c.educatorApproved)return c.educatorCertificateId||'CKN-L5-'+id;if(c.leadApproved)return c.leadCertificateId||'CKN-L4-'+id;if(c.performanceApproved)return c.performanceCertificateId||'CKN-L3-'+id;if(compressPassed(c))return c.compressCertificateId||'CKN-L2-'+id;return c.level1CertificateId||'CKN-L1-'+id;}
+function qualificationValidUntil(c){if(compressPassed(c))return c.compressValidUntil||'';return c.level1ValidUntil||'';}
+certificateRows=function(){return ALL_COACHES.filter(levelOnePassed).map(function(c){return[c.name,getCoachLoginId(c,c.id),coachQualification(c),qualificationCertificate(c),(c.educatorApprovedAt||c.leadApprovedAt||c.growthPracticalAssessedAt||c.compressCertifiedAt||c.level1CertifiedAt||'').slice(0,10),qualificationValidUntil(c).slice(0,10),c.location||''];});};
+adminCoachControls=function(c){return'<div class="admin-tools" style="padding-top:14px;flex-wrap:wrap"><button class="mini-btn" onclick="openEditCoach(\''+c.id+'\')">Edit record</button><button class="mini-btn" onclick="printAdminCoachReport(\''+c.id+'\')">Print report</button>'+(levelOnePassed(c)?'<button class="mini-btn" onclick="renewQualification(\''+c.id+'\',1)">Renew L1</button>':'')+(compressPassed(c)?'<button class="mini-btn" onclick="renewQualification(\''+c.id+'\',2)">Renew L2</button>':'')+'<button class="mini-btn" onclick="toggleCoachAccess(\''+c.id+'\')">'+(c.accessStatus==='suspended'?'Reinstate':'Suspend')+'</button></div>'+(c.adminNotes?'<div class="s-card"><div class="s-date">Admin notes</div><div class="s-note">'+esc(c.adminNotes)+'</div></div>':'');};
+function renewQualification(id,level){var c=ALL_COACHES.filter(function(x){return x.id===id;})[0];if(!c||!db)return;if(!confirm('Confirm the required annual review and renew Level '+level+' for 12 months?'))return;var data={},field=level===1?'level1ValidUntil':'compressValidUntil';data[field]=new Date(Date.now()+365*864e5).toISOString();data[level===1?'level1RenewedAt':'compressRenewedAt']=new Date().toISOString();data[level===1?'level1RenewedBy':'compressRenewedBy']='Cecil Nyoni';db.collection('coaches').doc(id).set(data,{merge:true}).then(function(){Object.assign(c,data);logAdminActivity('Level '+level+' qualification renewed for 12 months',c);toast('Level '+level+' renewed ✓');openCoachDetail(id);renderAdminHome();});}
+var _renderAdminHomeRegisters=renderAdminHome;renderAdminHome=function(){_renderAdminHomeRegisters();var qualified=ALL_COACHES.filter(levelOnePassed),now=Date.now(),attention=qualified.filter(function(c){var d=qualificationValidUntil(c);return !d||new Date(d).getTime()<=now+60*864e5;}),panel=document.getElementById('admin-cert-panel');document.getElementById('a-certified').textContent=qualified.length;document.getElementById('a-expiring').textContent=attention.length;if(panel)panel.innerHTML='<div class="admin-panel-head"><div class="admin-panel-title">Federation qualification register</div><div class="admin-panel-count">'+qualified.length+'</div></div>'+(qualified.length?qualified.map(function(c){var valid=qualificationValidUntil(c);return'<div class="admin-row" onclick="openCoachDetail(\''+c.id+'\')"><div class="admin-row-main"><div class="admin-row-name">'+esc(c.name)+'</div><div class="admin-row-meta">'+esc(qualificationCertificate(c))+' · '+(valid?'Valid until '+esc(valid.slice(0,10)):'Admin review required')+'</div></div><span class="status-pill '+(valid&&new Date(valid)>new Date()?'status-live':'status-stop')+'">'+esc(coachQualification(c))+'</span></div>';}).join(''):'<div class="admin-empty">No approved qualifications recorded.</div>');};
 </script>
 </body>
 </html>
