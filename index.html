@@ -8,16 +8,15 @@
 <meta name="theme-color" content="#060606">
 <title>CKN Foundation — Zimbabwe</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&display=swap');
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 :root{--gold:#F5A623;--bg:#060606;--bg2:#111;--bg3:#1a1a1a;--bg4:#222;--border:rgba(255,255,255,0.07);--text:#eee;--muted:#666;--muted2:#999;--green:#3db87a;--red:#e04545;--blue:#4d8ef5;}
 html,body{height:100%;overflow:hidden;background:var(--bg);}
-body{font-family:'Barlow',sans-serif;color:var(--text);max-width:480px;margin:0 auto;}
+body{font-family:Arial,Helvetica,sans-serif;color:var(--text);max-width:480px;margin:0 auto;}
 .pg{display:none;height:100vh;overflow-y:auto;padding-bottom:70px;-webkit-overflow-scrolling:touch;}
 .pg.on{display:block;}
 #pg-login{height:100vh;overflow:hidden;display:none;flex-direction:column;align-items:center;justify-content:center;}
 #pg-login.on{display:flex;}
-.logo{font-family:'Bebas Neue',sans-serif;font-size:80px;letter-spacing:8px;color:var(--gold);line-height:1;}
+.logo{font-family:Impact,'Arial Narrow',sans-serif;font-size:80px;letter-spacing:8px;color:var(--gold);line-height:1;}
 .tagline{font-size:10px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin:8px 0 36px;text-align:center;}
 .role-wrap{display:flex;background:var(--bg3);border:1px solid var(--border);border-radius:30px;padding:4px;margin-bottom:28px;width:220px;}
 .role-btn{flex:1;padding:9px;text-align:center;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;border-radius:24px;cursor:pointer;color:var(--muted);}
@@ -279,7 +278,7 @@ select.f-inp{appearance:none;}
 <div class="toast" id="toast"></div>
 
 <!-- LOGIN -->
-<div class="pg" id="pg-login">
+<div class="pg on" id="pg-login">
   <div class="logo">CKN</div>
   <div class="tagline">Uniting Communities · Inspiring Generations</div>
   <div class="role-wrap">
@@ -876,23 +875,47 @@ var COMPRESS_EXAM=[
  {id:'K20',topic:'Coach Standard',q:'What separates living The Compress from merely knowing it?',o:['Correcting the model instinctively in every session','Memorising cards word for word','There is no difference','It only applies to Legacy coaches'],a:0}
 ];
 
-// INIT - no async, keep it simple
-window.onload=function(){
-  document.getElementById('pg-login').classList.add('on');
+// INIT - render first; network services connect afterwards.
+function startApp(){
+  var login=document.getElementById('pg-login');
+  if(login){login.classList.add('on');}
   setRole('coach');
-  loadFirebase();
-};
+  setTimeout(loadFirebase,0);
+}
+if(document.readyState==='loading'){
+  document.addEventListener('DOMContentLoaded',startApp,{once:true});
+}else{
+  startApp();
+}
 
-function loadRemoteScript(src){
+function loadRemoteScript(src,timeoutMs){
  return new Promise(function(resolve,reject){
-  var s=document.createElement('script');s.src=src;s.async=true;s.onload=resolve;s.onerror=reject;document.head.appendChild(s);
+  var settled=false,s=document.createElement('script'),timer=setTimeout(function(){
+   if(settled)return;settled=true;s.remove();reject(new Error('Timed out loading '+src));
+  },timeoutMs||6000);
+  function finish(ok){if(settled)return;settled=true;clearTimeout(timer);ok?resolve():reject(new Error('Could not load '+src));}
+  s.src=src;s.async=true;s.onload=function(){finish(true);};s.onerror=function(){finish(false);};document.head.appendChild(s);
+ });
+}
+function loadFirebaseFrom(source){
+ var appReady=typeof firebase!=='undefined'?Promise.resolve():loadRemoteScript(source.app,6000);
+ return appReady.then(function(){
+  return typeof firebase.firestore==='function'?Promise.resolve():loadRemoteScript(source.store,6000);
  });
 }
 function loadFirebase(){
- loadRemoteScript('https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js')
-  .then(function(){return loadRemoteScript('https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js');})
-  .then(function(){firebase.initializeApp(FB_CFG);db=firebase.firestore();})
-  .catch(function(){console.warn('CKN database connection unavailable. Interface remains available.');});
+ var sources=[
+  {app:'https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js',store:'https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js'},
+  {app:'https://cdn.jsdelivr.net/npm/firebase@9.23.0/firebase-app-compat.js',store:'https://cdn.jsdelivr.net/npm/firebase@9.23.0/firebase-firestore-compat.js'}
+ ];
+ function attempt(i){
+  if(i>=sources.length){return Promise.reject(new Error('All Firebase sources unavailable'));}
+  return loadFirebaseFrom(sources[i]).catch(function(){return attempt(i+1);});
+ }
+ attempt(0).then(function(){
+  if(!firebase.apps.length){firebase.initializeApp(FB_CFG);}
+  db=firebase.firestore();
+ }).catch(function(){console.warn('CKN database connection unavailable. Interface remains available.');});
 }
 
 // SCREENS
