@@ -430,6 +430,11 @@ select.f-inp{appearance:none;}
     <div class="stat-cell"><div class="stat-num" id="a-sessions">0</div><div class="stat-lbl">Sessions</div></div>
     <div class="stat-cell"><div class="stat-num" id="a-active">0</div><div class="stat-lbl">Active</div></div>
   </div>
+  <div class="sec-lbl">CKN coach platform · Updated</div>
+  <div class="route" onclick="goAdminPathway()" style="border-color:rgba(245,166,35,.3)"><div class="route-top"><div class="route-code">01</div><div class="route-main"><div class="route-name">See The Compress</div><div class="route-desc">Open the visual game model: in possession, out of possession and all three thirds.</div></div><div class="route-arrow">›</div></div></div>
+  <div class="route" onclick="goAdminDrills()"><div class="route-top"><div class="route-code">02</div><div class="route-main"><div class="route-name">Open quick sessions</div><div class="route-desc">See Set it up, Tell the players and Look for.</div></div><div class="route-arrow">›</div></div></div>
+  <div class="route" onclick="goAdminAcademy()"><div class="route-top"><div class="route-code">03</div><div class="route-main"><div class="route-name">Open coach learning</div><div class="route-desc">See what the coaches learn and complete.</div></div><div class="route-arrow">›</div></div></div>
+  <div class="route" onclick="goAdminHandbook()"><div class="route-top"><div class="route-code">+</div><div class="route-main"><div class="route-name">Full handbook</div><div class="route-desc">Open the deeper CKN detail when you need it.</div></div><div class="route-arrow">›</div></div></div>
   <div class="admin-actions">
     <div class="admin-action" onclick="adminJump('admin-review-panel')"><b id="a-pending">0</b><span>Assessment decisions awaiting Cecil</span></div>
     <div class="admin-action" onclick="adminJump('admin-cert-panel')"><b id="a-certified">0</b><span>Current certified coaches</span></div>
@@ -502,7 +507,7 @@ select.f-inp{appearance:none;}
   <button class="ni" onclick="goAdmin('admin-coaches')"><span class="ni-ico">🏆</span>Coaches</button>
   <button class="ni" onclick="goAdminDrills()"><span class="ni-ico">⚽</span>Blueprints</button>
   <button class="ni" onclick="goAdminAcademy()"><span class="ni-ico">🎓</span>Method</button>
-  <button class="ni" onclick="goAdminParents()"><span class="ni-ico">✓</span>Handbook</button>
+  <button class="ni" onclick="goAdminPathway()"><span class="ni-ico">◎</span>Model</button>
 </nav>
 
 <!-- MODALS -->
@@ -1726,12 +1731,18 @@ function goAdminAcademy(){
   renderAcademy();
   showPg('academy');
 }
-function goAdminParents(){
+function goAdminPathway(){
   document.querySelectorAll('#admin-nav .ni').forEach(function(b){b.classList.remove('on');});
   document.querySelectorAll('#admin-nav .ni')[4].classList.add('on');
+  renderPathway();
+  showPg('pathway');
+}
+function goAdminHandbook(){
+  document.querySelectorAll('#admin-nav .ni').forEach(function(b){b.classList.remove('on');});
   renderHandbook();
   showPg('handbook');
 }
+function goAdminParents(){goAdminHandbook();}
 async function saveCoach(){
   var name=document.getElementById('nc-name').value.trim();
   var pin=document.getElementById('nc-pin').value.trim();
